@@ -15,7 +15,8 @@ services:
       timeout: 3s
       retries: 5
       start_period: 5s
-
+    networks:
+      - appnet
   backend:
     build:
       context: ./backend
@@ -29,7 +30,8 @@ services:
     ports:
       - "3001:3001"
     restart: unless-stopped
-
+    networks:
+      - appnet
   frontend:
     build:
       context: ./quicklit-web
@@ -40,6 +42,12 @@ services:
     ports:
       - "8080:8080"
     restart: unless-stopped
+    networks:
+      - appnet
 
 volumes:
   qdrant_data:
+
+networks:
+  appnet:
+    driver: bridge
