@@ -27,6 +27,9 @@ services:
     environment:
       QDRANT_HOST: qdrant
       QDRANT_PORT: 6333
+    volumes:
+      - ./backend/data:/app/data        # persist output JSONs
+      - ./backend/.env.txt:/app/.env.txt  # pass env file
     ports:
       - "3001:3001"
     restart: unless-stopped

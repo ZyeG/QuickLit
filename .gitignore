@@ -21,3 +21,25 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# .env
+/backend/.env.txt
+
+# Node / frontend stuff
+node_modules/
+quicklit-web/node_modules/
+**/node_modules/
+npm-debug.log*
+yarn-error.log*
+package-lock.json
+
+# Environment & data
+*.env
+*.env.*
+*.env.txt
+backend/data/
+data/
+
+# Build outputs
+build/
+dist/
