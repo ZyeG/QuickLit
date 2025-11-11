@@ -9,6 +9,9 @@ function App() {
   const [page, setPage] = useState(1);
   const perPage = 5; // number of papers per page
 
+  // track per-paper summaries
+  const [summaries, setSummaries] = useState<Record<string, any>>({});
+
   const handleSubmit = async () => {
     if (!topic.trim()) return;
     setLoading(true);
@@ -24,10 +27,30 @@ function App() {
     setPage(1);
   };
 
+  const handleGetSummary = async (pdfUrl: string) => {
+    if (summaries[pdfUrl]) return; // already fetched
+    try {
+      const res = await fetch(
+        `http://localhost:3001/api/get_summary?url=${encodeURIComponent(pdfUrl)}`
+      );
+      const data = await res.json();
+      setSummaries((prev) => ({ ...prev, [pdfUrl]: data }));
+    } catch (err) {
+      console.error("Error fetching summary:", err);
+      setSummaries((prev) => ({
+        ...prev,
+        [pdfUrl]: { summary: "⚠️ Failed to fetch summary.", type: "error" },
+      }));
+    }
+  };
+
   const retrieved = result?.pipeline_output?.retrieved_papers || [];
   const start = (page - 1) * perPage;
   const paginated = retrieved.slice(start, start + perPage);
   const totalPages = Math.ceil(retrieved.length / perPage);
+
+  const [hoveredPaper, setHoveredPaper] = useState<string | null>(null);
+  const [clickedPapers, setClickedPapers] = useState<Set<string>>(new Set());
 
   return (
     <div style={{ padding: "2rem", fontFamily: "sans-serif" }}>
@@ -35,7 +58,6 @@ function App() {
 
       {/* Input row */}
       <div style={{ marginTop: "1rem" }}>
-        {/* Research topic input */}
         <label style={{ display: "block", marginBottom: "0.5rem", fontWeight: "bold" }}>
           Research Topic
         </label>
@@ -50,7 +72,6 @@ function App() {
           }}
         />
 
-        {/* Max results input */}
         <div style={{ display: "inline-block", marginLeft: "1rem" }}>
           <label
             htmlFor="max-results"
@@ -76,7 +97,6 @@ function App() {
           </div>
         </div>
 
-        {/* Submit button */}
         <button
           onClick={handleSubmit}
           disabled={loading}
@@ -100,33 +120,124 @@ function App() {
             <p>No papers found.</p>
           ) : (
             <>
-              <ul style={{ listStyleType: "none", padding: 0 }}>
-                {paginated.map((p: any, i: number) => (
-                  <li
-                    key={i}
-                    style={{
-                      background: "#f8f8f8",
-                      marginBottom: "0.8rem",
-                      padding: "0.7rem 1rem",
-                      borderRadius: "8px",
-                      boxShadow: "0 1px 2px rgba(0,0,0,0.1)",
-                    }}
-                  >
-                    <a
-                      href={p.pdf_link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        color: "#007bff",
-                        textDecoration: "none",
-                        fontWeight: 500,
-                      }}
-                    >
-                      {p.title}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+                <ul style={{ listStyleType: "none", padding: 0 }}>
+                  {paginated.map((p: any, i: number) => {
+                    const summaryData = summaries[p.pdf_link];
+                    const isHovered = hoveredPaper === p.pdf_link;
+                    const isClicked = clickedPapers.has(p.pdf_link);
+
+                    const handleButtonClick = async () => {
+                      if (!summaries[p.pdf_link]) {
+                        await handleGetSummary(p.pdf_link);
+                      }
+                      setClickedPapers((prev) => new Set([...prev, p.pdf_link]));
+                    };
+
+                    return (
+                      <li
+                        key={i}
+                        style={{
+                          background: "#f8f8f8",
+                          marginBottom: "0.8rem",
+                          padding: "0.7rem 1rem",
+                          borderRadius: "8px",
+                          boxShadow: "0 1px 2px rgba(0,0,0,0.1)",
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                        }}
+                      >
+                        <div>
+                          <a
+                            href={p.pdf_link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                              color: "#007bff",
+                              textDecoration: "none",
+                              fontWeight: 500,
+                            }}
+                          >
+                            {p.title}
+                          </a>
+                        </div>
+
+                        {/* Summary button with hover popup */}
+                        <div
+                          style={{ position: "relative", marginLeft: "1rem" }}
+                          onMouseEnter={() => setHoveredPaper(p.pdf_link)}
+                          onMouseLeave={() => setHoveredPaper(null)}
+                        >
+                          <button
+                            onClick={handleButtonClick}
+                            style={{
+                              backgroundColor: isClicked ? "#28a745" : "#007bff",
+                              color: "white",
+                              border: "none",
+                              padding: "0.4rem 0.8rem",
+                              borderRadius: "6px",
+                              cursor: "pointer",
+                              fontSize: "0.9rem",
+                            }}
+                          >
+                            {isClicked ? "Display" : "Get Summary"}
+                          </button>
+
+                          {/* Hover popup */}
+                          {isHovered && summaryData && (
+                            <div
+                              style={{
+                                position: "absolute",
+                                top: "2.2rem",
+                                right: 0,
+                                background: "white",
+                                border: "1px solid #ccc",
+                                borderRadius: "8px",
+                                padding: "0.8rem",
+                                width: "350px",
+                                boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+                                zIndex: 100,
+                                whiteSpace: "normal",
+                                fontStyle:
+                                  summaryData.type === "abstract" ? "italic" : "normal",
+                                color: summaryData.type === "abstract" ? "#555" : "#111",
+                              }}
+                            >
+                              <strong>
+                                {summaryData.type === "abstract" ? "Abstract" : "Summary"}
+                              </strong>
+                              <div style={{ marginTop: "0.5rem" }}>
+                                {summaryData.summary}
+                              </div>
+                              {summaryData.warning && (
+                                <div
+                                  style={{
+                                    marginTop: "0.5rem",
+                                    color: "#b36b00",
+                                    fontSize: "0.85rem",
+                                  }}
+                                >
+                                  ⚠️ {summaryData.warning}
+                                </div>
+                              )}
+                              {summaryData.cached && (
+                                <div
+                                  style={{
+                                    marginTop: "0.3rem",
+                                    fontSize: "0.8rem",
+                                    color: "#777",
+                                  }}
+                                >
+                                  (Cached)
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
 
               {/* Pagination controls */}
               {totalPages > 1 && (
