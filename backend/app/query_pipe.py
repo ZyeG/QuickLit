@@ -16,24 +16,23 @@ api_key = os.getenv("OPENAI_API_KEY")
 if not api_key:
     raise EnvironmentError("OPENAI_API_KEY not found in .env.txt")
 
-# Command-line topic argument
 if len(sys.argv) < 2:
-    print("Usage: python3 query_pipe.py \"<research topic>\"")
+    print("Usage: python3 query_pipe.py \"<research topic>\" [max_results]")
     sys.exit(1)
 
 USER_INPUT_TOPIC = sys.argv[1].strip()
-MAX_RESULTS = int(sys.argv[2]) if len(sys.argv) > 2 else 100
+MAX_RESULTS = int(sys.argv[2]) if len(sys.argv) > 2 else 20
 client = OpenAI(api_key=api_key)
 
-# create a safe identifier for filename
 slug = re.sub(r"[^a-zA-Z0-9]+", "_", USER_INPUT_TOPIC.lower()).strip("_")
 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 os.makedirs("./data", exist_ok=True)
 OUTPUT_PATH = f"./data/query_pipe_out_{slug}_{timestamp}.json"
 
-
+# ---------------------------------------------------------
+# Utility: save and read pipeline stages
+# ---------------------------------------------------------
 def save_stage(stage_name, content):
-    """Save or update a specific stage in the pipeline JSON."""
     try:
         with open(OUTPUT_PATH, "r", encoding="utf-8") as f:
             data = json.load(f)
@@ -41,28 +40,29 @@ def save_stage(stage_name, content):
         data = {}
 
     data[stage_name] = content
-
     with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
 
-def read_stage(stage_name):
-    """Read specific stage from pipeline JSON."""
-    with open(OUTPUT_PATH, "r", encoding="utf-8") as f:
-        data = json.load(f)
-    return data.get(stage_name)
-
-# Extract Keywords + Synonyms
+# ---------------------------------------------------------
+# 1️⃣ Extract Concept Clusters
+# ---------------------------------------------------------
 prompt_keywords = f"""
-Extract keywords directly from this topic:
+Extract the key **concept clusters** directly from this research topic (use exact words/phrases):
+
 "{USER_INPUT_TOPIC}"
 
-Then for each keyword, provide two close synonyms or related terms.
-Output as valid JSON:
+Each cluster should represent a coherent research concept
+(e.g., "retrieval-augmented generation", "large language models", "education").
+For each concept, list 2–3 synonyms or related expressions (including acronyms if applicable).
+
+Output valid JSON:
 [
-  {{"keyword": "<keyword>", "synonyms": ["<syn1>", "<syn2>"]}},
+  {{"concept": "<main phrase>", "synonyms": ["<syn1>", "<syn2>", ...]}},
   ...
 ]
+
+Ensure each concept phrase is meaningful (avoid single adjectives or trivial words).
 """
 
 resp1 = client.responses.create(
@@ -74,23 +74,31 @@ resp1 = client.responses.create(
 keywords_text = resp1.output[0].content[0].text.strip()
 cleaned = re.sub(r"^```(?:json)?|```$", "", keywords_text, flags=re.MULTILINE).strip()
 keywords = json.loads(cleaned)
-save_stage("keywords", keywords)
 
+# Filter trivial/single-word
+keywords = [k for k in keywords if len(k.get("concept", "").split()) > 1]
+save_stage("concept_clusters", keywords)
 
-# Build Boolean Search Query
+# ---------------------------------------------------------
+# 2️⃣ Build Boolean Query
+# ---------------------------------------------------------
 prompt_query = f"""
-You are a search query builder for academic databases.
-Given this JSON of keywords and synonyms:
+You are a professional academic search-query builder.
+
+Given these concept clusters and synonyms:
 {json.dumps(keywords, indent=2)}
 
-Create one Boolean search query string that combines all terms with proper quoting and logical operators.
-Use parentheses for groups and connect main concept groups with AND.
-Example format:
-("generative AI" OR "large language model" OR "ChatGPT") AND ("post-secondary education" OR "undergraduate students" OR "university")
+Return ONLY a Boolean query string (no URL encoding, no arXiv prefixes).
+Rules:
+- Use quotes for multi-word phrases.
+- Use OR within a concept cluster.
+- Use AND across at most 2–3 major clusters.
+- DO NOT include 'all:' anywhere.
+- DO NOT include URL encoding.
 
-Output only the final query string.
+Example of the desired output shape:
+("retrieval augmented generation" OR "RAG") AND ("large language models" OR "LLMs")
 """
-
 resp2 = client.responses.create(
     model="gpt-4o-mini",
     input=prompt_query,
@@ -98,52 +106,47 @@ resp2 = client.responses.create(
 )
 
 search_query = resp2.output[0].content[0].text.strip()
-save_stage("search_query", search_query)
+save_stage("boolean_query", search_query)
 
+# ---------------------------------------------------------
+# 3️⃣ Generate arXiv API URL
+# ---------------------------------------------------------
+from urllib.parse import quote_plus
+import re
 
-# Generate arXiv API URL
-prompt_url = f"""
-Given this Boolean search string:
-{search_query}
+# sanitize the boolean query the model returned
+search_query = resp2.output[0].content[0].text.strip()
+# (defensive) strip any accidental leading all:(...) from the model
+search_query = re.sub(r'^\s*all:\s*\((.*)\)\s*$', r'\1', search_query, flags=re.IGNORECASE)
 
-Return ONLY a valid arXiv API URL that queries for these terms, formatted like:
-http://export.arxiv.org/api/query?search_query=all:(...)&start=0&max_results={MAX_RESULTS}
+# wrap the entire boolean logic once in all:( ...)
+wrapped = f'all:({search_query})'
+encoded = quote_plus(wrapped)  # encodes spaces, quotes, parentheses, etc.
 
-Rules:
-- Replace spaces with %20 and quotes with %22.
-- Wrap groups in parentheses and encode them correctly for URLs.
-- Use `all:` before each main concept group.
-- Always include &start=0&max_results={MAX_RESULTS} at the end.
-- Output only the URL, no extra text.
-"""
-
-resp3 = client.responses.create(
-    model="gpt-4o-mini",
-    input=prompt_url,
-    temperature=0.2,
-)
-
-api_url = resp3.output[0].content[0].text.strip()
+api_url = f"http://export.arxiv.org/api/query?search_query={encoded}&start=0&max_results={MAX_RESULTS}"
 save_stage("api_url", api_url)
 
-
-# Retrieve Papers from arXiv
+# ---------------------------------------------------------
+# 4️⃣ Retrieve Papers from arXiv
+# ---------------------------------------------------------
 feed = feedparser.parse(api_url)
-papers = []
+papers = [
+    {"title": e.title.strip(), "pdf_link": e.link.replace("/abs/", "/pdf/")}
+    for e in feed.entries
+]
+save_stage("retrieved_papers_initial", papers)
 
-for entry in feed.entries:
-    papers.append({
-        "title": entry.title.strip(),
-        "pdf_link": entry.link.replace("/abs/", "/pdf/"),
-    })
-
-save_stage("retrieved_papers", papers)
-
-
-#  Print Summary
-# # ---------------------------------------------------------
-# print("\n Pipeline completed successfully!")
-# print(f" Topic: {USER_INPUT_TOPIC}")
-# print(f"Keywords: {len(keywords)}")
-# print(f" Papers found: {len(papers)}")
-# print(f" Output saved to: {OUTPUT_PATH}")
+# ---------------------------------------------------------
+# 5️⃣ Fallback: Simple query with user input
+# ---------------------------------------------------------
+if not papers:
+    print("⚠️ No papers found — retrying using user topic directly...")
+    topic_encoded = re.sub(r"\s+", "%20", USER_INPUT_TOPIC.strip())
+    api_url_fallback = f"http://export.arxiv.org/api/query?search_query=all:({topic_encoded})&start=0&max_results={MAX_RESULTS}"
+    feed = feedparser.parse(api_url_fallback)
+    papers = [
+        {"title": e.title.strip(), "pdf_link": e.link.replace("/abs/", "/pdf/")}
+        for e in feed.entries
+    ]
+    save_stage("retrieved_papers_fallback", papers)
+    save_stage("api_url_fallback", api_url_fallback)

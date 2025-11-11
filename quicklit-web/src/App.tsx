@@ -7,10 +7,14 @@ function App() {
   const [maxResults, setMaxResults] = useState(20);
   const [showRaw, setShowRaw] = useState(false);
   const [page, setPage] = useState(1);
-  const perPage = 5; // number of papers per page
+  const perPage = 5;
 
-  // track per-paper summaries
+  // track per-paper summaries and loading states
   const [summaries, setSummaries] = useState<Record<string, any>>({});
+  const [summaryLoading, setSummaryLoading] = useState<Record<string, boolean>>({});
+
+  const [hoveredPaper, setHoveredPaper] = useState<string | null>(null);
+  const [clickedPapers, setClickedPapers] = useState<Set<string>>(new Set());
 
   const handleSubmit = async () => {
     if (!topic.trim()) return;
@@ -28,7 +32,12 @@ function App() {
   };
 
   const handleGetSummary = async (pdfUrl: string) => {
-    if (summaries[pdfUrl]) return; // already fetched
+    // If already fetched or in progress, skip
+    if (summaries[pdfUrl] || summaryLoading[pdfUrl]) return;
+
+    // mark as loading
+    setSummaryLoading((prev) => ({ ...prev, [pdfUrl]: true }));
+
     try {
       const res = await fetch(
         `http://localhost:3001/api/get_summary?url=${encodeURIComponent(pdfUrl)}`
@@ -41,16 +50,20 @@ function App() {
         ...prev,
         [pdfUrl]: { summary: "⚠️ Failed to fetch summary.", type: "error" },
       }));
+    } finally {
+      setSummaryLoading((prev) => ({ ...prev, [pdfUrl]: false }));
+      setClickedPapers((prev) => new Set([...prev, pdfUrl]));
     }
   };
 
-  const retrieved = result?.pipeline_output?.retrieved_papers || [];
+  const retrieved =
+  result?.pipeline_output?.retrieved_papers ||
+  result?.pipeline_output?.retrieved_papers_initial ||
+  result?.pipeline_output?.retrieved_papers_fallback ||
+  [];
   const start = (page - 1) * perPage;
   const paginated = retrieved.slice(start, start + perPage);
   const totalPages = Math.ceil(retrieved.length / perPage);
-
-  const [hoveredPaper, setHoveredPaper] = useState<string | null>(null);
-  const [clickedPapers, setClickedPapers] = useState<Set<string>>(new Set());
 
   return (
     <div style={{ padding: "2rem", fontFamily: "sans-serif" }}>
@@ -65,11 +78,7 @@ function App() {
           value={topic}
           onChange={(e) => setTopic(e.target.value)}
           placeholder="Enter research topic..."
-          style={{
-            width: "400px",
-            padding: "0.5rem",
-            fontSize: "1rem",
-          }}
+          style={{ width: "400px", padding: "0.5rem", fontSize: "1rem" }}
         />
 
         <div style={{ display: "inline-block", marginLeft: "1rem" }}>
@@ -86,11 +95,7 @@ function App() {
             min={1}
             max={100}
             onChange={(e) => setMaxResults(Number(e.target.value))}
-            style={{
-              width: "80px",
-              padding: "0.4rem",
-              fontSize: "1rem",
-            }}
+            style={{ width: "80px", padding: "0.4rem", fontSize: "1rem" }}
           />
           <div style={{ fontSize: "0.85rem", color: "#555", marginTop: "0.3rem" }}>
             Number of papers to retrieve (1–100)
@@ -120,124 +125,133 @@ function App() {
             <p>No papers found.</p>
           ) : (
             <>
-                <ul style={{ listStyleType: "none", padding: 0 }}>
-                  {paginated.map((p: any, i: number) => {
-                    const summaryData = summaries[p.pdf_link];
-                    const isHovered = hoveredPaper === p.pdf_link;
-                    const isClicked = clickedPapers.has(p.pdf_link);
+              <ul style={{ listStyleType: "none", padding: 0 }}>
+                {paginated.map((p: any, i: number) => {
+                  const summaryData = summaries[p.pdf_link];
+                  const isHovered = hoveredPaper === p.pdf_link;
+                  const isClicked = clickedPapers.has(p.pdf_link);
+                  const isLoadingSummary = summaryLoading[p.pdf_link];
 
-                    const handleButtonClick = async () => {
-                      if (!summaries[p.pdf_link]) {
-                        await handleGetSummary(p.pdf_link);
-                      }
-                      setClickedPapers((prev) => new Set([...prev, p.pdf_link]));
-                    };
+                  const handleButtonClick = async () => {
+                    if (!summaries[p.pdf_link]) {
+                      await handleGetSummary(p.pdf_link);
+                    }
+                  };
 
-                    return (
-                      <li
-                        key={i}
-                        style={{
-                          background: "#f8f8f8",
-                          marginBottom: "0.8rem",
-                          padding: "0.7rem 1rem",
-                          borderRadius: "8px",
-                          boxShadow: "0 1px 2px rgba(0,0,0,0.1)",
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                        }}
-                      >
-                        <div>
-                          <a
-                            href={p.pdf_link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{
-                              color: "#007bff",
-                              textDecoration: "none",
-                              fontWeight: 500,
-                            }}
-                          >
-                            {p.title}
-                          </a>
-                        </div>
-
-                        {/* Summary button with hover popup */}
-                        <div
-                          style={{ position: "relative", marginLeft: "1rem" }}
-                          onMouseEnter={() => setHoveredPaper(p.pdf_link)}
-                          onMouseLeave={() => setHoveredPaper(null)}
+                  return (
+                    <li
+                      key={i}
+                      style={{
+                        background: "#f8f8f8",
+                        marginBottom: "0.8rem",
+                        padding: "0.7rem 1rem",
+                        borderRadius: "8px",
+                        boxShadow: "0 1px 2px rgba(0,0,0,0.1)",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                      }}
+                    >
+                      <div>
+                        <a
+                          href={p.pdf_link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{
+                            color: "#007bff",
+                            textDecoration: "none",
+                            fontWeight: 500,
+                          }}
                         >
-                          <button
-                            onClick={handleButtonClick}
+                          {p.title}
+                        </a>
+                      </div>
+
+                      {/* Summary button with hover popup */}
+                      <div
+                        style={{ position: "relative", marginLeft: "1rem" }}
+                        onMouseEnter={() => setHoveredPaper(p.pdf_link)}
+                        onMouseLeave={() => setHoveredPaper(null)}
+                      >
+                        <button
+                          onClick={handleButtonClick}
+                          disabled={isLoadingSummary}
+                          style={{
+                            backgroundColor: isClicked ? "#28a745" : "#007bff",
+                            color: "white",
+                            border: "none",
+                            padding: "0.4rem 0.8rem",
+                            borderRadius: "6px",
+                            cursor: isLoadingSummary ? "wait" : "pointer",
+                            fontSize: "0.9rem",
+                            opacity: isLoadingSummary ? 0.7 : 1,
+                          }}
+                        >
+                          {isLoadingSummary
+                            ? "Summarizing..."
+                            : isClicked
+                            ? "Display"
+                            : "Get Summary"}
+                        </button>
+
+                        {/* Hover popup for completed summaries */}
+                        {isHovered && summaryData && !isLoadingSummary && (
+                          <div
                             style={{
-                              backgroundColor: isClicked ? "#28a745" : "#007bff",
-                              color: "white",
-                              border: "none",
-                              padding: "0.4rem 0.8rem",
-                              borderRadius: "6px",
-                              cursor: "pointer",
-                              fontSize: "0.9rem",
+                              position: "absolute",
+                              top: "2.2rem",
+                              right: 0,
+                              background: "white",
+                              border: "1px solid #ccc",
+                              borderRadius: "8px",
+                              padding: "0.8rem",
+                              width: "350px",
+                              boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+                              zIndex: 100,
+                              whiteSpace: "normal",
+                              fontStyle:
+                                summaryData.type === "abstract" ? "italic" : "normal",
+                              color: summaryData.type === "abstract" ? "#555" : "#111",
+                              transition: "opacity 0.2s ease-in-out",
                             }}
                           >
-                            {isClicked ? "Display" : "Get Summary"}
-                          </button>
-
-                          {/* Hover popup */}
-                          {isHovered && summaryData && (
-                            <div
-                              style={{
-                                position: "absolute",
-                                top: "2.2rem",
-                                right: 0,
-                                background: "white",
-                                border: "1px solid #ccc",
-                                borderRadius: "8px",
-                                padding: "0.8rem",
-                                width: "350px",
-                                boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
-                                zIndex: 100,
-                                whiteSpace: "normal",
-                                fontStyle:
-                                  summaryData.type === "abstract" ? "italic" : "normal",
-                                color: summaryData.type === "abstract" ? "#555" : "#111",
-                              }}
-                            >
-                              <strong>
-                                {summaryData.type === "abstract" ? "Abstract" : "Summary"}
-                              </strong>
-                              <div style={{ marginTop: "0.5rem" }}>
-                                {summaryData.summary}
-                              </div>
-                              {summaryData.warning && (
-                                <div
-                                  style={{
-                                    marginTop: "0.5rem",
-                                    color: "#b36b00",
-                                    fontSize: "0.85rem",
-                                  }}
-                                >
-                                  ⚠️ {summaryData.warning}
-                                </div>
-                              )}
-                              {summaryData.cached && (
-                                <div
-                                  style={{
-                                    marginTop: "0.3rem",
-                                    fontSize: "0.8rem",
-                                    color: "#777",
-                                  }}
-                                >
-                                  (Cached)
-                                </div>
-                              )}
+                            <strong>
+                              {summaryData.type === "abstract"
+                                ? "Abstract"
+                                : "Summary"}
+                            </strong>
+                            <div style={{ marginTop: "0.5rem" }}>
+                              {summaryData.summary}
                             </div>
-                          )}
-                        </div>
-                      </li>
-                    );
-                  })}
-                </ul>
+                            {summaryData.warning && (
+                              <div
+                                style={{
+                                  marginTop: "0.5rem",
+                                  color: "#b36b00",
+                                  fontSize: "0.85rem",
+                                }}
+                              >
+                                ⚠️ {summaryData.warning}
+                              </div>
+                            )}
+                            {summaryData.cached && (
+                              <div
+                                style={{
+                                  marginTop: "0.3rem",
+                                  fontSize: "0.8rem",
+                                  color: "#777",
+                                }}
+                              >
+                                (Cached)
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
 
               {/* Pagination controls */}
               {totalPages > 1 && (
