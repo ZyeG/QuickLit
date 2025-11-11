@@ -18,3 +18,6 @@ create `/backend/.env.txt` to store opanai API key: `OPENAI_API_KEY=your_key_no_
 & backend: `curl http://localhost:3001`, expect: {"detail":"Not Found"}
 
 
+## query
+- @app.post("/api/query")
+- example query: "Retrieval-Augmented Generation for Large Language Models"

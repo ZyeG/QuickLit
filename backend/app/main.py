@@ -21,14 +21,16 @@ app.add_middleware(
 async def run_query(request: Request):
     data = await request.json()
     topic = data.get("topic")
+    max_results = str(data.get("max_results", 20))  # default = 20
+
     if not topic:
         return {"error": "Missing 'topic' in request body"}
 
-    # Run your existing pipeline as a subprocess
-    cmd = ["python3", "app/query_pipe.py", topic]
+    # Run pipeline with topic and max_results
+    cmd = ["python3", "app/query_pipe.py", topic, max_results]
     result = subprocess.run(cmd, capture_output=True, text=True)
 
-    # Find most recent JSON output
+    # Get the newest output JSON
     out_files = sorted(
         [f for f in os.listdir("./data") if f.startswith("query_pipe_out_")],
         key=lambda f: os.path.getmtime(os.path.join("./data", f)),
@@ -42,4 +44,9 @@ async def run_query(request: Request):
     with open(latest_json, "r", encoding="utf-8") as f:
         content = json.load(f)
 
-    return {"topic": topic, "pipeline_output": content, "stdout": result.stdout}
+    return {
+        "topic": topic,
+        "max_results": max_results,
+        "pipeline_output": content,
+        "stdout": result.stdout,
+    }

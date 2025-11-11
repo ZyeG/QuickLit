@@ -22,7 +22,7 @@ if len(sys.argv) < 2:
     sys.exit(1)
 
 USER_INPUT_TOPIC = sys.argv[1].strip()
-
+MAX_RESULTS = int(sys.argv[2]) if len(sys.argv) > 2 else 100
 client = OpenAI(api_key=api_key)
 
 # create a safe identifier for filename
@@ -107,13 +107,13 @@ Given this Boolean search string:
 {search_query}
 
 Return ONLY a valid arXiv API URL that queries for these terms, formatted like:
-http://export.arxiv.org/api/query?search_query=all:(...)&start=0&max_results=100
+http://export.arxiv.org/api/query?search_query=all:(...)&start=0&max_results={MAX_RESULTS}
 
 Rules:
 - Replace spaces with %20 and quotes with %22.
 - Wrap groups in parentheses and encode them correctly for URLs.
 - Use `all:` before each main concept group.
-- Always include &start=0&max_results=100 at the end.
+- Always include &start=0&max_results={MAX_RESULTS} at the end.
 - Output only the URL, no extra text.
 """
 
