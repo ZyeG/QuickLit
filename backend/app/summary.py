@@ -4,8 +4,9 @@ from openai import OpenAI
 from dotenv import load_dotenv
 
 # Setup
-load_dotenv(dotenv_path="./.env.txt")
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
+client = OpenAI(api_key=OPENAI_API_KEY)
+os.makedirs("./data", exist_ok=True)
 
 MODEL = "gpt-4o-mini"
 MAX_FILE_BYTES = 1000_000   # cost cap (~20 pages)
@@ -50,7 +51,7 @@ def summarize_or_abstract(pdf_url: str):
         # Start timeout timer
         signal.alarm(TIMEOUT_SECONDS)
 
-        print("⏳ Summarizing with gpt-4o-mini...")
+        print("Summarizing with gpt-4o-mini...")
         resp = client.responses.create(
             model=MODEL,
             input=[

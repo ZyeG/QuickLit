@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request, Query
 from fastapi.middleware.cors import CORSMiddleware
 import subprocess, json, os, requests, re
 from app.summary import summarize_or_abstract, fetch_abstract, TimeoutException, MAX_FILE_BYTES, TIMEOUT_SECONDS
+from app.query_pipe import run_pipeline
 app = FastAPI()
 
 # @app.get("/")
@@ -26,31 +27,11 @@ async def run_query(request: Request):
     if not topic:
         return {"error": "Missing 'topic' in request body"}
 
-    # Run pipeline with topic and max_results
-    cmd = ["python3", "app/query_pipe.py", topic, max_results]
-    result = subprocess.run(cmd, capture_output=True, text=True)
+    # Run the query pipeline
+    papers = run_pipeline(topic, int(max_results)) # list of dicts
+    return {"papers": papers}
 
-    # Get the newest output JSON
-    out_files = sorted(
-        [f for f in os.listdir("./data") if f.startswith("query_pipe_out_")],
-        key=lambda f: os.path.getmtime(os.path.join("./data", f)),
-        reverse=True
-    )
-    latest_json = os.path.join("./data", out_files[0]) if out_files else None
-
-    if not latest_json:
-        return {"error": "No output file generated"}
-
-    with open(latest_json, "r", encoding="utf-8") as f:
-        content = json.load(f)
-
-    return {
-        "topic": topic,
-        "max_results": max_results,
-        "pipeline_output": content,
-        "stdout": result.stdout,
-    }
-
+# ------------------------------------------------- summary
 CACHE_DIR = "./data/summaries"
 os.makedirs(CACHE_DIR, exist_ok=True)
 
@@ -60,9 +41,7 @@ def get_cache_filename(pdf_url: str) -> str:
     base = match.group(0) if match else re.sub(r"[^a-zA-Z0-9]+", "_", pdf_url)
     return os.path.join(CACHE_DIR, f"{base}.json")
 
-# -------------------------------------------------
-# Endpoint: GET /api/get_summary
-# -------------------------------------------------
+# GET /api/get_summary
 @app.get("/api/get_summary")
 async def get_summary(url: str = Query(..., description="Direct PDF URL (e.g. https://arxiv.org/pdf/2403.19889v1)")):
     """

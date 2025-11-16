@@ -2,10 +2,9 @@ import { useState } from "react";
 
 function App() {
   const [topic, setTopic] = useState("");
-  const [result, setResult] = useState<any>(null);
+  const [papers, setPapers] = useState<any[]>([]);     
   const [loading, setLoading] = useState(false);
   const [maxResults, setMaxResults] = useState(20);
-  const [showRaw, setShowRaw] = useState(false);
   const [page, setPage] = useState(1);
   const perPage = 5;
 
@@ -25,9 +24,8 @@ function App() {
       body: JSON.stringify({ topic, max_results: maxResults }),
     });
     const data = await res.json();
-    setResult(data);
     setLoading(false);
-    setShowRaw(false);
+    setPapers(data.papers || []);
     setPage(1);
   };
 
@@ -48,7 +46,7 @@ function App() {
       console.error("Error fetching summary:", err);
       setSummaries((prev) => ({
         ...prev,
-        [pdfUrl]: { summary: "⚠️ Failed to fetch summary.", type: "error" },
+        [pdfUrl]: { summary: "Failed to fetch summary.", type: "error" },
       }));
     } finally {
       setSummaryLoading((prev) => ({ ...prev, [pdfUrl]: false }));
@@ -56,11 +54,8 @@ function App() {
     }
   };
 
-  const retrieved =
-  result?.pipeline_output?.retrieved_papers ||
-  result?.pipeline_output?.retrieved_papers_initial ||
-  result?.pipeline_output?.retrieved_papers_fallback ||
-  [];
+  const retrieved = papers;
+
   const start = (page - 1) * perPage;
   const paginated = retrieved.slice(start, start + perPage);
   const totalPages = Math.ceil(retrieved.length / perPage);
@@ -117,24 +112,24 @@ function App() {
       </div>
 
       {/* Output section */}
-      {result && (
-        <div style={{ marginTop: "2rem" }}>
+      
+      <div style={{ marginTop: "2rem" }}>
           <h3>Retrieved Papers</h3>
 
-          {retrieved.length === 0 ? (
+          {papers.length === 0 ? (
             <p>No papers found.</p>
           ) : (
             <>
               <ul style={{ listStyleType: "none", padding: 0 }}>
                 {paginated.map((p: any, i: number) => {
-                  const summaryData = summaries[p.pdf_link];
-                  const isHovered = hoveredPaper === p.pdf_link;
-                  const isClicked = clickedPapers.has(p.pdf_link);
-                  const isLoadingSummary = summaryLoading[p.pdf_link];
+                  const summaryData = summaries[p.pdf_url];
+                  const isHovered = hoveredPaper === p.pdf_url;
+                  const isClicked = clickedPapers.has(p.pdf_url);
+                  const isLoadingSummary = summaryLoading[p.pdf_url];
 
                   const handleButtonClick = async () => {
-                    if (!summaries[p.pdf_link]) {
-                      await handleGetSummary(p.pdf_link);
+                    if (!summaries[p.pdf_url]) {
+                      await handleGetSummary(p.pdf_url);
                     }
                   };
 
@@ -154,7 +149,7 @@ function App() {
                     >
                       <div>
                         <a
-                          href={p.pdf_link}
+                          href={p.pdf_url}
                           target="_blank"
                           rel="noopener noreferrer"
                           style={{
@@ -170,7 +165,7 @@ function App() {
                       {/* Summary button with hover popup */}
                       <div
                         style={{ position: "relative", marginLeft: "1rem" }}
-                        onMouseEnter={() => setHoveredPaper(p.pdf_link)}
+                        onMouseEnter={() => setHoveredPaper(p.pdf_url)}
                         onMouseLeave={() => setHoveredPaper(null)}
                       >
                         <button
@@ -231,7 +226,7 @@ function App() {
                                   fontSize: "0.85rem",
                                 }}
                               >
-                                ⚠️ {summaryData.warning}
+                                 {summaryData.warning}
                               </div>
                             )}
                             {summaryData.cached && (
@@ -277,31 +272,7 @@ function App() {
               )}
             </>
           )}
-
-          {/* Toggle raw output */}
-          <div style={{ marginTop: "2rem" }}>
-            <button
-              onClick={() => setShowRaw((s) => !s)}
-              style={{ marginBottom: "1rem" }}
-            >
-              {showRaw ? "Hide complete output" : "Show complete output"}
-            </button>
-
-            {showRaw && (
-              <pre
-                style={{
-                  background: "#eee",
-                  padding: "1rem",
-                  borderRadius: "8px",
-                  overflowX: "auto",
-                }}
-              >
-                {JSON.stringify(result.pipeline_output, null, 2)}
-              </pre>
-            )}
-          </div>
-        </div>
-      )}
+      </div>
     </div>
   );
 }
