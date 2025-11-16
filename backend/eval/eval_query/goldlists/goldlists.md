@@ -1,9 +1,9 @@
 ## topics
-A Survey on Deep Reinforcement Learning for Data Processing and Analytics
-Security Risk and Attacks in AI: A Survey of Security and Privacy
-Graph Retrieval-Augmented Generation for Large Language Models: A Survey
-A Survey on Machine Learning Approaches and Its Techniques
-A Survey on Edge Computing Systems and Tools
+- A Survey on Deep Reinforcement Learning for Data Processing and Analytics
+- Security Risk and Attacks in AI: A Survey of Security and Privacy
+- Graph Retrieval-Augmented Generation for Large Language Models: A Survey
+- A Survey on Machine Learning Approaches and Its Techniques
+- A Survey on Edge Computing Systems and Tools
 
 ## commands to generate lists
 
