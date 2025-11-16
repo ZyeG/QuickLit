@@ -70,7 +70,7 @@ def query_mcp(topic, max_results):
     """
 
     resp = client.responses.create(
-        model="gpt-5",
+        model="gpt-4o-mini",
         input=prompt_retrieval,
         tools=[
             {

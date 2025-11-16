@@ -33,7 +33,7 @@ def single_prompt_tool (topic, max_results):
     }}
     """
     response = client.responses.create(
-        model="gpt-5",
+        model="gpt-4o-mini",
         tools=[{"type": "web_search"}],
         input = prompt_retrieval)
     
