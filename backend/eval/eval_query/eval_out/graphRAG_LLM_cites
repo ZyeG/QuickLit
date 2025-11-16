@@ -1,0 +1,50 @@
+GOLD TITLES (from survey):
+-----------------------------
+ - Adaptive Retrieval-Augmented Embodied Intelligence RAG Reasoning Framework
+ - Facilitating Design for Additive Manufacturing with KG-based Retrieval-Augmented Generation
+ - Evaluation of Integrating LLMs with Telemetry Data from Optical Networks
+ - XGraphRAG: Interactive Visual Analysis for Graph-based Retrieval-Augmented Generation
+ - A Big Data Conversational Recommender Framework Based on LLMs and HRAG
+ - Research on the Online Update Method for Retrieval-Augmented Generation (RAG) Model with Incremental Learning
+ - QRAG: Using Learnable Graph Queries for Retrieval Augmented Generation
+ - To Enhance Graph-Based Retrieval-Augmented Generation (RAG) with Robust Retrieval Techniques
+ - RGD: Multi-LLM Based Agent Debugger via Refinement and Generation Guidance
+ - Enhancing Vector based Retrieval Augmented Generation with Contextual Knowledge Graph Construction
+
+RETRIEVED TITLES (system):
+-----------------------------
+ - Simple Is Effective: The Roles of Graphs and Large Language Models in Knowledge-Graph-Based Retrieval-Augmented Generation
+ - A Collaborative Multi-Agent Approach to Retrieval-Augmented Generation Across Diverse Data
+ - AGRAG: Advanced Graph-based Retrieval-Augmented Generation for LLMs
+ - Knowledge Graph Retrieval-Augmented Generation for LLM-based Recommendation
+ - A Survey of Graph Retrieval-Augmented Generation for Customized Large Language Models
+ - GFM-RAG: Graph Foundation Model for Retrieval Augmented Generation
+ - Knowledge Graph-based Retrieval-Augmented Generation for Schema Matching
+ - Graph Retrieval-Augmented Generation: A Survey
+ - A Query-Aware Multi-Path Knowledge Graph Fusion Approach for Enhancing Retrieval-Augmented Generation in Large Language Models
+ - LinearRAG: Linear Graph Retrieval Augmented Generation on Large-scale Corpora
+ - Graph-based Approaches and Functionalities in Retrieval-Augmented Generation: A Comprehensive Survey
+ - Optimizing open-domain question answering with graph-based retrieval augmented generation
+ - Neural Graph Matching Improves Retrieval Augmented Generation in Molecular Machine Learning
+ - Exposing Privacy Risks in Graph Retrieval-Augmented Generation
+ - XGraphRAG: Interactive Visual Analysis for Graph-based Retrieval-Augmented Generation
+ - SkewRoute: Training-Free LLM Routing for Knowledge Graph Retrieval-Augmented Generation via Score Skewness of Retrieved Context
+ - CausalRAG: Integrating Causal Graphs into Retrieval-Augmented Generation
+ - Query-Centric Graph Retrieval Augmented Generation
+ - MIXRAG : Mixture-of-Experts Retrieval-Augmented Generation for Textual Graph Understanding and Question Answering
+ - Weak-to-Strong GraphRAG: Aligning Weak Retrievers with Large Language Models for Graph-based Retrieval Augmented Generation
+ - KG-Retriever: Efficient Knowledge Indexing for Retrieval-Augmented Large Language Models
+ - Medical Graph RAG: Towards Safe Medical Large Language Model via Graph Retrieval-Augmented Generation
+ - GraphSearch: An Agentic Deep Searching Workflow for Graph Retrieval-Augmented Generation
+ - A Knowledge Graph-based Retrieval-Augmented Generation Framework for Algorithm Selection in the Facility Layout Problem
+ - TERAG: Token-Efficient Graph-Based Retrieval-Augmented Generation
+ - PathRAG: Pruning Graph-based Retrieval Augmented Generation with Relational Paths
+ - ArchRAG: Attributed Community-based Hierarchical Retrieval-Augmented Generation
+ - DSRAG: A Domain-Specific Retrieval Framework Based on Document-derived Multimodal Knowledge Graph
+ - CAPRAG: A Large Language Model Solution for Customer Service and Automatic Reporting using Vector and Graph Retrieval-Augmented Generation
+ - InstructRAG: Leveraging Retrieval-Augmented Generation on Instruction Graphs for LLM-Based Task Planning
+
+MATCHES:
+-----------------------------
+ - Retrieved: XGraphRAG: Interactive Visual Analysis for Graph-based Retrieval-Augmented Generation
+   Gold:      XGraphRAG: Interactive Visual Analysis for Graph-based Retrieval-Augmented Generation
