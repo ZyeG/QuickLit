@@ -37,8 +37,8 @@ package-lock.json
 *.env
 *.env.*
 *.env.txt
-backend/data/
-data/
+#backend/data/
+# data/
 
 # Build outputs
 build/

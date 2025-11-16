@@ -1,0 +1,174 @@
+{
+  "concept_clusters": [
+    {
+      "concept": "Graph Retrieval-Augmented Generation",
+      "synonyms": [
+        "graph-based retrieval",
+        "retrieval-augmented generation",
+        "graph-enhanced generation"
+      ]
+    },
+    {
+      "concept": "Large Language Models",
+      "synonyms": [
+        "LLMs",
+        "large-scale language models",
+        "deep learning language models"
+      ]
+    }
+  ],
+  "boolean_query": "(\"graph retrieval-augmented generation\" OR \"graph-based retrieval\" OR \"retrieval-augmented generation\" OR \"graph-enhanced generation\") AND (\"large language models\" OR \"LLMs\" OR \"large-scale language models\" OR \"deep learning language models\")",
+  "api_url": "http://export.arxiv.org/api/query?search_query=all:%28%22graph%20retrieval-augmented%20generation%22%20OR%20%22graph-based%20retrieval%22%20OR%20%22retrieval-augmented%20generation%22%20OR%20%22graph-enhanced%20generation%22%29%20AND%20all:%28%22large%20language%20models%22%20OR%20LLMs%20OR%20%22large-scale%20language%20models%22%20OR%20%22deep%20learning%20language%20models%22%29&start=0&max_results=30",
+  "retrieved_papers_initial": [
+    {
+      "title": "Simple Is Effective: The Roles of Graphs and Large Language Models in Knowledge-Graph-Based Retrieval-Augmented Generation",
+      "pdf_url": "https://arxiv.org/pdf/2410.20724v4",
+      "paper_id": "2410.20724v4"
+    },
+    {
+      "title": "A Collaborative Multi-Agent Approach to Retrieval-Augmented Generation Across Diverse Data",
+      "pdf_url": "https://arxiv.org/pdf/2412.05838v1",
+      "paper_id": "2412.05838v1"
+    },
+    {
+      "title": "AGRAG: Advanced Graph-based Retrieval-Augmented Generation for LLMs",
+      "pdf_url": "https://arxiv.org/pdf/2511.05549v1",
+      "paper_id": "2511.05549v1"
+    },
+    {
+      "title": "Knowledge Graph Retrieval-Augmented Generation for LLM-based Recommendation",
+      "pdf_url": "https://arxiv.org/pdf/2501.02226v2",
+      "paper_id": "2501.02226v2"
+    },
+    {
+      "title": "A Survey of Graph Retrieval-Augmented Generation for Customized Large Language Models",
+      "pdf_url": "https://arxiv.org/pdf/2501.13958v3",
+      "paper_id": "2501.13958v3"
+    },
+    {
+      "title": "GFM-RAG: Graph Foundation Model for Retrieval Augmented Generation",
+      "pdf_url": "https://arxiv.org/pdf/2502.01113v2",
+      "paper_id": "2502.01113v2"
+    },
+    {
+      "title": "Knowledge Graph-based Retrieval-Augmented Generation for Schema Matching",
+      "pdf_url": "https://arxiv.org/pdf/2501.08686v1",
+      "paper_id": "2501.08686v1"
+    },
+    {
+      "title": "Graph Retrieval-Augmented Generation: A Survey",
+      "pdf_url": "https://arxiv.org/pdf/2408.08921v2",
+      "paper_id": "2408.08921v2"
+    },
+    {
+      "title": "A Query-Aware Multi-Path Knowledge Graph Fusion Approach for Enhancing Retrieval-Augmented Generation in Large Language Models",
+      "pdf_url": "https://arxiv.org/pdf/2507.16826v1",
+      "paper_id": "2507.16826v1"
+    },
+    {
+      "title": "LinearRAG: Linear Graph Retrieval Augmented Generation on Large-scale Corpora",
+      "pdf_url": "https://arxiv.org/pdf/2510.10114v4",
+      "paper_id": "2510.10114v4"
+    },
+    {
+      "title": "Graph-based Approaches and Functionalities in Retrieval-Augmented Generation: A Comprehensive Survey",
+      "pdf_url": "https://arxiv.org/pdf/2504.10499v1",
+      "paper_id": "2504.10499v1"
+    },
+    {
+      "title": "Optimizing open-domain question answering with graph-based retrieval augmented generation",
+      "pdf_url": "https://arxiv.org/pdf/2503.02922v1",
+      "paper_id": "2503.02922v1"
+    },
+    {
+      "title": "Neural Graph Matching Improves Retrieval Augmented Generation in Molecular Machine Learning",
+      "pdf_url": "https://arxiv.org/pdf/2502.17874v2",
+      "paper_id": "2502.17874v2"
+    },
+    {
+      "title": "Exposing Privacy Risks in Graph Retrieval-Augmented Generation",
+      "pdf_url": "https://arxiv.org/pdf/2508.17222v1",
+      "paper_id": "2508.17222v1"
+    },
+    {
+      "title": "XGraphRAG: Interactive Visual Analysis for Graph-based Retrieval-Augmented Generation",
+      "pdf_url": "https://arxiv.org/pdf/2506.13782v1",
+      "paper_id": "2506.13782v1"
+    },
+    {
+      "title": "SkewRoute: Training-Free LLM Routing for Knowledge Graph Retrieval-Augmented Generation via Score Skewness of Retrieved Context",
+      "pdf_url": "https://arxiv.org/pdf/2505.23841v2",
+      "paper_id": "2505.23841v2"
+    },
+    {
+      "title": "CausalRAG: Integrating Causal Graphs into Retrieval-Augmented Generation",
+      "pdf_url": "https://arxiv.org/pdf/2503.19878v3",
+      "paper_id": "2503.19878v3"
+    },
+    {
+      "title": "Query-Centric Graph Retrieval Augmented Generation",
+      "pdf_url": "https://arxiv.org/pdf/2509.21237v1",
+      "paper_id": "2509.21237v1"
+    },
+    {
+      "title": "MIXRAG : Mixture-of-Experts Retrieval-Augmented Generation for Textual Graph Understanding and Question Answering",
+      "pdf_url": "https://arxiv.org/pdf/2509.21391v1",
+      "paper_id": "2509.21391v1"
+    },
+    {
+      "title": "Weak-to-Strong GraphRAG: Aligning Weak Retrievers with Large Language Models for Graph-based Retrieval Augmented Generation",
+      "pdf_url": "https://arxiv.org/pdf/2506.22518v1",
+      "paper_id": "2506.22518v1"
+    },
+    {
+      "title": "KG-Retriever: Efficient Knowledge Indexing for Retrieval-Augmented Large Language Models",
+      "pdf_url": "https://arxiv.org/pdf/2412.05547v2",
+      "paper_id": "2412.05547v2"
+    },
+    {
+      "title": "Medical Graph RAG: Towards Safe Medical Large Language Model via Graph Retrieval-Augmented Generation",
+      "pdf_url": "https://arxiv.org/pdf/2408.04187v2",
+      "paper_id": "2408.04187v2"
+    },
+    {
+      "title": "GraphSearch: An Agentic Deep Searching Workflow for Graph Retrieval-Augmented Generation",
+      "pdf_url": "https://arxiv.org/pdf/2509.22009v2",
+      "paper_id": "2509.22009v2"
+    },
+    {
+      "title": "A Knowledge Graph-based Retrieval-Augmented Generation Framework for Algorithm Selection in the Facility Layout Problem",
+      "pdf_url": "https://arxiv.org/pdf/2509.18054v1",
+      "paper_id": "2509.18054v1"
+    },
+    {
+      "title": "TERAG: Token-Efficient Graph-Based Retrieval-Augmented Generation",
+      "pdf_url": "https://arxiv.org/pdf/2509.18667v3",
+      "paper_id": "2509.18667v3"
+    },
+    {
+      "title": "PathRAG: Pruning Graph-based Retrieval Augmented Generation with Relational Paths",
+      "pdf_url": "https://arxiv.org/pdf/2502.14902v1",
+      "paper_id": "2502.14902v1"
+    },
+    {
+      "title": "ArchRAG: Attributed Community-based Hierarchical Retrieval-Augmented Generation",
+      "pdf_url": "https://arxiv.org/pdf/2502.09891v3",
+      "paper_id": "2502.09891v3"
+    },
+    {
+      "title": "DSRAG: A Domain-Specific Retrieval Framework Based on Document-derived Multimodal Knowledge Graph",
+      "pdf_url": "https://arxiv.org/pdf/2509.10467v1",
+      "paper_id": "2509.10467v1"
+    },
+    {
+      "title": "CAPRAG: A Large Language Model Solution for Customer Service and Automatic Reporting using Vector and Graph Retrieval-Augmented Generation",
+      "pdf_url": "https://arxiv.org/pdf/2501.13993v1",
+      "paper_id": "2501.13993v1"
+    },
+    {
+      "title": "InstructRAG: Leveraging Retrieval-Augmented Generation on Instruction Graphs for LLM-Based Task Planning",
+      "pdf_url": "https://arxiv.org/pdf/2504.13032v1",
+      "paper_id": "2504.13032v1"
+    }
+  ]
+}

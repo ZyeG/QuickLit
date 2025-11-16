@@ -1,0 +1,166 @@
+{
+  "concept_clusters": [
+    {
+      "concept": "Machine Learning Approaches",
+      "synonyms": [
+        "ML methods",
+        "AI techniques",
+        "data-driven approaches"
+      ]
+    }
+  ],
+  "boolean_query": "(\"Machine Learning Approaches\" OR \"ML methods\" OR \"AI techniques\" OR \"data-driven approaches\")",
+  "api_url": "http://export.arxiv.org/api/query?search_query=all:(%22Machine%20Learning%20Approaches%22%20OR%20%22ML%20methods%22%20OR%20%22AI%20techniques%22%20OR%20%22data-driven%20approaches%22)&start=0&max_results=30",
+  "retrieved_papers_initial": [
+    {
+      "title": "A Comprehensive Review of Propagation Models in Complex Networks: From Deterministic to Deep Learning Approaches",
+      "pdf_url": "https://arxiv.org/pdf/2410.02118v1",
+      "paper_id": "2410.02118v1"
+    },
+    {
+      "title": "Data-driven approaches to inverse problems",
+      "pdf_url": "https://arxiv.org/pdf/2506.11732v1",
+      "paper_id": "2506.11732v1"
+    },
+    {
+      "title": "Active learning for data streams: a survey",
+      "pdf_url": "https://arxiv.org/pdf/2302.08893v4",
+      "paper_id": "2302.08893v4"
+    },
+    {
+      "title": "Data-driven Energy Efficiency Modelling in Large-scale Networks: An Expert Knowledge and ML-based Approach",
+      "pdf_url": "https://arxiv.org/pdf/2401.00443v2",
+      "paper_id": "2401.00443v2"
+    },
+    {
+      "title": "A toolbox for idea generation and evaluation: Machine learning, data-driven, and contest-driven approaches to support idea generation",
+      "pdf_url": "https://arxiv.org/pdf/2205.09840v1",
+      "paper_id": "2205.09840v1"
+    },
+    {
+      "title": "Data-driven approaches for predicting spread of infectious diseases through DINNs: Disease Informed Neural Networks",
+      "pdf_url": "https://arxiv.org/pdf/2110.05445v3",
+      "paper_id": "2110.05445v3"
+    },
+    {
+      "title": "Learning Curves for Decision Making in Supervised Machine Learning: A Survey",
+      "pdf_url": "https://arxiv.org/pdf/2201.12150v2",
+      "paper_id": "2201.12150v2"
+    },
+    {
+      "title": "U-Fair: Uncertainty-based Multimodal Multitask Learning for Fairer Depression Detection",
+      "pdf_url": "https://arxiv.org/pdf/2501.09687v1",
+      "paper_id": "2501.09687v1"
+    },
+    {
+      "title": "Computational, Data-Driven, and Physics-Informed Machine Learning Approaches for Microstructure Modeling in Metal Additive Manufacturing",
+      "pdf_url": "https://arxiv.org/pdf/2505.01424v1",
+      "paper_id": "2505.01424v1"
+    },
+    {
+      "title": "A Benchmark Study of Machine Learning Models for Online Fake News Detection",
+      "pdf_url": "https://arxiv.org/pdf/1905.04749v2",
+      "paper_id": "1905.04749v2"
+    },
+    {
+      "title": "Data-Driven Machine Learning Approaches for Predicting In-Hospital Sepsis Mortality",
+      "pdf_url": "https://arxiv.org/pdf/2408.01612v2",
+      "paper_id": "2408.01612v2"
+    },
+    {
+      "title": "Development and Validation of ML-DQA -- a Machine Learning Data Quality Assurance Framework for Healthcare",
+      "pdf_url": "https://arxiv.org/pdf/2208.02670v1",
+      "paper_id": "2208.02670v1"
+    },
+    {
+      "title": "SmartChoices: Hybridizing Programming and Machine Learning",
+      "pdf_url": "https://arxiv.org/pdf/1810.00619v3",
+      "paper_id": "1810.00619v3"
+    },
+    {
+      "title": "Evolutionary Dynamic Optimization and Machine Learning",
+      "pdf_url": "https://arxiv.org/pdf/2310.08748v3",
+      "paper_id": "2310.08748v3"
+    },
+    {
+      "title": "Prediction of the outcome of a Twenty-20 Cricket Match : A Machine Learning Approach",
+      "pdf_url": "https://arxiv.org/pdf/2209.06346v2",
+      "paper_id": "2209.06346v2"
+    },
+    {
+      "title": "MEMe: An Accurate Maximum Entropy Method for Efficient Approximations in Large-Scale Machine Learning",
+      "pdf_url": "https://arxiv.org/pdf/1906.01101v1",
+      "paper_id": "1906.01101v1"
+    },
+    {
+      "title": "Evaluation of State-of-the-Art Deep Learning Techniques for Plant Disease and Pest Detection",
+      "pdf_url": "https://arxiv.org/pdf/2508.08317v1",
+      "paper_id": "2508.08317v1"
+    },
+    {
+      "title": "Interpretability of machine learning based prediction models in healthcare",
+      "pdf_url": "https://arxiv.org/pdf/2002.08596v2",
+      "paper_id": "2002.08596v2"
+    },
+    {
+      "title": "Innovative Sentiment Analysis and Prediction of Stock Price Using FinBERT, GPT-4 and Logistic Regression: A Data-Driven Approach",
+      "pdf_url": "https://arxiv.org/pdf/2412.06837v1",
+      "paper_id": "2412.06837v1"
+    },
+    {
+      "title": "Advancing Crime Linkage Analysis with Machine Learning: A Comprehensive Review and Framework for Data-Driven Approaches",
+      "pdf_url": "https://arxiv.org/pdf/2411.00864v1",
+      "paper_id": "2411.00864v1"
+    },
+    {
+      "title": "Minimizing the Weighted Number of Tardy Jobs: Data-Driven Heuristic for Single-Machine Scheduling",
+      "pdf_url": "https://arxiv.org/pdf/2508.13703v2",
+      "paper_id": "2508.13703v2"
+    },
+    {
+      "title": "A Survey of Constrained Gaussian Process Regression: Approaches and Implementation Challenges",
+      "pdf_url": "https://arxiv.org/pdf/2006.09319v3",
+      "paper_id": "2006.09319v3"
+    },
+    {
+      "title": "Learning Flat Latent Manifolds with VAEs",
+      "pdf_url": "https://arxiv.org/pdf/2002.04881v3",
+      "paper_id": "2002.04881v3"
+    },
+    {
+      "title": "Data-Driven Offline Decision-Making via Invariant Representation Learning",
+      "pdf_url": "https://arxiv.org/pdf/2211.11349v2",
+      "paper_id": "2211.11349v2"
+    },
+    {
+      "title": "AI Techniques for Software Requirements Prioritization",
+      "pdf_url": "https://arxiv.org/pdf/2108.00832v1",
+      "paper_id": "2108.00832v1"
+    },
+    {
+      "title": "Error-controlled non-additive interaction discovery in machine learning models",
+      "pdf_url": "https://arxiv.org/pdf/2408.17016v2",
+      "paper_id": "2408.17016v2"
+    },
+    {
+      "title": "A Generative Machine Learning Approach to Policy Optimization in Pursuit-Evasion Games",
+      "pdf_url": "https://arxiv.org/pdf/2010.01711v2",
+      "paper_id": "2010.01711v2"
+    },
+    {
+      "title": "Model-Agnostic Interpretability of Machine Learning",
+      "pdf_url": "https://arxiv.org/pdf/1606.05386v1",
+      "paper_id": "1606.05386v1"
+    },
+    {
+      "title": "A Review of AI-Driven Approaches for Nanoscale Heat Conduction and Radiation",
+      "pdf_url": "https://arxiv.org/pdf/2510.26058v1",
+      "paper_id": "2510.26058v1"
+    },
+    {
+      "title": "From dependency to causality: a machine learning approach",
+      "pdf_url": "https://arxiv.org/pdf/1412.6285v1",
+      "paper_id": "1412.6285v1"
+    }
+  ]
+}

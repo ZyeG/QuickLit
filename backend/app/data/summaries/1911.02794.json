@@ -1,0 +1,6 @@
+{
+  "summary": "Driven by the visions of Internet of Things and 5G communications, the edge computing systems integrate computing, storage and network resources at the edge of the network to provide computing infrastructure, enabling developers to quickly develop and deploy edge applications. Nowadays the edge computing systems have received widespread attention in both industry and academia. To explore new research opportunities and assist users in selecting suitable edge computing systems for specific applications, this survey paper provides a comprehensive overview of the existing edge computing systems and introduces representative projects. A comparison of open source tools is presented according to their applicability. Finally, we highlight energy efficiency and deep learning optimization of edge computing systems. Open issues for analyzing and designing an edge computing system are also studied in this survey.",
+  "type": "abstract",
+  "timeout": false,
+  "warning": "File too long (3205.5 KB > 976.6 KB), showing abstract only."
+}
