@@ -1,9 +1,9 @@
 ## topics
-A Survey on Deep Reinforcement Learning for Data Processing and Analytics
-Security Risk and Attacks in AI: A Survey of Security and Privacy
-Graph Retrieval-Augmented Generation for Large Language Models: A Survey
-A Survey on Machine Learning Approaches and Its Techniques
-A Survey on Edge Computing Systems and Tools
+- A Survey on Deep Reinforcement Learning for Data Processing and Analytics
+- Security Risk and Attacks in AI: A Survey of Security and Privacy
+- Graph Retrieval-Augmented Generation for Large Language Models: A Survey
+- A Survey on Machine Learning Approaches and Its Techniques
+- A Survey on Edge Computing Systems and Tools
 
 ## commands to generate lists
 
@@ -35,7 +35,7 @@ curl -X POST http://localhost:3001/api/query \
   -H "Content-Type: application/json" \
   -d '{"topic":"Edge Computing Systems and Tools","max_results":30}'
 
-
+## commands to run eval_query.py
 assume in eval_query dir
 python3 eval_query.py ./goldlists/deepRL_cites.txt ../../app/data/query_pipe_out_deep_reinforcement_learning_for_data_processing_and_analytics_20251116_210126.json
 
