@@ -30,7 +30,7 @@ services:
       OPENAI_API_KEY: ${OPENAI_API_KEY}
       SMITHERY_API_KEY: ${SMITHERY_API_KEY}
     volumes:
-      - ./backend/app/data:/app/data        # persist output JSONs
+      - ./backend/log:/app/log
     ports:
       - "3001:3001"
     restart: unless-stopped
