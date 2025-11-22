@@ -78,7 +78,7 @@ function App() {
   }, []);
 
   const persistSession = (session: Session) => {
-    setSessions((prev) => {
+    setSessions((prev: any[]) => {
       const updated = [session, ...prev.filter((s) => s.id !== session.id)];
       writeSessionsToStorage(updated);
       return updated;
