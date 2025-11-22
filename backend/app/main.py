@@ -47,8 +47,9 @@ async def run_query(request: Request):
 @app.post("/api/collections/papers/add")
 async def add_papers(request: Request):
     data = await request.json()
-    collection_name = data['id']
-    papers = data['papers']
+    session = data.get("session")
+    collection_name = session['id']
+    papers = session['papers']
 
     if not collection_name or not papers:
         return {"error": "Missing 'collection_name' or 'papers' in request body"}, 400
