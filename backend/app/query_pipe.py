@@ -16,6 +16,9 @@ BACKEND_DIR = os.path.dirname(BASE_DIR)
 # logs directory under backend/
 LOG_DIR = os.path.join(BACKEND_DIR, "log", "query_out")   # goes to backend/log/query_out/
 
+# Max number of papers to fetch per query
+MAX_PAPERS = 2
+
 os.makedirs(LOG_DIR, exist_ok=True)
 
 
@@ -52,7 +55,7 @@ Requirements:
 1. Retrieve papers exclusively from arXiv (no external sources).
 2. Estimate the semantic similarity between the topic and each candidate title.
 3. Keep only papers whose title similarity score is ≥ 0.50.
-4. Return at most 10 papers after filtering.
+4. Return at most {str(MAX_PAPERS)} papers after filtering.
 5. Prioritize:
    - high conceptual alignment
    - correct sub-domain
