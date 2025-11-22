@@ -57,7 +57,6 @@ function App() {
   const [fetchedCount, setFetchedCount] = useState<number | null>(null);
   const [sessions, setSessions] = useState<Session[]>([]);
   const [activeSessionId, setActiveSessionId] = useState<string | null>(null);
-
   // Utility: show first N words of an abstract
   const firstNWords = (text: string, n: number = 20): string => {
     if (!text) return "";
@@ -77,13 +76,28 @@ function App() {
     setSelectedPaper(null);
   }, []);
 
-  const persistSession = (session: Session) => {
-    setSessions((prev: any[]) => {
-      const updated = [session, ...prev.filter((s) => s.id !== session.id)];
-      writeSessionsToStorage(updated);
-      return updated;
-    });
-    setActiveSessionId(session.id);
+  const asyncPersistSession = async (session: Session) => {
+    // Persist to backend
+    await fetch("http://localhost:3001/api/collections/papers/add", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        session,
+      }),
+    })
+      .then(() => {
+        // Update local storage
+        setSessions((prev: any[]) => {
+          const updated = [session, ...prev.filter((s) => s.id !== session.id)];
+          writeSessionsToStorage(updated);
+          return updated;
+        });
+        setActiveSessionId(session.id);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error persisting session to backend", err);
+      });
   };
 
   const handleSessionSelect = (sessionId: string) => {
@@ -104,35 +118,33 @@ function App() {
     setFetchedCount(null);
     setSelectedPaper(null);
 
-    try {
-      const res = await fetch("http://localhost:3001/api/query", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ topic }),
+    await fetch("http://localhost:3001/api/query", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ topic }),
+    })
+      .then(async (res) => {
+        const data = await res.json();
+        const nextPapers: Paper[] = data.papers || [];
+        const total =
+          typeof data.num_papers === "number"
+            ? data.num_papers
+            : nextPapers.length;
+        setPapers(nextPapers);
+        setFetchedCount(total);
+        const newSession: Session = {
+          id: buildSessionId(),
+          topic: topic.trim(),
+          papers: nextPapers,
+          fetchedCount: total,
+          createdAt: new Date().toISOString(),
+        };
+        await asyncPersistSession(newSession);
+      })
+      .catch((err) => {
+        console.error(err);
+        alert("Error querying backend");
       });
-
-      const data = await res.json();
-      const nextPapers: Paper[] = data.papers || [];
-      const total =
-        typeof data.num_papers === "number"
-          ? data.num_papers
-          : nextPapers.length;
-      setPapers(nextPapers);
-      setFetchedCount(total);
-      const newSession: Session = {
-        id: buildSessionId(),
-        topic: topic.trim(),
-        papers: nextPapers,
-        fetchedCount: total,
-        createdAt: new Date().toISOString(),
-      };
-      persistSession(newSession);
-    } catch (err) {
-      console.error(err);
-      alert("Error querying backend");
-    }
-
-    setLoading(false);
   };
 
   return (
@@ -204,8 +216,11 @@ function App() {
         <hr style={{ margin: "20px 0" }} />
 
         {/* Status text */}
-        {loading && (
+        {loading && papers.length === 0 && (
           <p style={{ fontStyle: "italic" }}>Searching… please wait</p>
+        )}
+        {loading && papers.length > 0 && (
+          <p style={{ fontStyle: "italic" }}>Syncing results… please wait</p>
         )}
         {!loading && fetchedCount !== null && (
           <p>
@@ -214,7 +229,7 @@ function App() {
         )}
 
         {/* Results Table */}
-        {papers.length > 0 && (
+        {!loading && papers.length > 0 && (
           <table
             border={1}
             cellPadding={8}
