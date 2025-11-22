@@ -23,7 +23,6 @@
 
 - access frontend:localhost:8080
   & backend: `curl http://localhost:3001/api/health`, expect: `{"status":"ok","openai_api_key_set":true}`
-  `docker compose down -v`
 
 - access frontend:localhost:8080 & backend: localhost:3001
 
