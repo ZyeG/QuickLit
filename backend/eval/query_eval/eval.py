@@ -9,7 +9,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 BACKEND_DIR = os.path.dirname(BASE_DIR)
 # logs directory under backend/
 LOG_DIR = os.path.join(BACKEND_DIR, "log", "query_out")   # goes to backend/log/query_out/
-EVAL_JSON = os.path.join(BACKEND_DIR, "eval", "eval.json")   # goes to backend/eval/eval.json
+EVAL_JSON = os.path.join(BACKEND_DIR, "eval", "results", "query_eval", "eval.json")   # goes to backend/eval/eval.json
 def evaluate_one_topic(topic, papers):
     """
     Evaluate similarity between a topic and abstracts of its papers.
