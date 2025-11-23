@@ -7,3 +7,5 @@ python-dotenv
 feedparser
 beautifulsoup4
 pypdf
+langchain-text-splitters
+langchain-core

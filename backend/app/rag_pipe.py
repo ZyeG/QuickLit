@@ -1,6 +1,7 @@
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 import os
 import dotenv
+from app.pdf_parser import parse_papers_to_text
 dotenv.load_dotenv()
 CHUNK_SIZE = 500
 CHUNK_OVERLAP = 200
@@ -12,18 +13,25 @@ text_splitter = RecursiveCharacterTextSplitter(
 # RAG Pipeline Utilities
 def split_text(paper):
     """
-    paper: list of dict with key 'title' and value 'paper contents'
+    paper: list of dict
+    [{
+        "title": "title",
+        "pdf_url": "pdf_url",
+        "paper_id": "paper_id",
+        "content": "content",
+        "abstract": "abstract",
+    }...]
     Returns list of dicts with keys 'paper_title' and 'text' (chunk).
     """
     return_chunks = []
     for p in paper:
         chunks = text_splitter.split_text(p["content"])
-        return_chunks.extend({"paper_title": p["title"], "text": chunk} for chunk in chunks)
+        return_chunks.extend({"title": p["title"], "pdf_url": p["pdf_url"], "paper_id": p["paper_id"], "text": chunk} for chunk in chunks)
     return return_chunks
 # ---------------------------------------------
 from qdrant_client import QdrantClient, models
 import uuid
-QDRANT_CLIENT = QdrantClient(url="http://localhost:6333")
+QDRANT_CLIENT = QdrantClient(url="http://qdrant:6333")
 
 # --- OpenAI-based embedding support ----------------------------------
 
@@ -49,13 +57,19 @@ def qdrant_add_openai(collection_name, data):
     """
     Use OpenAI embeddings instead of a local sentence-transformers model.
 
-    data: list of dicts with keys 'paper_title' and 'text'
+    data: list of dicts of papers
     """
+    # parse the paper to get text content
+    data, _ = parse_papers_to_text(data)
+
+    # chunk the text
+    chunks = split_text(data)
+
     # Compute embeddings for each document
     vectors = []
     payload = []
     ids = []
-    for d in data:
+    for d in chunks:
         emb = _openai_get_embedding_vector(d["text"])
         vectors.append(emb)
         payload.append(d)
@@ -93,8 +107,24 @@ def query_qdrant_openai(collection_name, query_text, top_k=5, return_points: boo
     if return_points:
         return search_result
     return "\n".join(
-        [f"Paper Title: {result.payload['paper_title']}\nContent: {result.payload['text']}" for result in search_result]
+        [f"Paper Title: {result.payload['title']}\nContent: {result.payload['text']}" for result in search_result]
     )
 
 if __name__ == "__main__":
+    # Example usage:
+    # qdrant_add_openai(
+    #     "9e958d99-36ba-415e-a9ca-38c33a4ec35c",
+    #     [{
+    #     "paper_id": "1506.02157",
+    #     "title": "Dropout as a Bayesian Approximation: Appendix",
+    #     "pdf_url": "https://arxiv.org/pdf/1506.02157.pdf",
+    #     "abstract": "We show that a neural network with arbitrary depth and non-linearities, with dropout applied before every weight layer, is mathematically equivalent to an approximation to a well known Bayesian model. This interpretation might offer an explanation to some of dropout's key properties, such as its robustness to over-fitting. Our interpretation allows us to reason about uncertainty in deep learning, and allows the introduction of the Bayesian machinery into existing deep learning frameworks in a principled way.\n  This document is an appendix for the main paper \"Dropout as a Bayesian Approximation: Representing Model Uncertainty in Deep Learning\" by Gal and Ghahramani, 2015."
+    #     }]
+    # )
+
+    # print(query_qdrant_openai(
+    #     "9e958d99-36ba-415e-a9ca-38c33a4ec35c",
+    #     "What is the Bayesian interpretation of dropout in neural networks?",
+    #     top_k=3
+    # ))
     pass

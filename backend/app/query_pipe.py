@@ -1,10 +1,9 @@
 import json
 from openai import OpenAI
 import re
-import os,sys
+import os
 import requests
 import xml.etree.ElementTree as ET
-import numpy as np
 
 OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
 client = OpenAI(api_key=OPENAI_API_KEY)
@@ -53,7 +52,7 @@ Requirements:
 1. Retrieve papers exclusively from arXiv (no external sources).
 2. Estimate the semantic similarity between the topic and each candidate title.
 3. Keep only papers whose title similarity score is ≥ 0.50.
-4. Return at most 30 papers after filtering.
+4. Return at most 10 papers after filtering.
 5. Prioritize:
    - high conceptual alignment
    - correct sub-domain
