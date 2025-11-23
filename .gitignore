@@ -43,3 +43,13 @@ backend/eval/query_eval/results/
 # Build outputs
 build/
 dist/
+
+# IDEs and editors
+.vscode/
+
+# Python
+__pycache__/
+*.pyc
+
+# Logs
+backend/log/

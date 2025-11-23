@@ -9,12 +9,6 @@ services:
     volumes:
       - qdrant_data:/qdrant/storage
     restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "curl", "http://localhost:6333/healthz"]
-      interval: 10s
-      timeout: 3s
-      retries: 5
-      start_period: 5s
     networks:
       - appnet
   backend:
@@ -25,10 +19,9 @@ services:
     depends_on:
       - qdrant
     environment:
-      QDRANT_HOST: qdrant
-      QDRANT_PORT: 6333
+      QDRANT_HOST: ${QDRANT_HOST}
+      QDRANT_PORT: ${QDRANT_PORT}
       OPENAI_API_KEY: ${OPENAI_API_KEY}
-      SMITHERY_API_KEY: ${SMITHERY_API_KEY}
     volumes:
       - ./backend/log:/app/log
     ports:

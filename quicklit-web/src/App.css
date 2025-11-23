@@ -1,3 +1,128 @@
+.ql-container {
+  padding: 2rem;
+  font-family: sans-serif;
+}
+
+.ql-input-row {
+  display: flex;
+  /* align-items: flex-start; stack labels above inputs (align top) */
+  /* background-color: #2563eb; */
+  align-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.ql-label {
+  display: block;
+  margin-bottom: 0.25rem; /* match small label spacing for alignment */
+  font-weight: 700;
+}
+
+.ql-input {
+  width: 400px;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+}
+
+.ql-inline-block {
+  display: inline-block;
+  margin-left: 1rem;
+  flex-direction: column;
+}
+
+/* Ensure each field stacks label + input consistently */
+.ql-input-row > div,
+.ql-inline-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.ql-label-small {
+  display: block;
+  margin-bottom: 0.25rem; /* match larger label spacing */
+  font-weight: 700;
+}
+
+.ql-small-input {
+  width: 80px;
+  height: 100%;
+  padding: 0.4rem;
+  font-size: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+}
+
+.ql-small-note {
+  font-size: 0.85rem;
+  color: #555;
+  margin-top: 0.3rem;
+}
+
+.ql-btn-container {
+  margin-top: 1.5rem;
+}
+
+.ql-btn-primary {
+  width: 100px;
+  border: none;
+  border-radius: 10px;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+  background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.18);
+}
+
+.ql-btn-secondary {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+  background: white;
+  color: #111827;
+}
+.ql-btn-primary:hover,
+.ql-btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+}
+
+.ql-disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none !important;
+}
+
+.ql-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.ql-pagination {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ql-page-btn {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.ql-pre-output {
+  background: #eee;
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+}
 .App {
   text-align: center;
 }
