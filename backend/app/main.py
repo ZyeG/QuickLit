@@ -1,7 +1,8 @@
 from fastapi import FastAPI, Request, Query
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import StreamingResponse
 import os
-from app.query_pipe import query
+from app.query_pipe import query, chat_query
 from app.rag_pipe import qdrant_add_openai, query_qdrant_openai
 app = FastAPI()
 
@@ -64,7 +65,7 @@ async def query_collection(request: Request):
     data = await request.json()
     collection_name = data.get('collection_name')
     query_text = data.get('query_text')
-    top_k = data.get('top_k', 5)
+    top_k = data.get('top_k', 10)
 
     if not collection_name or not query_text:
         return {"error": "Missing 'collection_name' or 'query_text' in query parameters"}
@@ -76,3 +77,24 @@ async def query_collection(request: Request):
     )
 
     return results
+
+@app.post("/api/chat/stream")
+async def generate_stream(request: Request):
+    data = await request.json()
+    print(data)
+    collection_name = data.get("collection_name")
+    query_text = data.get("query_text")
+
+    if not collection_name:
+        return {"error": "Missing 'collection_name' in request body"}
+    if not query_text:
+        return {"error": "Missing 'query_text' in request body"}
+    results = query_qdrant_openai(
+                collection_name=collection_name,
+                query_text=query_text,
+                top_k=10,
+                )
+
+    response_stream = chat_query(query=query_text, context=results, model="gpt-5", stream=True)
+
+    return StreamingResponse(response_stream, media_type="text/plain")

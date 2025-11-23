@@ -21,6 +21,17 @@ MAX_PAPERS = 2
 
 os.makedirs(LOG_DIR, exist_ok=True)
 
+CHAT_SYSTEM_PROMPT = """You are an academic research assistant that helps to get information from researched paper.\
+You will be given the context of the paper and a question related to it.\
+Provide a concise and accurate answer based on the context provided.\
+If the context does not contain the answer, respond with "Insufficient information."\
+Do not make up answers or provide information not present in the context.\
+Use formal academic language and cite specific sections or data from the paper when relevant.\
+When answering, ensure clarity and coherence, making it easy for the user to understand the response.\
+Avoid including any content that is not directly related to the question or context.\
+Your answers should be factual and based solely on the provided context.\
+Context:\n
+"""
 
 def get_arxiv_abstract(paper_id):
     url = f"http://export.arxiv.org/api/query?id_list={paper_id}"
@@ -122,3 +133,29 @@ Begin now.
 
 
     return rest_json, out_path
+
+def chat_query(query: str, context: str, model="gpt-5", stream: bool = False):
+    instructions = CHAT_SYSTEM_PROMPT + context
+
+    if stream:
+        def response_generator():
+            with client.responses.stream(
+                model=model,
+                instructions=instructions,
+                input=query,
+            ) as response_stream:
+                for event in response_stream:
+                    if event.type == "response.output_text.delta":
+                        chunk = getattr(event, "delta", "")
+                        if chunk:
+                            yield chunk
+                response_stream.get_final_response()
+
+        return response_generator()
+
+    response = client.responses.create(
+        model=model,
+        instructions=instructions,
+        input=query
+    )
+    return response.output_text
