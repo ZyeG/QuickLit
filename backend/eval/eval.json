@@ -1,0 +1,302 @@
+{
+  "Graph Retrieval-Augmented Generation for Large Language Models": {
+    "topic": "Graph Retrieval-Augmented Generation for Large Language Models",
+    "num_papers": 26,
+    "mean_similarity": 0.5890783541477643,
+    "median_similarity": 0.6054874062538147,
+    "precision_above_0.4": 0.9615384615384616,
+    "top10_precision": 1.0,
+    "papers": [
+      {
+        "paper_id": "2405.16506",
+        "title": "GRAG: Graph Retrieval-Augmented Generation",
+        "similarity": 0.6912638545036316
+      },
+      {
+        "paper_id": "2408.04187",
+        "title": "Medical Graph RAG: Towards Safe Medical Large Language Model via Graph Retrieval-Augmented Generation",
+        "similarity": 0.6591463088989258
+      },
+      {
+        "paper_id": "2408.08921",
+        "title": "Graph Retrieval-Augmented Generation: A Survey",
+        "similarity": 0.6774669885635376
+      },
+      {
+        "paper_id": "2410.20724",
+        "title": "Simple Is Effective: The Roles of Graphs and Large Language Models in Knowledge-Graph-Based Retrieval-Augmented Generation",
+        "similarity": 0.6353514194488525
+      },
+      {
+        "paper_id": "2501.02226",
+        "title": "Knowledge Graph Retrieval-Augmented Generation for LLM-based Recommendation",
+        "similarity": 0.5894343852996826
+      },
+      {
+        "paper_id": "2501.08686",
+        "title": "Knowledge Graph-based Retrieval-Augmented Generation for Schema Matching",
+        "similarity": 0.6340603828430176
+      },
+      {
+        "paper_id": "2502.01113",
+        "title": "GFM-RAG: Graph Foundation Model for Retrieval Augmented Generation",
+        "similarity": 0.7185373306274414
+      },
+      {
+        "paper_id": "2502.09304",
+        "title": "KET-RAG: A Cost-Efficient Multi-Granular Indexing Framework for Graph-RAG",
+        "similarity": 0.5185334086418152
+      },
+      {
+        "paper_id": "2503.13514",
+        "title": "RAG-KG-IL: A Multi-Agent Hybrid Framework for Reducing Hallucinations and Enhancing LLM Reasoning through RAG and Incremental Knowledge Graph Learning Integration",
+        "similarity": 0.3750762939453125
+      },
+      {
+        "paper_id": "2503.14234",
+        "title": "KG-IRAG: A Knowledge Graph-Based Iterative Retrieval-Augmented Generation Framework for Temporal Reasoning",
+        "similarity": 0.4542153775691986
+      },
+      {
+        "paper_id": "2504.07103",
+        "title": "FG-RAG: Enhancing Query-Focused Summarization with Context-Aware Fine-Grained Graph RAG",
+        "similarity": 0.5916849970817566
+      },
+      {
+        "paper_id": "2504.08893",
+        "title": "Knowledge Graph-extended Retrieval Augmented Generation for Question Answering",
+        "similarity": 0.5678083300590515
+      },
+      {
+        "paper_id": "2504.11544",
+        "title": "NodeRAG: Structuring Graph-based RAG with Heterogeneous Nodes",
+        "similarity": 0.5833008289337158
+      },
+      {
+        "paper_id": "2506.02404",
+        "title": "GraphRAG-Bench: Challenging Domain-Specific Reasoning for Evaluating Graph Retrieval-Augmented Generation",
+        "similarity": 0.6076759696006775
+      },
+      {
+        "paper_id": "2506.13782",
+        "title": "XGraphRAG: Interactive Visual Analysis for Graph-based Retrieval-Augmented Generation",
+        "similarity": 0.5418622493743896
+      },
+      {
+        "paper_id": "2506.15241",
+        "title": "Research on Graph-Retrieval Augmented Generation Based on Historical Text Knowledge Graphs",
+        "similarity": 0.615473747253418
+      },
+      {
+        "paper_id": "2508.19855",
+        "title": "Youtu-GraphRAG: Vertically Unified Agents for Graph Retrieval-Augmented Complex Reasoning",
+        "similarity": 0.5173631310462952
+      },
+      {
+        "paper_id": "2509.01238",
+        "title": "Towards Open-World Retrieval-Augmented Generation on Knowledge Graph: A Multi-Agent Collaboration Framework",
+        "similarity": 0.6137975454330444
+      },
+      {
+        "paper_id": "2509.03626",
+        "title": "Explainable Knowledge Graph Retrieval-Augmented Generation (KG-RAG) with KG-SMILE",
+        "similarity": 0.5085391998291016
+      },
+      {
+        "paper_id": "2509.12743",
+        "title": "Zero-shot Graph Reasoning via Retrieval Augmented Framework with LLMs",
+        "similarity": 0.6184004545211792
+      },
+      {
+        "paper_id": "2509.16502",
+        "title": "GRIL: Knowledge Graph Retrieval-Integrated Learning with Large Language Models",
+        "similarity": 0.6079540252685547
+      },
+      {
+        "paper_id": "2509.22009",
+        "title": "GraphSearch: An Agentic Deep Searching Workflow for Graph Retrieval-Augmented Generation",
+        "similarity": 0.6032988429069519
+      },
+      {
+        "paper_id": "2509.26383",
+        "title": "Efficient and Transferable Agentic Knowledge Graph RAG via Reinforcement Learning",
+        "similarity": 0.5136449337005615
+      },
+      {
+        "paper_id": "2510.07718",
+        "title": "SUBQRAG: sub-question driven dynamic graph rag",
+        "similarity": 0.5150095224380493
+      },
+      {
+        "paper_id": "2510.10114",
+        "title": "LinearRAG: Linear Graph Retrieval Augmented Generation on Large-scale Corpora",
+        "similarity": 0.6996297836303711
+      },
+      {
+        "paper_id": "2511.05549",
+        "title": "AGRAG: Advanced Graph-based Retrieval-Augmented Generation for LLMs",
+        "similarity": 0.6575078964233398
+      }
+    ]
+  },
+  "Generative AI Application in Education": {
+    "topic": "Generative AI Application in Education",
+    "num_papers": 30,
+    "mean_similarity": 0.392630202571551,
+    "median_similarity": 0.3900469094514847,
+    "precision_above_0.4": 0.36666666666666664,
+    "top10_precision": 1.0,
+    "papers": [
+      {
+        "paper_id": "2308.02773",
+        "title": "EduChat: A Large-Scale Language Model-based Chatbot System for Intelligent Education",
+        "similarity": 0.3884252905845642
+      },
+      {
+        "paper_id": "2403.18105",
+        "title": "Large Language Models for Education: A Survey and Outlook",
+        "similarity": 0.3815189301967621
+      },
+      {
+        "paper_id": "2405.13001",
+        "title": "Large Language Models for Education: A Survey",
+        "similarity": 0.49288129806518555
+      },
+      {
+        "paper_id": "2305.11583",
+        "title": "RECIPE: How to Integrate ChatGPT into EFL Writing Education",
+        "similarity": 0.4914686977863312
+      },
+      {
+        "paper_id": "2305.07605",
+        "title": "Generative AI: Implications and Applications for Education",
+        "similarity": 0.6380937099456787
+      },
+      {
+        "paper_id": "2402.09216",
+        "title": "AutoTutor meets Large Language Models: A Language Model Tutor with Rich Pedagogy and Guardrails",
+        "similarity": 0.4380997121334076
+      },
+      {
+        "paper_id": "2409.15981",
+        "title": "GPT-4 as a Homework Tutor can Improve Student Engagement and Learning Outcomes",
+        "similarity": 0.2947281002998352
+      },
+      {
+        "paper_id": "2410.03017",
+        "title": "Tutor CoPilot: A Human-AI Approach for Scaling Real-Time Expertise",
+        "similarity": 0.4156089425086975
+      },
+      {
+        "paper_id": "2501.14305",
+        "title": "A Zero-Shot LLM Framework for Automatic Assignment Grading in Higher Education",
+        "similarity": 0.3127538561820984
+      },
+      {
+        "paper_id": "2503.14630",
+        "title": "Assessing Large Language Models for Automated Feedback Generation in Learning Programming Problem Solving",
+        "similarity": 0.31992101669311523
+      },
+      {
+        "paper_id": "2411.13685",
+        "title": "Using AI Large Language Models for Grading in Education: A Hands-On Test for Physics",
+        "similarity": 0.4363551437854767
+      },
+      {
+        "paper_id": "2405.08008",
+        "title": "Iris: An AI-Driven Virtual Tutor For Computer Science Education",
+        "similarity": 0.4059641361236572
+      },
+      {
+        "paper_id": "2409.16779",
+        "title": "LLaMa-SciQ: An Educational Chatbot for Answering Science MCQ",
+        "similarity": 0.3919218182563782
+      },
+      {
+        "paper_id": "2304.06638",
+        "title": "How Useful are Educational Questions Generated by Large Language Models?",
+        "similarity": 0.39166852831840515
+      },
+      {
+        "paper_id": "2303.13379",
+        "title": "Practical and Ethical Challenges of Large Language Models in Education: A Systematic Scoping Review",
+        "similarity": 0.2845233678817749
+      },
+      {
+        "paper_id": "2305.18617",
+        "title": "Waiting, Banning, and Embracing: An Empirical Analysis of Adapting Policies for Generative AI in Higher Education",
+        "similarity": 0.3318738341331482
+      },
+      {
+        "paper_id": "2401.00832",
+        "title": "Taking the Next Step with Generative Artificial Intelligence: The Transformative Role of Multimodal Large Language Models in Science Education",
+        "similarity": 0.5133294463157654
+      },
+      {
+        "paper_id": "2403.14702",
+        "title": "Large language model-powered chatbots for internationalizing student support in higher education",
+        "similarity": 0.3155028223991394
+      },
+      {
+        "paper_id": "2401.11314",
+        "title": "CodeAid: Evaluating a Classroom Deployment of an LLM-based Programming Assistant that Balances Student and Educator Needs",
+        "similarity": 0.35271304845809937
+      },
+      {
+        "paper_id": "2311.02775",
+        "title": "AI-TA: Towards an Intelligent Question-Answer Teaching Assistant using Open-Source LLMs",
+        "similarity": 0.32130166888237
+      },
+      {
+        "paper_id": "2312.07343",
+        "title": "Can ChatGPT Play the Role of a Teaching Assistant in an Introductory Programming Course?",
+        "similarity": 0.32595598697662354
+      },
+      {
+        "paper_id": "2406.04817",
+        "title": "Experiences from Integrating Large Language Model Chatbots into the Classroom",
+        "similarity": 0.34228140115737915
+      },
+      {
+        "paper_id": "2409.09047",
+        "title": "AI Meets the Classroom: When Do Large Language Models Harm Learning?",
+        "similarity": 0.3503057658672333
+      },
+      {
+        "paper_id": "2309.16804",
+        "title": "Curriculum-Driven Edubot: A Framework for Developing Language Learning Chatbots Through Synthesizing Conversational Data",
+        "similarity": 0.37580546736717224
+      },
+      {
+        "paper_id": "2501.10332",
+        "title": "Agent4Edu: Generating Learner Response Data by Generative Agents for Intelligent Education Systems",
+        "similarity": 0.42526775598526
+      },
+      {
+        "paper_id": "2508.11401",
+        "title": "FACET: Teacher-Centred LLM-Based Multi-Agent Systems-Towards Personalized Educational Worksheets",
+        "similarity": 0.3995892405509949
+      },
+      {
+        "paper_id": "2504.05370",
+        "title": "EduPlanner: LLM-Based Multi-Agent Systems for Customized and Intelligent Instructional Design",
+        "similarity": 0.4597069025039673
+      },
+      {
+        "paper_id": "2508.05953",
+        "title": "SCALEFeedback: A Large-Scale Dataset of Synthetic Computer Science Assignments for LLM-generated Educational Feedback Research",
+        "similarity": 0.3932482600212097
+      },
+      {
+        "paper_id": "2502.12842",
+        "title": "Towards Adaptive Feedback with AI: Comparing the Feedback Quality of LLMs and Teachers on Experimentation Protocols",
+        "similarity": 0.3591795563697815
+      },
+      {
+        "paper_id": "2406.19226",
+        "title": "Simulating Classroom Education with LLM-Empowered Agents",
+        "similarity": 0.42891237139701843
+      }
+    ]
+  }
+}
