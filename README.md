@@ -29,7 +29,10 @@ create .env at root, put openai api key
 }
 ```
 
-## 
-Graph Retrieval-Augmented Generation for Large Language Models
-
-Generative AI Application in Education
+## Eval topics
+- Deep Reinforcement Learning for Data Processing and Analytics
+- Security Risk and Attacks in AI
+- Graph Retrieval-Augmented Generation for Large Language Models
+- Machine Learning Approaches and Its Techniques
+- Edge Computing Systems and Tools
+- The impact of AI on modern society
