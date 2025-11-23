@@ -3,7 +3,7 @@
 ## run project with docker
 
 - prereq:
-  create `.env` at root, put openai api key
+  create `.env` or change `.env.example` to `.env` at root, put openai api key
 
   ```.env
   OPENAI_API_KEY="YOUR_OPENAI_KEY"
