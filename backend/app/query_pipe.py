@@ -1,10 +1,9 @@
 import json
 from openai import OpenAI
 import re
-import os,sys
+import os
 import requests
 import xml.etree.ElementTree as ET
-import numpy as np
 
 OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
 client = OpenAI(api_key=OPENAI_API_KEY)
@@ -17,8 +16,24 @@ BACKEND_DIR = os.path.dirname(BASE_DIR)
 # logs directory under backend/
 LOG_DIR = os.path.join(BACKEND_DIR, "log", "query_out")   # goes to backend/log/query_out/
 
+# Max number of papers to fetch per query
+MAX_PAPERS = 2
+
 os.makedirs(LOG_DIR, exist_ok=True)
 
+CHAT_SYSTEM_PROMPT = """
+You are an academic research assistant that helps to get information from researched paper.\
+You will be given the context of the paper and a question related to it.\
+Provide a concise and accurate answer based on the context provided.\
+If the context does not contain the answer, respond with "Insufficient information."\
+Do not make up answers or provide information not present in the context.\
+Use formal academic language and cite specific sections or data from the paper when relevant.\
+When answering, ensure clarity and coherence, making it easy for the user to understand the response.\
+Avoid including any content that is not directly related to the question or context.\
+Your answers should be factual and based solely on the provided context.\
+First give a brief summary of the answer, then provide detailed explanation.\
+Context:\n
+"""
 
 def get_arxiv_abstract(paper_id):
     url = f"http://export.arxiv.org/api/query?id_list={paper_id}"
@@ -53,7 +68,7 @@ Requirements:
 1. Retrieve papers exclusively from arXiv (no external sources).
 2. Estimate the semantic similarity between the topic and each candidate title.
 3. Keep only papers whose title similarity score is ≥ 0.50.
-4. Return at most 30 papers after filtering.
+4. Return at most {str(MAX_PAPERS)} papers after filtering.
 5. Prioritize:
    - high conceptual alignment
    - correct sub-domain
@@ -120,3 +135,29 @@ Begin now.
 
 
     return rest_json, out_path
+
+def chat_query(query: str, context: str, model="gpt-5", stream: bool = False):
+    instructions = CHAT_SYSTEM_PROMPT + context
+
+    if stream:
+        def response_generator():
+            with client.responses.stream(
+                model=model,
+                instructions=instructions,
+                input=query,
+            ) as response_stream:
+                for event in response_stream:
+                    if event.type == "response.output_text.delta":
+                        chunk = getattr(event, "delta", "")
+                        if chunk:
+                            yield chunk
+                response_stream.get_final_response()
+
+        return response_generator()
+
+    response = client.responses.create(
+        model=model,
+        instructions=instructions,
+        input=query
+    )
+    return response.output_text
