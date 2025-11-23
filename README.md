@@ -28,3 +28,8 @@ create .env at root, put openai api key
   ]
 }
 ```
+
+## 
+Graph Retrieval-Augmented Generation for Large Language Models
+
+Generative AI Application in Education

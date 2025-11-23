@@ -4,6 +4,12 @@ import json, os, requests, re
 from app.query_pipe import query
 app = FastAPI()
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# go up to backend/
+BACKEND_DIR = os.path.dirname(BASE_DIR)
+# logs directory under backend/
+LOG_DIR = os.path.join(BACKEND_DIR, "log", "query_out")   # goes to backend/log/query_out/
+
 # @app.get("/")
 # def read_root():
 #     return {"message": "hello world"}
@@ -28,9 +34,37 @@ async def run_query(request: Request):
     model = data.get("model", "gpt-5")   # optional
     #out_dir = data.get("out_dir", "./log/query_out")  # optional
 
+    topic_lower = topic.strip().lower()
+
+    # Scan all .json files in the cache directory
+    for fname in os.listdir(LOG_DIR):
+        if not fname.endswith(".json"):
+            continue
+
+        fpath = os.path.join(LOG_DIR, fname)
+        try:
+            with open(fpath, "r", encoding="utf-8") as f:
+                cached = json.load(f)
+
+            cached_topic = cached.get("topic", "").strip().lower()
+
+            if cached_topic == topic_lower:
+                # Cache hit!
+                print(f"[CACHE HIT] Using cached result: {fpath}")
+
+                return {
+                    "num_papers": cached.get("num_papers", 0),
+                    "papers": cached.get("papers", []),
+                    #"cached": True,
+                }
+
+        except Exception as e:
+            print("Error reading cache:", e)
+
+
     rest_json, log_path = query(topic=topic, model=model)
 
-    # return only papers (plus metadata if you want)
+    # return only papers
     return {
         "num_papers": rest_json["num_papers"],
         "papers": rest_json["papers"],
