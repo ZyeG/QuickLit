@@ -34,37 +34,9 @@ async def run_query(request: Request):
     model = data.get("model", "gpt-5")   # optional
     #out_dir = data.get("out_dir", "./log/query_out")  # optional
 
-    topic_lower = topic.strip().lower()
-
-    # Scan all .json files in the cache directory
-    for fname in os.listdir(LOG_DIR):
-        if not fname.endswith(".json"):
-            continue
-
-        fpath = os.path.join(LOG_DIR, fname)
-        try:
-            with open(fpath, "r", encoding="utf-8") as f:
-                cached = json.load(f)
-
-            cached_topic = cached.get("topic", "").strip().lower()
-
-            if cached_topic == topic_lower:
-                # Cache hit!
-                print(f"[CACHE HIT] Using cached result: {fpath}")
-
-                return {
-                    "num_papers": cached.get("num_papers", 0),
-                    "papers": cached.get("papers", []),
-                    #"cached": True,
-                }
-
-        except Exception as e:
-            print("Error reading cache:", e)
-
-
     rest_json, log_path = query(topic=topic, model=model)
 
-    # return only papers
+    # return only papers (plus metadata if you want)
     return {
         "num_papers": rest_json["num_papers"],
         "papers": rest_json["papers"],

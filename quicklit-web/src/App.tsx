@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 
 // -------------------------
@@ -11,6 +11,41 @@ type Paper = {
   abstract: string;
 };
 
+type Session = {
+  id: string;
+  topic: string;
+  papers: Paper[];
+  fetchedCount: number;
+  createdAt: string;
+};
+
+const STORAGE_KEY = "quicklitSessions";
+
+const readSessionsFromStorage = (): Session[] => {
+  if (typeof window === "undefined") return [];
+  try {
+    const value = window.localStorage.getItem(STORAGE_KEY);
+    if (!value) return [];
+    const parsed = JSON.parse(value);
+    return Array.isArray(parsed) ? (parsed as Session[]) : [];
+  } catch (err) {
+    console.error("Unable to read sessions from storage", err);
+    return [];
+  }
+};
+
+const writeSessionsToStorage = (sessions: Session[]) => {
+  if (typeof window === "undefined") return;
+  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(sessions));
+};
+
+const buildSessionId = () => {
+  if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
+    return crypto.randomUUID();
+  }
+  return `session-${Date.now()}`;
+};
+
 // -------------------------
 // Component
 // -------------------------
@@ -20,12 +55,45 @@ function App() {
   const [loading, setLoading] = useState<boolean>(false);
   const [selectedPaper, setSelectedPaper] = useState<Paper | null>(null);
   const [fetchedCount, setFetchedCount] = useState<number | null>(null);
+  const [sessions, setSessions] = useState<Session[]>([]);
+  const [activeSessionId, setActiveSessionId] = useState<string | null>(null);
 
   // Utility: show first N words of an abstract
   const firstNWords = (text: string, n: number = 20): string => {
     if (!text) return "";
     const words = text.split(/\s+/);
     return words.slice(0, n).join(" ") + (words.length > n ? " ..." : "");
+  };
+
+  useEffect(() => {
+    const storedSessions = readSessionsFromStorage();
+    if (storedSessions.length === 0) return;
+    setSessions(storedSessions);
+    const latestSession = storedSessions[0];
+    setActiveSessionId(latestSession.id);
+    setTopic(latestSession.topic);
+    setPapers(latestSession.papers);
+    setFetchedCount(latestSession.fetchedCount);
+    setSelectedPaper(null);
+  }, []);
+
+  const persistSession = (session: Session) => {
+    setSessions((prev) => {
+      const updated = [session, ...prev.filter((s) => s.id !== session.id)];
+      writeSessionsToStorage(updated);
+      return updated;
+    });
+    setActiveSessionId(session.id);
+  };
+
+  const handleSessionSelect = (sessionId: string) => {
+    const session = sessions.find((s) => s.id === sessionId);
+    if (!session) return;
+    setActiveSessionId(sessionId);
+    setTopic(session.topic);
+    setPapers(session.papers);
+    setFetchedCount(session.fetchedCount);
+    setSelectedPaper(null);
   };
 
   const handleQuery = async () => {
@@ -44,8 +112,21 @@ function App() {
       });
 
       const data = await res.json();
-      setPapers(data.papers || []);
-      setFetchedCount(data.num_papers || 0);
+      const nextPapers: Paper[] = data.papers || [];
+      const total =
+        typeof data.num_papers === "number"
+          ? data.num_papers
+          : nextPapers.length;
+      setPapers(nextPapers);
+      setFetchedCount(total);
+      const newSession: Session = {
+        id: buildSessionId(),
+        topic: topic.trim(),
+        papers: nextPapers,
+        fetchedCount: total,
+        createdAt: new Date().toISOString(),
+      };
+      persistSession(newSession);
     } catch (err) {
       console.error(err);
       alert("Error querying backend");
@@ -59,6 +140,40 @@ function App() {
       {/* MAIN COLUMN */}
       <div style={{ flex: 1, padding: "20px" }}>
         <h1>QuickLit</h1>
+
+        {sessions.length > 0 && (
+          <div style={{ margin: "10px 0" }}>
+            <div style={{ fontWeight: "bold", marginBottom: "6px" }}>
+              Sessions
+            </div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+              {sessions.map((session) => (
+                <button
+                  key={session.id}
+                  onClick={() => handleSessionSelect(session.id)}
+                  style={{
+                    padding: "6px 10px",
+                    borderRadius: "6px",
+                    border:
+                      activeSessionId === session.id
+                        ? "2px solid #0077cc"
+                        : "1px solid #ccc",
+                    background:
+                      activeSessionId === session.id ? "#e6f2fb" : "#fff",
+                    cursor: "pointer",
+                  }}
+                >
+                  {session.topic || "Untitled"} (
+                  {new Date(session.createdAt).toLocaleDateString(undefined, {
+                    month: "short",
+                    day: "numeric",
+                  })}
+                  )
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Topic Input */}
         <input
@@ -89,7 +204,9 @@ function App() {
         <hr style={{ margin: "20px 0" }} />
 
         {/* Status text */}
-        {loading && <p style={{ fontStyle: "italic" }}>Searching… please wait</p>}
+        {loading && (
+          <p style={{ fontStyle: "italic" }}>Searching… please wait</p>
+        )}
         {!loading && fetchedCount !== null && (
           <p>
             <strong>Fetched {fetchedCount} papers</strong>
@@ -117,7 +234,11 @@ function App() {
                   <td>{p.paper_id}</td>
                   <td>{p.title}</td>
                   <td>
-                    <a href={p.pdf_url} target="_blank" rel="noopener noreferrer">
+                    <a
+                      href={p.pdf_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       PDF
                     </a>
                   </td>
