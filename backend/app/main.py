@@ -4,6 +4,7 @@ from fastapi.responses import StreamingResponse
 import os
 from app.query_pipe import query, chat_query
 from app.rag_pipe import qdrant_add_openai, query_qdrant_openai
+import json
 app = FastAPI()
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -27,8 +28,13 @@ app.add_middleware(
 
 @app.post("/api/query")
 async def run_query(request: Request):
+    
     data = await request.json()
     topic = data.get("topic")
+
+    # debug print
+    print(f"Running query for topic: {topic}", flush=True)
+
 
     if not topic:
         return {"error": "Missing 'topic' in request body"}
@@ -36,6 +42,33 @@ async def run_query(request: Request):
     model = data.get("model", "gpt-5")   # optional
     #out_dir = data.get("out_dir", "./log/query_out")  # optional
 
+    topic_lower = topic.strip().lower()
+
+    # scan all .json files in LOG_DIR to see if we have cached result
+    for fname in os.listdir(LOG_DIR):
+        # debug print file name
+        print(f"Checking cache file: {fname}", flush=True)
+
+        if not fname.endswith(".json"):
+            continue
+        fpath = os.path.join(LOG_DIR, fname)
+        try:
+            with open(fpath, "r") as f:
+                cached_data = json.load(f)
+            cached_topic = cached_data.get("topic", "").strip().lower()
+            if cached_topic == topic_lower:
+                # cache hit
+                print(f"Cache hit for topic: {topic}", flush=True)
+                return {
+                    "num_papers": cached_data.get("num_papers", 0),
+                    "papers": cached_data.get("papers", []),
+                }
+        except Exception:
+            print(f"Skipping invalid JSON file: {fpath}", flush=True)
+            # debug print exception
+            traceback.print_exc()
+            continue   # skip invalid json files
+    # cache miss, run query
     rest_json, _ = query(topic=topic, model=model)
 
     # return only papers (plus metadata if you want)
