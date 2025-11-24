@@ -52,6 +52,7 @@ function App() {
   const [fetchedCount, setFetchedCount] = useState<number | null>(null);
   const [sessions, setSessions] = useState<Session[]>([]);
   const [activeSessionId, setActiveSessionId] = useState<string | null>(null);
+  const [isSyncing, setIsSyncing] = useState<boolean>(false);
 
   const firstNWords = (text: string, n: number = 20): string => {
     if (!text) return "";
@@ -83,10 +84,10 @@ function App() {
         setSessions((prev: Session[]) => {
           const updated = [session, ...prev.filter((s) => s.id !== session.id)];
           writeSessionsToStorage(updated);
+          setIsSyncing(false);
           return updated;
         });
         setActiveSessionId(session.id);
-        setLoading(false);
       })
       .catch((err) => {
         console.error("Error persisting session to backend", err);
@@ -107,6 +108,7 @@ function App() {
     if (!topic.trim()) return;
 
     setLoading(true);
+    setIsSyncing(true);
     setPapers([]);
     setFetchedCount(null);
     setSelectedPaper(null);
@@ -132,6 +134,7 @@ function App() {
           fetchedCount: total,
           createdAt: new Date().toISOString(),
         };
+        setLoading(false);
         await asyncPersistSession(newSession);
       })
       .catch((err) => {
@@ -142,8 +145,10 @@ function App() {
 
   const statusLabel = () => {
     if (loading && papers.length === 0) return "Searching for relevant papers";
-    if (loading && papers.length > 0) return "Syncing results";
-    if (!loading && fetchedCount !== null) return `Fetched ${fetchedCount} papers`;
+    if (isSyncing && papers.length > 0)
+      return "Syncing results, please wait...";
+    if (!loading && fetchedCount !== null)
+      return `Fetched ${fetchedCount} papers`;
     if (!loading && fetchedCount === 0) return "No papers found for this topic";
     return "";
   };
@@ -171,7 +176,8 @@ function App() {
                 Discover focused papers, summarized fast.
               </h1>
               <p className="ql-subheading">
-                Search, scan abstracts, and pin a paper without leaving your flow.
+                Search, scan abstracts, and pin a paper without leaving your
+                flow.
               </p>
 
               <div className="ql-search-card">
@@ -224,7 +230,7 @@ function App() {
                             {
                               month: "short",
                               day: "numeric",
-                            },
+                            }
                           )}
                         </span>
                       </button>
@@ -244,7 +250,9 @@ function App() {
                 <div>
                   <p className="ql-eyebrow">Results</p>
                   <h3 className="ql-section-title">
-                    {fetchedCount !== null ? `${fetchedCount} papers` : "Waiting for a query"}
+                    {fetchedCount !== null
+                      ? `${fetchedCount} papers`
+                      : "Waiting for a query"}
                   </h3>
                 </div>
               </div>
@@ -337,8 +345,8 @@ function App() {
                 <p className="ql-eyebrow">Abstract reader</p>
                 <h3 className="ql-sidebar-title">Select a paper to preview</h3>
                 <p className="ql-sidebar-abstract">
-                  Tap any result to pin it here and read the full abstract. Use this
-                  space to decide which PDFs are worth opening.
+                  Tap any result to pin it here and read the full abstract. Use
+                  this space to decide which PDFs are worth opening.
                 </p>
               </div>
             )}
