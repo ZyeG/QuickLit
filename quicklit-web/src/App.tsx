@@ -2,9 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import MyChatBot from "./components/chatbot";
 
-// -------------------------
-// Types
-// -------------------------
 type Paper = {
   paper_id: string;
   title: string;
@@ -47,9 +44,6 @@ const buildSessionId = () => {
   return `session-${Date.now()}`;
 };
 
-// -------------------------
-// Component
-// -------------------------
 function App() {
   const [topic, setTopic] = useState<string>("");
   const [papers, setPapers] = useState<Paper[]>([]);
@@ -58,7 +52,8 @@ function App() {
   const [fetchedCount, setFetchedCount] = useState<number | null>(null);
   const [sessions, setSessions] = useState<Session[]>([]);
   const [activeSessionId, setActiveSessionId] = useState<string | null>(null);
-  // Utility: show first N words of an abstract
+  const [isSyncing, setIsSyncing] = useState<boolean>(false);
+
   const firstNWords = (text: string, n: number = 20): string => {
     if (!text) return "";
     const words = text.split(/\s+/);
@@ -78,7 +73,6 @@ function App() {
   }, []);
 
   const asyncPersistSession = async (session: Session) => {
-    // Persist to backend
     await fetch("http://localhost:3001/api/collections/papers/add", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -87,14 +81,13 @@ function App() {
       }),
     })
       .then(() => {
-        // Update local storage
-        setSessions((prev: any[]) => {
+        setSessions((prev: Session[]) => {
           const updated = [session, ...prev.filter((s) => s.id !== session.id)];
           writeSessionsToStorage(updated);
+          setIsSyncing(false);
           return updated;
         });
         setActiveSessionId(session.id);
-        setLoading(false);
       })
       .catch((err) => {
         console.error("Error persisting session to backend", err);
@@ -115,6 +108,7 @@ function App() {
     if (!topic.trim()) return;
 
     setLoading(true);
+    setIsSyncing(true);
     setPapers([]);
     setFetchedCount(null);
     setSelectedPaper(null);
@@ -140,6 +134,7 @@ function App() {
           fetchedCount: total,
           createdAt: new Date().toISOString(),
         };
+        setLoading(false);
         await asyncPersistSession(newSession);
       })
       .catch((err) => {
@@ -148,177 +143,220 @@ function App() {
       });
   };
 
-  return (
-    <div style={{ display: "flex", minHeight: "100vh" }}>
-      {/* MAIN COLUMN */}
-      <div style={{ flex: 1, padding: "20px" }}>
-        <h1>QuickLit</h1>
+  const statusLabel = () => {
+    if (loading && papers.length === 0) return "Searching for relevant papers";
+    if (isSyncing && papers.length > 0)
+      return "Syncing results, please wait...";
+    if (!loading && fetchedCount !== null)
+      return `Fetched ${fetchedCount} papers`;
+    if (!loading && fetchedCount === 0) return "No papers found for this topic";
+    return "";
+  };
 
-        {sessions.length > 0 && (
-          <div style={{ margin: "10px 0" }}>
-            <div style={{ fontWeight: "bold", marginBottom: "6px" }}>
-              Sessions
-            </div>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
-              {sessions.map((session) => (
-                <button
-                  key={session.id}
-                  onClick={() => handleSessionSelect(session.id)}
-                  style={{
-                    padding: "6px 10px",
-                    borderRadius: "6px",
-                    border:
-                      activeSessionId === session.id
-                        ? "2px solid #0077cc"
-                        : "1px solid #ccc",
-                    background:
-                      activeSessionId === session.id ? "#e6f2fb" : "#fff",
-                    cursor: "pointer",
-                  }}
-                >
-                  {session.topic || "Untitled"} (
-                  {new Date(session.createdAt).toLocaleDateString(undefined, {
-                    month: "short",
-                    day: "numeric",
-                  })}
-                  )
-                </button>
-              ))}
+  return (
+    <div className="ql-page">
+      <div className="ql-surface-glow" />
+      <div className="ql-app-shell">
+        <header className="ql-topbar">
+          <div className="ql-brand">
+            <div className="ql-logo">QL</div>
+            <div>
+              <div className="ql-brand-title">QuickLit</div>
+              <div className="ql-brand-sub">Research-ready in seconds</div>
             </div>
           </div>
-        )}
+          <div className="ql-pill">Modern</div>
+        </header>
 
-        {/* Topic Input */}
-        <input
-          type="text"
-          placeholder="Enter a research topic (~10 words)..."
-          value={topic}
-          onChange={(e) => setTopic(e.target.value)}
-          style={{
-            width: "70%",
-            padding: "10px",
-            fontSize: "16px",
-            marginRight: "10px",
-          }}
-        />
+        <div className="ql-layout">
+          <main className="ql-main">
+            <section className="ql-hero">
+              <p className="ql-eyebrow">AI-powered literature scout</p>
+              <h1 className="ql-heading">
+                Discover focused papers, summarized fast.
+              </h1>
+              <p className="ql-subheading">
+                Search, scan abstracts, and pin a paper without leaving your
+                flow.
+              </p>
 
-        <button
-          onClick={handleQuery}
-          disabled={loading}
-          style={{
-            padding: "10px 20px",
-            fontSize: "16px",
-            cursor: "pointer",
-          }}
-        >
-          {loading ? "Searching..." : "Search"}
-        </button>
+              <div className="ql-search-card">
+                <label className="ql-label" htmlFor="topic">
+                  Research topic
+                </label>
+                <div className="ql-input-row">
+                  <input
+                    id="topic"
+                    type="text"
+                    className="ql-input"
+                    placeholder="e.g. Multimodal transformers for medical imaging triage"
+                    value={topic}
+                    onChange={(e) => setTopic(e.target.value)}
+                  />
+                  <button
+                    className="ql-btn-primary"
+                    onClick={handleQuery}
+                    disabled={loading}
+                  >
+                    {loading ? "Searching..." : "Search"}
+                  </button>
+                </div>
+                <p className="ql-hint">
+                  Keep it concise (around 8-12 words) for the cleanest results.
+                </p>
+              </div>
 
-        <hr style={{ margin: "20px 0" }} />
+              {sessions.length > 0 && (
+                <div className="ql-session-panel">
+                  <div className="ql-session-header">
+                    <span>Recent sessions</span>
+                    <span className="ql-session-count">{sessions.length}</span>
+                  </div>
+                  <div className="ql-session-chips">
+                    {sessions.map((session) => (
+                      <button
+                        key={session.id}
+                        onClick={() => handleSessionSelect(session.id)}
+                        className={`ql-chip ${
+                          activeSessionId === session.id ? "active" : ""
+                        }`}
+                      >
+                        <span className="ql-chip-title">
+                          {session.topic || "Untitled"}
+                        </span>
+                        <span className="ql-chip-date">
+                          {new Date(session.createdAt).toLocaleDateString(
+                            undefined,
+                            {
+                              month: "short",
+                              day: "numeric",
+                            }
+                          )}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </section>
 
-        {/* Status text */}
-        {loading && papers.length === 0 && (
-          <p style={{ fontStyle: "italic" }}>Searching… please wait</p>
-        )}
-        {loading && papers.length > 0 && (
-          <p style={{ fontStyle: "italic" }}>Syncing results… please wait</p>
-        )}
-        {!loading && fetchedCount !== null && (
-          <p>
-            <strong>Fetched {fetchedCount} papers</strong>
-          </p>
-        )}
+            <section className="ql-status-row">
+              <div className="ql-status-dot" />
+              <span className="ql-status-text">{statusLabel()}</span>
+            </section>
 
-        {/* Results Table */}
-        {!loading && papers.length > 0 && (
-          <table
-            border={1}
-            cellPadding={8}
-            style={{ width: "100%", borderCollapse: "collapse" }}
-          >
-            <thead>
-              <tr style={{ background: "#eee" }}>
-                <th>arXiv ID</th>
-                <th>Title</th>
-                <th>PDF</th>
-                <th>Summary</th>
-              </tr>
-            </thead>
-            <tbody>
-              {papers.map((p, idx) => (
-                <tr key={idx}>
-                  <td>{p.paper_id}</td>
-                  <td>{p.title}</td>
-                  <td>
-                    <a
-                      href={p.pdf_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
+            <section className="ql-results-card">
+              <div className="ql-results-header">
+                <div>
+                  <p className="ql-eyebrow">Results</p>
+                  <h3 className="ql-section-title">
+                    {fetchedCount !== null
+                      ? `${fetchedCount} papers`
+                      : "Waiting for a query"}
+                  </h3>
+                </div>
+              </div>
+
+              {loading && papers.length === 0 && (
+                <div className="ql-empty">
+                  <div className="ql-loader" />
+                  <p>Gathering papers tailored to your topic...</p>
+                </div>
+              )}
+
+              {!loading && papers.length === 0 && fetchedCount === null && (
+                <div className="ql-empty">
+                  <p>Start with a topic to see focused literature.</p>
+                </div>
+              )}
+
+              {!loading && fetchedCount === 0 && (
+                <div className="ql-empty">
+                  <p>No papers found. Refine the query and try again.</p>
+                </div>
+              )}
+
+              {!loading && papers.length > 0 && (
+                <div className="ql-paper-grid">
+                  {papers.map((paper) => (
+                    <article
+                      key={paper.paper_id}
+                      className="ql-paper-card"
+                      onClick={() => setSelectedPaper(paper)}
                     >
-                      PDF
-                    </a>
-                  </td>
-                  <td>
-                    <span
-                      style={{
-                        textDecoration: "underline",
-                        cursor: "pointer",
-                        color: "#0077cc",
-                      }}
-                      onClick={() => setSelectedPaper(p)}
-                    >
-                      {firstNWords(p.abstract, 20)}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
+                      <div className="ql-paper-id">{paper.paper_id}</div>
+                      <h4 className="ql-paper-title">{paper.title}</h4>
+                      <p className="ql-paper-abstract">
+                        {firstNWords(paper.abstract, 28)}
+                      </p>
+                      <div className="ql-paper-actions">
+                        <a
+                          className="ql-link"
+                          href={paper.pdf_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          Open PDF
+                        </a>
+                        <button
+                          className="ql-ghost-btn"
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSelectedPaper(paper);
+                          }}
+                        >
+                          Read abstract
+                        </button>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              )}
+            </section>
+          </main>
 
-        {!loading && fetchedCount === 0 && papers.length === 0 && (
-          <p>No papers found for this topic.</p>
-        )}
+          <aside className="ql-sidebar">
+            {selectedPaper ? (
+              <div className="ql-sidebar-card">
+                <div className="ql-sidebar-header">
+                  <p className="ql-eyebrow">Pinned paper</p>
+                  <button
+                    className="ql-close-btn"
+                    onClick={() => setSelectedPaper(null)}
+                  >
+                    Close
+                  </button>
+                </div>
+                <h3 className="ql-sidebar-title">{selectedPaper.title}</h3>
+                <p className="ql-sidebar-abstract">{selectedPaper.abstract}</p>
+                <a
+                  className="ql-btn-secondary"
+                  href={selectedPaper.pdf_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Open PDF
+                </a>
+              </div>
+            ) : (
+              <div className="ql-sidebar-card muted">
+                <p className="ql-eyebrow">Abstract reader</p>
+                <h3 className="ql-sidebar-title">Select a paper to preview</h3>
+                <p className="ql-sidebar-abstract">
+                  Tap any result to pin it here and read the full abstract. Use
+                  this space to decide which PDFs are worth opening.
+                </p>
+              </div>
+            )}
+          </aside>
+        </div>
       </div>
 
-      {/* SIDEBAR – Full Abstract */}
-      {selectedPaper && (
-        <div
-          style={{
-            width: "350px",
-            borderLeft: "1px solid #ccc",
-            padding: "20px",
-            background: "#fafafa",
-            overflowY: "auto",
-          }}
-        >
-          <button
-            onClick={() => setSelectedPaper(null)}
-            style={{
-              float: "right",
-              padding: "5px 10px",
-              cursor: "pointer",
-            }}
-          >
-            ✕
-          </button>
-
-          <h2 style={{ marginTop: 0 }}>{selectedPaper.title}</h2>
-
-          <p style={{ fontSize: "14px", lineHeight: "1.5" }}>
-            {selectedPaper.abstract}
-          </p>
-
-          <a
-            href={selectedPaper.pdf_url}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Open PDF
-          </a>
-        </div>
-      )}
-      <MyChatBot collection_name={activeSessionId ? activeSessionId : ""} />
+      <div className="ql-chat-dock">
+        <MyChatBot collection_name={activeSessionId ? activeSessionId : ""} />
+      </div>
     </div>
   );
 }

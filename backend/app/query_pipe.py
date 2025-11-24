@@ -4,7 +4,8 @@ import re
 import os
 import requests
 import xml.etree.ElementTree as ET
-
+from bs4 import BeautifulSoup
+import html
 OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
 client = OpenAI(api_key=OPENAI_API_KEY)
 
@@ -34,19 +35,22 @@ Your answers should be factual and based solely on the provided context.\
 First give a brief summary of the answer, then provide detailed explanation.\
 Context:\n
 """
-
-def get_arxiv_abstract(paper_id):
-    url = f"http://export.arxiv.org/api/query?id_list={paper_id}"
-    resp = requests.get(url).text
-
+def get_arxiv_abstract(paper_id: str) -> str:
+    url = f"https://arxiv.org/abs/{paper_id}"
     try:
-        root = ET.fromstring(resp)
-        ns = {"atom": "http://www.w3.org/2005/Atom"}
-        entry = root.find("atom:entry", ns)
-        abstract = entry.find("atom:summary", ns).text.strip()
-        return abstract
+        resp = requests.get(url, timeout=10)
+        resp.raise_for_status()
     except Exception:
         return ""
+
+    soup = BeautifulSoup(resp.text, "html.parser")
+    meta = soup.find("meta", attrs={"name": "citation_abstract"}) \
+        or soup.find("meta", attrs={"property": "og:description"})
+
+    content = meta.get("content", "") if meta else ""
+    # Normalize whitespace and unescape HTML entities.
+    abstract = " ".join(content.split())
+    return html.unescape(abstract)
 
 def slugify(text):
     # keep letters and numbers, replace others with _
