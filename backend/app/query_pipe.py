@@ -6,8 +6,8 @@ import requests
 import xml.etree.ElementTree as ET
 from bs4 import BeautifulSoup
 import html
-# OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
-# client = OpenAI(api_key=OPENAI_API_KEY)
+OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
+client = OpenAI(api_key=OPENAI_API_KEY)
 
 
 # directory of this file: backend/app/
