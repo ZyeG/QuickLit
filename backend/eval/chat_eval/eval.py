@@ -184,6 +184,12 @@ def compute_weighted_score(
     return total
 
 
+def load_json_utf8(path: str) -> Any:
+    """Load a JSON file with UTF-8 encoding regardless of OS defaults."""
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
 def evaluate_chat_history(
     paper_text: str,
     chat_history: Iterable[Dict[str, str]],
@@ -232,30 +238,44 @@ if __name__ == "__main__":
 
     # Test 1
     # paper = get_pdf_raw_content("https://arxiv.org/pdf/2406.19226.pdf")
-    # chat = json.load(open("./chat_history/11-25.json", "r"))
+    # chat = load_json_utf8("./chat_history/11-25_2-papers.json")
     # result = evaluate_chat_history(paper, chat)
-    # print(json.dumps(result, indent=2))
+    # out_path = "./eval_history/11-25-eval.json"
+    # with open(out_path, "w", encoding="utf-8") as f:
+    #     json.dump(result, f, indent=2, ensure_ascii=False)
 
     # Test 2
-    paper_urls = ["https://arxiv.org/pdf/2508.00717.pdf",
-                  "https://arxiv.org/pdf/2404.10551.pdf",
-                  "https://arxiv.org/pdf/2402.01659.pdf",
-                  "https://arxiv.org/pdf/2406.01930.pdf",
-                  "https://arxiv.org/pdf/2403.19245.pdf",
-                  "https://arxiv.org/pdf/2407.05810.pdf",
-                  "https://arxiv.org/pdf/2412.02653.pdf",
-                  "https://arxiv.org/pdf/2502.07401.pdf",
-                  "https://arxiv.org/pdf/2503.05760.pdf",
-                  "https://arxiv.org/pdf/2505.24126.pdf",
-                  "https://arxiv.org/pdf/2305.18616.pdf",
-                  "https://arxiv.org/pdf/2304.14993.pdf",
-                  "https://arxiv.org/pdf/2309.03087.pdf",
-                  "https://arxiv.org/pdf/2305.18617.pdf",
-                  "https://arxiv.org/pdf/2305.00290.pdf",
-                  "https://arxiv.org/pdf/2504.08846.pdf",
-                  "https://arxiv.org/pdf/2502.09651.pdf"]
-    papers = [get_pdf_raw_content(url) for url in paper_urls]
-    paper = "\n\n\n".join(papers)
-    chat = json.load(open("./chat_history/11-25-multi-papers.json", "r"))
-    result = evaluate_chat_history(paper, chat)
-    print(json.dumps(result, indent=2))
+    # paper_urls = ["https://arxiv.org/pdf/2508.00717.pdf",
+    #               "https://arxiv.org/pdf/2404.10551.pdf",
+    #               "https://arxiv.org/pdf/2402.01659.pdf",
+    #               "https://arxiv.org/pdf/2406.01930.pdf",
+    #               "https://arxiv.org/pdf/2403.19245.pdf",
+    #               "https://arxiv.org/pdf/2407.05810.pdf",
+    #               "https://arxiv.org/pdf/2412.02653.pdf",
+    #               "https://arxiv.org/pdf/2502.07401.pdf",
+    #               "https://arxiv.org/pdf/2503.05760.pdf",
+    #               "https://arxiv.org/pdf/2505.24126.pdf",
+    #               "https://arxiv.org/pdf/2305.18616.pdf",
+    #               "https://arxiv.org/pdf/2304.14993.pdf",
+    #               "https://arxiv.org/pdf/2309.03087.pdf",
+    #               "https://arxiv.org/pdf/2305.18617.pdf",
+    #               "https://arxiv.org/pdf/2305.00290.pdf",
+    #               "https://arxiv.org/pdf/2504.08846.pdf",
+    #               "https://arxiv.org/pdf/2502.09651.pdf"]
+    # papers = [get_pdf_raw_content(url) for url in paper_urls]
+    # paper = "\n\n\n".join(papers)
+    # chat = load_json_utf8("./chat_history/11-25-multi-papers_0.json")
+    # result = evaluate_chat_history(paper, chat)
+    # out_path = "./eval_history/11-25-multi-papers-eval.json"
+    # with open(out_path, "w", encoding="utf-8") as f:
+    #     json.dump(result, f, indent=2, ensure_ascii=False)
+    
+    # Test 3
+    # paper = get_pdf_raw_content("https://arxiv.org/pdf/2403.19245.pdf")
+    # chat = load_json_utf8("./chat_history/11-25-multi-papers_1.json")
+    # result = evaluate_chat_history(paper, chat)
+    # out_path = "./eval_history/11-25-multi-papers-1-eval.json"
+    # with open(out_path, "w", encoding="utf-8") as f:
+    #     json.dump(result, f, indent=2, ensure_ascii=False)
+
+    pass
