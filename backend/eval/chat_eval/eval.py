@@ -6,7 +6,8 @@ the full chat history, and asks a model to score each criterion.
 """
 
 import json
-import os, sys
+import os
+import sys
 import dotenv
 dotenv.load_dotenv()
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
