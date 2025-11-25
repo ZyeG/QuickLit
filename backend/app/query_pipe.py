@@ -18,7 +18,7 @@ BACKEND_DIR = os.path.dirname(BASE_DIR)
 LOG_DIR = os.path.join(BACKEND_DIR, "log", "query_out")   # goes to backend/log/query_out/
 
 # Max number of papers to fetch per query
-MAX_PAPERS = 2
+MAX_PAPERS = 20
 
 os.makedirs(LOG_DIR, exist_ok=True)
 
