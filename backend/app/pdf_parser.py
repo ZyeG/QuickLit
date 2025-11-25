@@ -47,7 +47,7 @@ def pdf_bytes_to_text(pdf_bytes: bytes) -> str:
             texts.append(page_text)
     return "\n\n".join(texts).strip()
 
-def get_pdf_raw_content(pdf_url:str) -> str:
+def get_pdf_raw_content(pdf_url: str) -> str:
     """Fetch PDF from URL and extract text."""
     pdf_bytes = fetch_pdf(pdf_url)
     content = pdf_bytes_to_text(pdf_bytes)
