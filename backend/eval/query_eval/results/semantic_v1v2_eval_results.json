@@ -1,0 +1,1102 @@
+{
+  "Deep Reinforcement Learning for Data Processing and Analytics": {
+    "v1": {
+      "mean_similarity": 0.4418971434235573,
+      "median_similarity": 0.47950395941734314,
+      "precision_above_threshold": 0.0,
+      "top10_precision": 0.0,
+      "scores": [
+        [
+          "Deep Reinforcement Learning for Join Order Enumeration",
+          0.5122467279434204,
+          "title"
+        ],
+        [
+          "Bao: Learning to Steer Query Optimizers",
+          0.288738489151001,
+          "fuzzy-abstract"
+        ],
+        [
+          "Bao: Making Learned Query Optimization Practical",
+          0.48388513922691345,
+          "fuzzy-abstract"
+        ],
+        [
+          "SkinnerDB: Regret-Bounded Query Evaluation via Reinforcement Learning",
+          0.4452626407146454,
+          "title"
+        ],
+        [
+          "Opportunistic View Materialization with Deep Reinforcement Learning",
+          0.4797780513763428,
+          "abstract"
+        ],
+        [
+          "Balsa: Learning a Query Optimizer Without Expert Demonstrations",
+          0.5011179447174072,
+          "abstract"
+        ],
+        [
+          "Learning Scheduling Algorithms for Data Processing Clusters",
+          0.36343932151794434,
+          "title"
+        ],
+        [
+          "DL2: A Deep Learning-driven Scheduler for Deep Learning Clusters",
+          0.4035804271697998,
+          "title"
+        ],
+        [
+          "QTune: A Query-Aware Database Tuning System with Deep Reinforcement Learning",
+          0.5348796844482422,
+          "abstract"
+        ],
+        [
+          "CDBTune+: An efficient deep reinforcement learning-based automatic cloud database tuning system",
+          0.5622761845588684,
+          "fuzzy-abstract"
+        ],
+        [
+          "Learning a Partitioning Advisor for Cloud Databases",
+          0.553558886051178,
+          "fuzzy-abstract"
+        ],
+        [
+          "Qd-tree: Learning Data Layouts for Big Data Analytics",
+          0.3779706358909607,
+          "abstract"
+        ],
+        [
+          "Learned spatial data partitioning",
+          0.2874486446380615,
+          "title"
+        ],
+        [
+          "Learning Index Selection with Structured Action Spaces",
+          0.20786619186401367,
+          "title"
+        ],
+        [
+          "Automated Database Indexing using Model-free Reinforcement Learning",
+          0.40431487560272217,
+          "title"
+        ],
+        [
+          "Index Selection for NoSQL Database with Deep Reinforcement Learning",
+          0.5170254707336426,
+          "title"
+        ],
+        [
+          "IA2: Leveraging Instance-Aware Index Advisor with Reinforcement Learning for Diverse Workloads",
+          0.4863765239715576,
+          "fuzzy-abstract"
+        ],
+        [
+          "Magpie: Automatically Tuning Static Parameters for Distributed File Systems using Deep Reinforcement Learning",
+          0.4792298674583435,
+          "title"
+        ],
+        [
+          "ReClean: Reinforcement Learning for Automated Data Cleaning in ML Pipelines",
+          0.498911589384079,
+          "title"
+        ],
+        [
+          "KnobTree: Intelligent Database Parameter Configuration via Explainable Reinforcement Learning",
+          0.45003557205200195,
+          "abstract"
+        ]
+      ]
+    },
+    "v2": {
+      "mean_similarity": 0.45434913635253904,
+      "median_similarity": 0.4772374629974365,
+      "precision_above_threshold": 0.0,
+      "top10_precision": 0.0,
+      "scores": [
+        [
+          "Learning to Optimize Join Queries With Deep Reinforcement Learning",
+          0.5514679551124573,
+          "title"
+        ],
+        [
+          "Deep Reinforcement Learning for Join Order Enumeration",
+          0.4746968746185303,
+          "abstract"
+        ],
+        [
+          "SkinnerDB: Regret-Bounded Query Evaluation via Reinforcement Learning",
+          0.4452626407146454,
+          "title"
+        ],
+        [
+          "Neo: A Learned Query Optimizer",
+          0.42283007502555847,
+          "abstract"
+        ],
+        [
+          "Bao: Learning to Steer Query Optimizers",
+          0.288738489151001,
+          "fuzzy-abstract"
+        ],
+        [
+          "Balsa: Learning a Query Optimizer Without Expert Demonstrations",
+          0.5011179447174072,
+          "fuzzy-abstract"
+        ],
+        [
+          "ADOPT: Adaptively Optimizing Attribute Orders for Worst-Case Optimal Join Algorithms via Reinforcement Learning",
+          0.29300621151924133,
+          "abstract"
+        ],
+        [
+          "Reinforcement learning with tree-LSTM for join order selection",
+          0.401602566242218,
+          "fuzzy-abstract"
+        ],
+        [
+          "Query Join Order Optimization Method Based on Dynamic Double Deep Q-Network",
+          0.24809178709983826,
+          "title"
+        ],
+        [
+          "Learning State Representations for Query Optimization with Deep Reinforcement Learning",
+          0.5972166061401367,
+          "abstract"
+        ],
+        [
+          "QTune: A Query-Aware Database Tuning System with Deep Reinforcement Learning",
+          0.5670932531356812,
+          "title"
+        ],
+        [
+          "CDBTune+: An efficient deep reinforcement learning-based automatic cloud database tuning system",
+          0.5568479299545288,
+          "title"
+        ],
+        [
+          "FASTune: Towards Fast and Stable Database Tuning System with Reinforcement Learning",
+          0.4832198917865753,
+          "title"
+        ],
+        [
+          "Budget-aware Index Tuning with Reinforcement Learning",
+          0.3892541527748108,
+          "fuzzy-abstract"
+        ],
+        [
+          "Index Selection for NoSQL Database with Deep Reinforcement Learning",
+          0.5170254707336426,
+          "title"
+        ],
+        [
+          "Opportunistic View Materialization with Deep Reinforcement Learning",
+          0.4797780513763428,
+          "fuzzy-abstract"
+        ],
+        [
+          "Model-Free Control for Distributed Stream Data Processing using Deep Reinforcement Learning",
+          0.563107967376709,
+          "abstract"
+        ],
+        [
+          "Learning Scheduling Algorithms for Data Processing Clusters",
+          0.36343932151794434,
+          "title"
+        ],
+        [
+          "DRAS: Deep Reinforcement Learning for Cluster Scheduling in High Performance Computing",
+          0.546747624874115,
+          "title"
+        ],
+        [
+          "AlphaD3M: Machine Learning Pipeline Synthesis",
+          0.3964379131793976,
+          "title"
+        ]
+      ]
+    },
+    "v1_file": "/content/eval_runs/v1_Deep_Reinforcement_Learning_for_Data_Processing_and_Analytics.txt",
+    "v2_file": "/content/eval_runs/v2_Deep_Reinforcement_Learning_for_Data_Processing_and_Analytics.txt"
+  },
+  "Security Risk and Attacks in AI": {
+    "v1": {
+      "mean_similarity": 0.3863637149333954,
+      "median_similarity": 0.41224633157253265,
+      "precision_above_threshold": 0.0,
+      "top10_precision": 0.0,
+      "scores": [
+        [
+          "Explaining and Harnessing Adversarial Examples",
+          0.4189784824848175,
+          "abstract"
+        ],
+        [
+          "Adversarial examples in the physical world",
+          0.4669658839702606,
+          "abstract"
+        ],
+        [
+          "Universal adversarial perturbations",
+          0.3542236089706421,
+          "fuzzy-abstract"
+        ],
+        [
+          "Adversarial Patch",
+          0.2975219786167145,
+          "fuzzy-abstract"
+        ],
+        [
+          "LaVAN: Localized and Visible Adversarial Noise",
+          0.2918342649936676,
+          "title"
+        ],
+        [
+          "One pixel attack for fooling deep neural networks",
+          0.4458979368209839,
+          "fuzzy-abstract"
+        ],
+        [
+          "Towards Evaluating the Robustness of Neural Networks",
+          0.48408210277557373,
+          "abstract"
+        ],
+        [
+          "Obfuscated Gradients Give a False Sense of Security: Circumventing Defenses to Adversarial Examples",
+          0.47555363178253174,
+          "abstract"
+        ],
+        [
+          "Black-box Adversarial Attacks with Limited Queries and Information",
+          0.4276030361652374,
+          "fuzzy-abstract"
+        ],
+        [
+          "Decision-Based Adversarial Attacks: Reliable Attacks Against Black-Box Machine Learning Models",
+          0.5194028615951538,
+          "title"
+        ],
+        [
+          "Poisoning Attacks against Support Vector Machines",
+          0.4055141806602478,
+          "title"
+        ],
+        [
+          "BadNets: Identifying Vulnerabilities in the Machine Learning Model Supply Chain",
+          0.4577992558479309,
+          "fuzzy-abstract"
+        ],
+        [
+          "Trojaning Attack on Neural Networks",
+          0.5496165156364441,
+          "title"
+        ],
+        [
+          "Label-Consistent Backdoor Attacks",
+          0.3561773896217346,
+          "title"
+        ],
+        [
+          "How To Backdoor Federated Learning",
+          0.2566952407360077,
+          "title"
+        ],
+        [
+          "Stealing Machine Learning Models via Prediction APIs",
+          0.32459771633148193,
+          "title"
+        ],
+        [
+          "Membership Inference Attacks against Machine Learning Models",
+          0.34359562397003174,
+          "fuzzy-abstract"
+        ],
+        [
+          "Model Inversion Attacks that Exploit Confidence Information and Basic Countermeasures",
+          0.45969653129577637,
+          "title"
+        ],
+        [
+          "Extracting Training Data from Large Language Models",
+          0.05300712585449219,
+          "title"
+        ],
+        [
+          "Universal and Transferable Adversarial Attacks on Aligned Language Models",
+          0.3385109305381775,
+          "title"
+        ]
+      ]
+    },
+    "v2": {
+      "mean_similarity": 0.3852332130074501,
+      "median_similarity": 0.40078406035900116,
+      "precision_above_threshold": 0.0,
+      "top10_precision": 0.0,
+      "scores": [
+        [
+          "Intriguing properties of neural networks",
+          0.2792973518371582,
+          "abstract"
+        ],
+        [
+          "Explaining and Harnessing Adversarial Examples",
+          0.41082465648651123,
+          "title"
+        ],
+        [
+          "Towards Deep Learning Models Resistant to Adversarial Attacks",
+          0.5053302645683289,
+          "fuzzy-abstract"
+        ],
+        [
+          "Obfuscated Gradients Give a False Sense of Security: Circumventing Defenses to Adversarial Examples",
+          0.47555363178253174,
+          "fuzzy-abstract"
+        ],
+        [
+          "Poisoning Attacks against Support Vector Machines",
+          0.4442719519138336,
+          "fuzzy-abstract"
+        ],
+        [
+          "Witches\u2019 Brew: Industrial Scale Data Poisoning via Gradient Matching",
+          0.429554283618927,
+          "abstract"
+        ],
+        [
+          "BadNets: Identifying Vulnerabilities in the Machine Learning Model Supply Chain",
+          0.4577992558479309,
+          "fuzzy-abstract"
+        ],
+        [
+          "Neural Cleanse: Identifying and Mitigating Backdoor Attacks in Neural Networks",
+          0.40968620777130127,
+          "abstract"
+        ],
+        [
+          "Model Inversion Attacks that Exploit Confidence Information and Basic Countermeasures",
+          0.45969653129577637,
+          "title"
+        ],
+        [
+          "Membership Inference Attacks against Machine Learning Models",
+          0.34359562397003174,
+          "fuzzy-abstract"
+        ],
+        [
+          "Machine Learning Models that Remember Too Much",
+          0.26244401931762695,
+          "title"
+        ],
+        [
+          "Truth Serum: Poisoning Machine Learning Models to Reveal Their Secrets",
+          0.33724766969680786,
+          "title"
+        ],
+        [
+          "Stealing Machine Learning Models via Prediction APIs",
+          0.32459771633148193,
+          "title"
+        ],
+        [
+          "Property Inference Attacks on Fully Connected Neural Networks using Permutation Invariant Representations",
+          0.36028242111206055,
+          "title"
+        ],
+        [
+          "SNAP: Efficient Extraction of Private Properties with Poisoning",
+          0.4132218658924103,
+          "abstract"
+        ],
+        [
+          "Property Inference from Poisoning",
+          0.44953346252441406,
+          "fuzzy-abstract"
+        ],
+        [
+          "Jailbroken: How Does LLM Safety Training Fail?",
+          0.39188191294670105,
+          "fuzzy-abstract"
+        ],
+        [
+          "Universal and Transferable Adversarial Attacks on Aligned Language Models",
+          0.32666292786598206,
+          "abstract"
+        ],
+        [
+          "AutoDAN: Interpretable Gradient-Based Adversarial Attacks on Large Language Models",
+          0.34360218048095703,
+          "abstract"
+        ],
+        [
+          "JailbreakBench: An Open Robustness Benchmark for Jailbreaking Large Language Models",
+          0.27958032488822937,
+          "fuzzy-abstract"
+        ]
+      ]
+    },
+    "v1_file": "/content/eval_runs/v1_Security_Risk_and_Attacks_in_AI.txt",
+    "v2_file": "/content/eval_runs/v2_Security_Risk_and_Attacks_in_AI.txt"
+  },
+  "Graph Retrieval-Augmented Generation for Large Language Models": {
+    "v1": {
+      "mean_similarity": 0.6560399532318115,
+      "median_similarity": 0.6412043571472168,
+      "precision_above_threshold": 0.75,
+      "top10_precision": 1.0,
+      "scores": [
+        [
+          "Retrieval-Augmented Generation with Graphs (GraphRAG)",
+          0.5732913613319397,
+          "abstract"
+        ],
+        [
+          "Graph Retrieval-Augmented Generation: A Survey",
+          0.8159677982330322,
+          "title"
+        ],
+        [
+          "GRAG: Graph Retrieval-Augmented Generation",
+          0.6972172260284424,
+          "abstract"
+        ],
+        [
+          "GNN-RAG: Graph Neural Retrieval for Large Language Model Reasoning",
+          0.7192689180374146,
+          "title"
+        ],
+        [
+          "Medical Graph RAG: Towards Safe Medical Large Language Model via Graph Retrieval-Augmented Generation",
+          0.6253139972686768,
+          "fuzzy-abstract"
+        ],
+        [
+          "Simple Is Effective: The Roles of Graphs and Large Language Models in Knowledge-Graph-Based Retrieval-Augmented Generation",
+          0.8239278793334961,
+          "title"
+        ],
+        [
+          "GFM-RAG: Graph Foundation Model for Retrieval Augmented Generation",
+          0.7378604412078857,
+          "abstract"
+        ],
+        [
+          "KET-RAG: A Cost-Efficient Multi-Granular Indexing Framework for Graph-RAG",
+          0.5535363554954529,
+          "abstract"
+        ],
+        [
+          "LinearRAG: Linear Graph Retrieval Augmented Generation on Large-scale Corpora",
+          0.7034024000167847,
+          "fuzzy-abstract"
+        ],
+        [
+          "GRIL: Knowledge Graph Retrieval-Integrated Learning with Large Language Models",
+          0.6893782019615173,
+          "title"
+        ],
+        [
+          "Efficient and Transferable Agentic Knowledge Graph RAG via Reinforcement Learning",
+          0.5538812875747681,
+          "abstract"
+        ],
+        [
+          "Knowledge Graph-Guided Retrieval Augmented Generation",
+          0.6378635168075562,
+          "abstract"
+        ],
+        [
+          "Knowledge Graph-extended Retrieval Augmented Generation for Question Answering",
+          0.5349871516227722,
+          "abstract"
+        ],
+        [
+          "HyperGraphRAG: Retrieval-Augmented Generation with Hypergraph-Structured Knowledge Representation",
+          0.6973261833190918,
+          "title"
+        ],
+        [
+          "FRAG: A Flexible Modular Framework for Retrieval-Augmented Generation based on Knowledge Graphs",
+          0.6195448637008667,
+          "title"
+        ],
+        [
+          "KERAG: Knowledge-Enhanced Retrieval-Augmented Generation for Advanced Question Answering",
+          0.5768613815307617,
+          "title"
+        ],
+        [
+          "SubGCache: Accelerating Graph-based RAG with Subgraph-level KV Cache",
+          0.6098496317863464,
+          "fuzzy-abstract"
+        ],
+        [
+          "SKRAG: A Retrieval-Augmented Generation Framework Guided by Reasoning Skeletons over Knowledge Graphs",
+          0.6445451974868774,
+          "title"
+        ],
+        [
+          "D-RAG: Differentiable Retrieval-Augmented Generation for Knowledge Graph Question Answering",
+          0.6349743604660034,
+          "title"
+        ],
+        [
+          "AGRAG: Advanced Graph-based Retrieval-Augmented Generation for LLMs",
+          0.6718009114265442,
+          "fuzzy-abstract"
+        ]
+      ]
+    },
+    "v2": {
+      "mean_similarity": 0.6218903228640557,
+      "median_similarity": 0.6326583623886108,
+      "precision_above_threshold": 0.7,
+      "top10_precision": 1.0,
+      "scores": [
+        [
+          "GRAG: Graph Retrieval-Augmented Generation",
+          0.6972172260284424,
+          "abstract"
+        ],
+        [
+          "Think-on-Graph 2.0: Deep and Faithful Large Language Model Reasoning with Knowledge-guided Retrieval Augmented Generation",
+          0.7578791975975037,
+          "title"
+        ],
+        [
+          "Simple Is Effective: The Roles of Graphs and Large Language Models in Knowledge-Graph-Based Retrieval-Augmented Generation",
+          0.602556049823761,
+          "fuzzy-abstract"
+        ],
+        [
+          "GNN-RAG: Graph Neural Retrieval for Large Language Model Reasoning",
+          0.7192689180374146,
+          "title"
+        ],
+        [
+          "Knowledge Graph-Guided Retrieval Augmented Generation",
+          0.7380579710006714,
+          "title"
+        ],
+        [
+          "Knowledge Graph Retrieval-Augmented Generation for LLM-based Recommendation",
+          0.6461333632469177,
+          "title"
+        ],
+        [
+          "GraphRAFT: Retrieval Augmented Fine-Tuning for Knowledge Graphs on Graph Databases",
+          0.6193780303001404,
+          "fuzzy-abstract"
+        ],
+        [
+          "GRIL: Knowledge Graph Retrieval-Integrated Learning with Large Language Models",
+          0.6459386944770813,
+          "abstract"
+        ],
+        [
+          "GRAIL: Learning to Interact with Large Knowledge Graphs for Retrieval Augmented Reasoning",
+          0.5124753713607788,
+          "title"
+        ],
+        [
+          "ReMindRAG: Low-Cost LLM-Guided Knowledge Graph Traversal for Efficient RAG",
+          0.40180474519729614,
+          "title"
+        ],
+        [
+          "GFM-RAG: Graph Foundation Model for Retrieval Augmented Generation",
+          0.7893109321594238,
+          "title"
+        ],
+        [
+          "PathRAG: Pruning Graph-based Retrieval Augmented Generation with Relational Paths",
+          0.6090753078460693,
+          "abstract"
+        ],
+        [
+          "Empowering GraphRAG with Knowledge Filtering and Integration",
+          0.35821062326431274,
+          "title"
+        ],
+        [
+          "HiRAG: Retrieval-Augmented Generation with Hierarchical Knowledge",
+          0.7638739347457886,
+          "fuzzy-abstract"
+        ],
+        [
+          "KG-Infused RAG: Augmenting Corpus-Based RAG with External Knowledge Graphs",
+          0.4108988344669342,
+          "title"
+        ],
+        [
+          "KG-IRAG: A Knowledge Graph-Based Iterative Retrieval-Augmented Generation Framework for Temporal Reasoning",
+          0.5446425676345825,
+          "title"
+        ],
+        [
+          "Evaluating Knowledge Graph Based Retrieval Augmented Generation Methods under Knowledge Incompleteness",
+          0.6507422924041748,
+          "title"
+        ],
+        [
+          "GraphRAG-Bench: Challenging Domain-Specific Reasoning for Evaluating Graph Retrieval-Augmented Generation",
+          0.6158266067504883,
+          "abstract"
+        ],
+        [
+          "Youtu-GraphRAG: Vertically Unified Agents for Graph Retrieval-Augmented Complex Reasoning",
+          0.5385479927062988,
+          "fuzzy-abstract"
+        ],
+        [
+          "Graph Retrieval-Augmented Generation: A Survey",
+          0.8159677982330322,
+          "title"
+        ]
+      ]
+    },
+    "v1_file": "/content/eval_runs/v1_Graph_Retrieval-Augmented_Generation_for_Large_Language_Models.txt",
+    "v2_file": "/content/eval_runs/v2_Graph_Retrieval-Augmented_Generation_for_Large_Language_Models.txt"
+  },
+  "Machine Learning Approaches and Its Techniques": {
+    "v1": {
+      "mean_similarity": 0.32506622560322285,
+      "median_similarity": 0.32087697088718414,
+      "precision_above_threshold": 0.0,
+      "top10_precision": 0.0,
+      "scores": [
+        [
+          "A Few Useful Things to Know about Machine Learning",
+          0.5860409140586853,
+          "title"
+        ],
+        [
+          "Support-vector networks",
+          0.46886831521987915,
+          "title"
+        ],
+        [
+          "Random Forests",
+          0.5729220509529114,
+          "title"
+        ],
+        [
+          "A Decision-Theoretic Generalization of On-Line Learning and an Application to Boosting",
+          0.45281052589416504,
+          "title"
+        ],
+        [
+          "Induction of Decision Trees",
+          0.405920147895813,
+          "title"
+        ],
+        [
+          "k-means++: The Advantages of Careful Seeding",
+          0.35060715675354004,
+          "title"
+        ],
+        [
+          "Nonlinear dimensionality reduction by locally linear embedding",
+          0.30073535442352295,
+          "title"
+        ],
+        [
+          "Visualizing data using t-SNE",
+          0.2135542631149292,
+          "title"
+        ],
+        [
+          "Adam: A Method for Stochastic Optimization",
+          0.2651515305042267,
+          "fuzzy-abstract"
+        ],
+        [
+          "Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift",
+          0.17930440604686737,
+          "title"
+        ],
+        [
+          "Dropout: A Simple Way to Prevent Neural Networks from Overfitting",
+          0.39824211597442627,
+          "title"
+        ],
+        [
+          "Deep Residual Learning for Image Recognition",
+          0.07374803721904755,
+          "abstract"
+        ],
+        [
+          "Attention Is All You Need",
+          0.058791495859622955,
+          "title"
+        ],
+        [
+          "Learning representations by back-propagating errors",
+          0.3186587989330292,
+          "title"
+        ],
+        [
+          "Gradient-Based Learning Applied to Document Recognition",
+          0.36267727613449097,
+          "title"
+        ],
+        [
+          "Learning Deep Architectures for AI",
+          0.3010292649269104,
+          "title"
+        ],
+        [
+          "Generative Adversarial Nets",
+          0.2592518627643585,
+          "title"
+        ],
+        [
+          "Auto-Encoding Variational Bayes",
+          0.2783172130584717,
+          "title"
+        ],
+        [
+          "XGBoost: A Scalable Tree Boosting System",
+          0.3315986394882202,
+          "title"
+        ],
+        [
+          "LightGBM: A Highly Efficient Gradient Boosting Decision Tree",
+          0.3230951428413391,
+          "title"
+        ]
+      ]
+    },
+    "v2": {
+      "mean_similarity": 0.3970406152307987,
+      "median_similarity": 0.40838170051574707,
+      "precision_above_threshold": 0.05,
+      "top10_precision": 0.1,
+      "scores": [
+        [
+          "Machine learning: Trends, perspectives, and prospects",
+          0.6092376708984375,
+          "title"
+        ],
+        [
+          "A Few Useful Things to Know About Machine Learning",
+          0.5860409140586853,
+          "title"
+        ],
+        [
+          "Representation Learning: A Review and New Perspectives",
+          0.3951209485530853,
+          "title"
+        ],
+        [
+          "Deep learning",
+          0.4269517660140991,
+          "title"
+        ],
+        [
+          "An Introduction to Variable and Feature Selection",
+          0.4971902668476105,
+          "title"
+        ],
+        [
+          "Support-vector networks",
+          0.46886831521987915,
+          "title"
+        ],
+        [
+          "Random Forests",
+          0.5729220509529114,
+          "title"
+        ],
+        [
+          "Bagging predictors",
+          0.41084325313568115,
+          "title"
+        ],
+        [
+          "The strength of weak learnability",
+          0.2656589150428772,
+          "title"
+        ],
+        [
+          "A decision-theoretic generalization of on-line learning and an application to boosting",
+          0.45281052589416504,
+          "title"
+        ],
+        [
+          "Greedy function approximation: A gradient boosting machine",
+          0.45640090107917786,
+          "title"
+        ],
+        [
+          "XGBoost: A Scalable Tree Boosting System",
+          0.3315986394882202,
+          "title"
+        ],
+        [
+          "Induction of decision trees",
+          0.405920147895813,
+          "title"
+        ],
+        [
+          "On the optimality of the simple Bayesian classifier under zero-one loss",
+          0.38264450430870056,
+          "title"
+        ],
+        [
+          "Visualizing data using t-SNE",
+          0.2135542631149292,
+          "title"
+        ],
+        [
+          "Reducing the dimensionality of data with neural networks",
+          0.426091730594635,
+          "title"
+        ],
+        [
+          "Learning representations by back-propagating errors",
+          0.3186587989330292,
+          "title"
+        ],
+        [
+          "Adam: A Method for Stochastic Optimization",
+          0.2651515305042267,
+          "abstract"
+        ],
+        [
+          "Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift",
+          0.2225462645292282,
+          "fuzzy-abstract"
+        ],
+        [
+          "Reinforcement Learning: A Survey",
+          0.23260089755058289,
+          "fuzzy-abstract"
+        ]
+      ]
+    },
+    "v1_file": "/content/eval_runs/v1_Machine_Learning_Approaches_and_Its_Techniques.txt",
+    "v2_file": "/content/eval_runs/v2_Machine_Learning_Approaches_and_Its_Techniques.txt"
+  },
+  "Edge Computing Systems and Tools": {
+    "v1": {
+      "mean_similarity": 0.5035333454608917,
+      "median_similarity": 0.4963555783033371,
+      "precision_above_threshold": 0.1,
+      "top10_precision": 0.2,
+      "scores": [
+        [
+          "The Case for VM-based Cloudlets in Mobile Computing",
+          0.4205305874347687,
+          "title"
+        ],
+        [
+          "Fog computing and its role in the internet of things",
+          0.5116374492645264,
+          "title"
+        ],
+        [
+          "Edge Computing: Vision and Challenges",
+          0.7407822608947754,
+          "title"
+        ],
+        [
+          "Cloudlets: at the Leading Edge of Mobile-Cloud Convergence",
+          0.44668400287628174,
+          "title"
+        ],
+        [
+          "The Role of Cloudlets in Hostile Environments",
+          0.29723072052001953,
+          "title"
+        ],
+        [
+          "ParaDrop: Enabling Lightweight Multi-tenancy at the Network\u2019s Extreme Edge",
+          0.5161060690879822,
+          "title"
+        ],
+        [
+          "CloudPath: A Multi-Tier Cloud Computing Framework",
+          0.4118828773498535,
+          "title"
+        ],
+        [
+          "Fast, Scalable and Secure Onloading of Edge Functions using AirBox",
+          0.5149372816085815,
+          "title"
+        ],
+        [
+          "Efficient, Dynamic Multi-tenant Edge Computation in EdgeOS",
+          0.5675897598266602,
+          "abstract"
+        ],
+        [
+          "EdgeKV: Decentralized, scalable, and consistent storage for the edge",
+          0.5964460968971252,
+          "title"
+        ],
+        [
+          "EdgeNet: A Global Cloud That Spreads by Local Action",
+          0.5780341625213623,
+          "abstract"
+        ],
+        [
+          "EdgeCloudSim: An environment for performance evaluation of edge computing systems",
+          0.6955561637878418,
+          "abstract"
+        ],
+        [
+          "iFogSim: A Toolkit for Modeling and Simulation of Resource Management Techniques in Internet of Things, Edge and Fog Computing Environments",
+          0.4963279962539673,
+          "fuzzy-abstract"
+        ],
+        [
+          "YAFS: A simulator for IoT scenarios in fog computing",
+          0.49486178159713745,
+          "fuzzy-abstract"
+        ],
+        [
+          "LEAF: Simulating Large Energy-Aware Fog Computing Environments",
+          0.43899598717689514,
+          "title"
+        ],
+        [
+          "EmuFog: Extensible and Scalable Emulation of Large-Scale Fog Computing Infrastructures",
+          0.4963831603527069,
+          "title"
+        ],
+        [
+          "CoEdge: Cooperative DNN Inference with Adaptive Workload Partitioning over Heterogeneous Edge Devices",
+          0.36197853088378906,
+          "title"
+        ],
+        [
+          "Edge-MultiAI: Multi-Tenancy of Latency-Sensitive Deep Learning Applications on Edge",
+          0.4868772327899933,
+          "title"
+        ],
+        [
+          "Dynamic Edge-Fabric environmenT: Seamless and Automatic Switching among Resources at the Edge of IoT Network and Cloud",
+          0.43517792224884033,
+          "title"
+        ],
+        [
+          "Tactical Cloudlets: Moving Cloud Computing to the Edge",
+          0.5626468658447266,
+          "title"
+        ]
+      ]
+    },
+    "v2": {
+      "mean_similarity": 0.5172863483428956,
+      "median_similarity": 0.4910242557525635,
+      "precision_above_threshold": 0.2,
+      "top10_precision": 0.4,
+      "scores": [
+        [
+          "The Case for VM-based Cloudlets in Mobile Computing",
+          0.4205305874347687,
+          "title"
+        ],
+        [
+          "Fine-Grained Isolation for Scalable, Dynamic, Multi-tenant Edge Clouds",
+          0.4798332452774048,
+          "title"
+        ],
+        [
+          "ParaDrop: An Edge Computing Platform in Home Gateways",
+          0.6740981936454773,
+          "title"
+        ],
+        [
+          "EdgeNet: The global Kubernetes cluster testbed",
+          0.4171757698059082,
+          "title"
+        ],
+        [
+          "EmuFog: Extensible and Scalable Emulation of Large-Scale Fog Computing Infrastructures",
+          0.4963831603527069,
+          "title"
+        ],
+        [
+          "iFogSim: A Toolkit for Modeling and Simulation of Resource Management Techniques in Internet of Things, Edge and Fog Computing Environments",
+          0.4963279962539673,
+          "abstract"
+        ],
+        [
+          "iFogSim2: An extended iFogSim simulator for mobility, clustering, and microservice management in edge and fog computing environments",
+          0.5344083309173584,
+          "title"
+        ],
+        [
+          "EdgeCloudSim: An environment for performance evaluation of edge computing systems",
+          0.7106336951255798,
+          "title"
+        ],
+        [
+          "YAFS: A Simulator for IoT Scenarios in Fog Computing",
+          0.4048697054386139,
+          "title"
+        ],
+        [
+          "FogNetSim++: A Toolkit for Modeling and Simulation of Distributed Fog Environment",
+          0.46273088455200195,
+          "fuzzy-abstract"
+        ],
+        [
+          "IoTSim-Edge: A simulation framework for modeling the behavior of Internet of Things and edge computing environments",
+          0.5589187145233154,
+          "title"
+        ],
+        [
+          "IoTSim-Osmosis: A framework for modeling and simulating IoT applications over an edge-cloud continuum",
+          0.43486925959587097,
+          "title"
+        ],
+        [
+          "Fogify: A Fog Computing Emulation Framework",
+          0.5151427984237671,
+          "title"
+        ],
+        [
+          "DeFog: Fog computing benchmarks",
+          0.4727795124053955,
+          "title"
+        ],
+        [
+          "OpenRTiST: End-to-End Benchmarking for Edge Computing",
+          0.5933765769004822,
+          "title"
+        ],
+        [
+          "FogStore: Toward a Distributed Data Store for Fog Computing",
+          0.4594753384590149,
+          "title"
+        ],
+        [
+          "FBase: A Replication Service for Data-Intensive Fog Applications",
+          0.4403862953186035,
+          "title"
+        ],
+        [
+          "ENORM: A Framework For Edge NOde Resource Management",
+          0.6217191219329834,
+          "abstract"
+        ],
+        [
+          "OpenEI: An Open Framework for Edge Intelligence",
+          0.6663472652435303,
+          "title"
+        ],
+        [
+          "KubeDSM: A Kubernetes-based Dynamic Scheduling and Migration Framework for Cloud-Assisted Edge Clusters",
+          0.48572051525115967,
+          "title"
+        ]
+      ]
+    },
+    "v1_file": "/content/eval_runs/v1_Edge_Computing_Systems_and_Tools.txt",
+    "v2_file": "/content/eval_runs/v2_Edge_Computing_Systems_and_Tools.txt"
+  }
+}

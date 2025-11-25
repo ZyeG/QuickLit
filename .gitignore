@@ -38,7 +38,7 @@ package-lock.json
 *.env.*
 *.env.txt
 backend/log/
-backend/eval/query_eval/results/
+#backend/eval/query_eval/results/
 
 # Build outputs
 build/

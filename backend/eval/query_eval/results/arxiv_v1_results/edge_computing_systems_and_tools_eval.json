@@ -1,0 +1,230 @@
+{
+  "mean_similarity": 0.5440315749194171,
+  "median_similarity": 0.5685689449310303,
+  "precision_above_threshold": 0.2702702702702703,
+  "top10_precision": 1.0,
+  "details": [
+    [
+      0.6934242248535156,
+      "abstract",
+      "2209.06613",
+      "EaaS: A Service-Oriented Edge Computing Framework Towards Distributed Intelligence"
+    ],
+    [
+      0.6733626127243042,
+      "abstract",
+      "1801.02206",
+      "EdgeFlow: Open-Source Multi-layer Data Flow Processing in Edge Computing for 5G and Beyond"
+    ],
+    [
+      0.6546367406845093,
+      "abstract",
+      "2007.09227",
+      "KubeEdge.AI: AI Platform for Edge Devices"
+    ],
+    [
+      0.6471892595291138,
+      "abstract",
+      "1908.01924",
+      "Edge AIBench: Towards Comprehensive End-to-end Edge Computing Benchmarking"
+    ],
+    [
+      0.6366704106330872,
+      "abstract",
+      "1901.04978",
+      "PI-Edge: A Low-Power Edge Computing System for Real-Time Autonomous Driving Services"
+    ],
+    [
+      0.6343497633934021,
+      "abstract",
+      "2301.09278",
+      "DAG-based Task Orchestration for Edge Computing"
+    ],
+    [
+      0.6232487559318542,
+      "abstract",
+      "2210.01410",
+      "EdgeFaaS: A Function-based Framework for Edge Computing"
+    ],
+    [
+      0.6223235726356506,
+      "abstract",
+      "2502.14076",
+      "CarbonEdge: Leveraging Mesoscale Spatial Carbon-Intensity Variations for Low Carbon Edge Computing"
+    ],
+    [
+      0.6145238280296326,
+      "abstract",
+      "2101.03533",
+      "Con-Pi: A Distributed Container-based Edge and Fog Computing Framework"
+    ],
+    [
+      0.6100471615791321,
+      "abstract",
+      "2011.05925",
+      "I-BOT: Interference-Based Orchestration of Tasks for Dynamic Unmanaged Edge Computing"
+    ],
+    [
+      0.5998333096504211,
+      "abstract",
+      "2004.02372",
+      "An Experimental Study on Microservices based Edge Computing Platforms"
+    ],
+    [
+      0.5982115268707275,
+      "abstract",
+      "2105.04995",
+      "Engineering and Experimentally Benchmarking a Serverless Edge Computing System"
+    ],
+    [
+      0.5920317769050598,
+      "abstract",
+      "1805.09251",
+      "APMEC: An Automated Provisioning Framework for Multi-access Edge Computing"
+    ],
+    [
+      0.5859833359718323,
+      "abstract",
+      "2407.17314",
+      "Edge-Cloud Continuum Orchestration of Critical Services: A Smart-City Approach"
+    ],
+    [
+      0.5857062935829163,
+      "abstract",
+      "2502.11644",
+      "InTec: integrated things-edge computing: a framework for distributing machine learning pipelines in edge AI systems"
+    ],
+    [
+      0.5802552103996277,
+      "abstract",
+      "2109.03901",
+      "Renovation of EdgeCloudSim: An Efficient Discrete-Event Approach"
+    ],
+    [
+      0.5736111998558044,
+      "abstract",
+      "2210.07842",
+      "ENTS: An Edge-native Task Scheduling System for Collaborative Edge Computing"
+    ],
+    [
+      0.5734776854515076,
+      "abstract",
+      "2401.04626",
+      "A Novel OMNeT++-based Simulation Tool for Vehicular Cloud Computing in ETSI MEC-compliant 5G Environments"
+    ],
+    [
+      0.5685689449310303,
+      "abstract",
+      "2504.03656",
+      "Comparative Analysis of Lightweight Kubernetes Distributions for Edge Computing: Performance and Resource Efficiency"
+    ],
+    [
+      0.5569440722465515,
+      "abstract",
+      "2310.05605",
+      "EdgeAISim: A Toolkit for Simulation and Modelling of AI Models in Edge Computing Environments"
+    ],
+    [
+      0.5476434230804443,
+      "abstract",
+      "2307.11181",
+      "SMOTEC: An Edge Computing Testbed for Adaptive Smart Mobility Experimentation"
+    ],
+    [
+      0.5461044907569885,
+      "abstract",
+      "2403.10977",
+      "An Open-Source Experimentation Framework for the Edge Cloud Continuum"
+    ],
+    [
+      0.5447879433631897,
+      "abstract",
+      "2501.07130",
+      "KubeDSM: A Kubernetes-based Dynamic Scheduling and Migration Framework for Cloud-Assisted Edge Clusters"
+    ],
+    [
+      0.5342867970466614,
+      "abstract",
+      "2005.00886",
+      "Sl-EDGE: Network Slicing at the Edge"
+    ],
+    [
+      0.5281656384468079,
+      "abstract",
+      "1910.03026",
+      "IoTSim-Edge: A Simulation Framework for Modeling the Behaviour of IoT and Edge Computing Environments"
+    ],
+    [
+      0.5115178227424622,
+      "abstract",
+      "2308.02834",
+      "FLight: A Lightweight Federated Learning Framework in Edge and Fog Computing"
+    ],
+    [
+      0.5109430551528931,
+      "abstract",
+      "2003.12911",
+      "EdgeSlice: Slicing Wireless Edge Computing Network with Decentralized Deep Reinforcement Learning"
+    ],
+    [
+      0.5048934817314148,
+      "abstract",
+      "1707.00889",
+      "ECHO: An Adaptive Orchestration Platform for Hybrid Dataflows across Cloud and Edge"
+    ],
+    [
+      0.503990888595581,
+      "abstract",
+      "1811.11978",
+      "FogBus: A Blockchain-based Lightweight Framework for Edge and Fog Computing"
+    ],
+    [
+      0.4550667703151703,
+      "abstract",
+      "2403.10954",
+      "ClusterSlice: A Zero-touch Deployment Platform for the Edge Cloud Continuum"
+    ],
+    [
+      0.4508865773677826,
+      "abstract",
+      "2503.15199",
+      "Radon: a Programming Model and Platform for Computing Continuum Systems"
+    ],
+    [
+      0.41813161969184875,
+      "abstract",
+      "2206.11663",
+      "A Decentralized Framework with Dynamic and Event-Driven Container Orchestration at the Edge"
+    ],
+    [
+      0.4074392020702362,
+      "abstract",
+      "2205.14247",
+      "Ainur: A Framework for Repeatable End-to-End Wireless Edge Computing Testbed Research"
+    ],
+    [
+      0.40341052412986755,
+      "abstract",
+      "2408.04181",
+      "EdgeShield: A Universal and Efficient Edge Computing Framework for Robust AI"
+    ],
+    [
+      0.3948785662651062,
+      "abstract",
+      "2510.09851",
+      "QONNECT: A QoS-Aware Orchestration System for Distributed Kubernetes Clusters"
+    ],
+    [
+      0.3588882088661194,
+      "abstract",
+      "2304.08927",
+      "Multitenant Containers as a Service (CaaS) for Clouds and Edge Clouds"
+    ],
+    [
+      0.2837335765361786,
+      "abstract",
+      "2504.04555",
+      "SchEdge: A Dynamic, Multi-agent, and Scalable Scheduling Simulator for IoT Edge"
+    ]
+  ]
+}
