@@ -53,3 +53,5 @@ __pycache__/
 
 # Logs
 backend/log/
+
+*.json
