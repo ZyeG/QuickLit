@@ -54,6 +54,7 @@ function App() {
   const [activeSessionId, setActiveSessionId] = useState<string | null>(null);
   const [isSyncing, setIsSyncing] = useState<boolean>(false);
   const [isAbstractOpen, setIsAbstractOpen] = useState<boolean>(false);
+  const [syncingSessionId, setSyncingSessionId] = useState<string | null>(null);
 
   const firstNWords = (text: string, n: number = 20): string => {
     if (!text) return "";
@@ -74,25 +75,27 @@ function App() {
   }, []);
 
   const asyncPersistSession = async (session: Session) => {
-    await fetch("http://localhost:3001/api/collections/papers/add", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        session,
-      }),
-    })
-      .then(() => {
+    try {
+      await fetch("http://localhost:3001/api/collections/papers/add", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          session,
+        }),
+      }).then(() => {
         setSessions((prev: Session[]) => {
           const updated = [session, ...prev.filter((s) => s.id !== session.id)];
           writeSessionsToStorage(updated);
-          setIsSyncing(false);
           return updated;
         });
         setActiveSessionId(session.id);
-      })
-      .catch((err) => {
-        console.error("Error persisting session to backend", err);
       });
+    } catch (err) {
+      console.error("Error persisting session to backend", err);
+    } finally {
+      setIsSyncing(false);
+      setSyncingSessionId(null);
+    }
   };
 
   const handleSessionSelect = (sessionId: string) => {
@@ -108,9 +111,12 @@ function App() {
 
   const handleQuery = async () => {
     if (!topic.trim()) return;
+    const newSessionId = buildSessionId();
 
     setLoading(true);
     setIsSyncing(true);
+    setSyncingSessionId(newSessionId);
+    setActiveSessionId(newSessionId);
     setPapers([]);
     setFetchedCount(null);
     setSelectedPaper(null);
@@ -131,7 +137,7 @@ function App() {
         setPapers(nextPapers);
         setFetchedCount(total);
         const newSession: Session = {
-          id: buildSessionId(),
+          id: newSessionId,
           topic: topic.trim(),
           papers: nextPapers,
           fetchedCount: total,
@@ -143,6 +149,9 @@ function App() {
       .catch((err) => {
         console.error(err);
         alert("Error querying backend");
+        setIsSyncing(false);
+        setSyncingSessionId(null);
+        setLoading(false);
       });
   };
 
@@ -357,7 +366,10 @@ function App() {
       )}
 
       <div className="ql-chat-dock">
-        <MyChatBot collection_name={activeSessionId ? activeSessionId : ""} />
+        <MyChatBot
+          collection_name={activeSessionId ? activeSessionId : ""}
+          disabled={isSyncing && syncingSessionId === activeSessionId}
+        />
       </div>
     </div>
   );

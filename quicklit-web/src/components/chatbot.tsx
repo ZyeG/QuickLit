@@ -3,9 +3,10 @@ import { type Flow, type Params } from "react-chatbotify";
 import { chatbotSettings, chatbotStyle } from "./chatbotSetting";
 type MyProps = {
   collection_name: string;
+  disabled?: boolean;
 };
 const REACT_APP_API_URL = "http://localhost:3001/api/chat/stream";
-function MyChatBot({ collection_name }: MyProps) {
+function MyChatBot({ collection_name, disabled = false }: MyProps) {
   let error = false;
   let url = REACT_APP_API_URL || " ";
   const chat_stream = async (params: Params) => {
@@ -76,7 +77,7 @@ function MyChatBot({ collection_name }: MyProps) {
       },
       // If an error occurs, chat will be disabled
       chatDisabled: async () => {
-        return error;
+        return error || disabled;
       },
     },
     error_end: {
