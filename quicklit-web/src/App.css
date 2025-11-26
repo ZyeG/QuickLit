@@ -96,7 +96,7 @@ body {
 
 .ql-layout {
   display: grid;
-  grid-template-columns: 1fr 340px;
+  grid-template-columns: 1fr;
   gap: 20px;
 }
 
@@ -410,6 +410,28 @@ body {
   position: sticky;
   top: 24px;
   height: fit-content;
+}
+
+.ql-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  z-index: 40;
+}
+
+.ql-modal {
+  width: min(760px, 100%);
+  max-height: 82vh;
+  overflow-y: auto;
+}
+
+.ql-modal .ql-sidebar-card {
+  width: 100%;
 }
 
 .ql-sidebar-card {

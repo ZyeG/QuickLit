@@ -53,6 +53,7 @@ function App() {
   const [sessions, setSessions] = useState<Session[]>([]);
   const [activeSessionId, setActiveSessionId] = useState<string | null>(null);
   const [isSyncing, setIsSyncing] = useState<boolean>(false);
+  const [isAbstractOpen, setIsAbstractOpen] = useState<boolean>(false);
 
   const firstNWords = (text: string, n: number = 20): string => {
     if (!text) return "";
@@ -102,6 +103,7 @@ function App() {
     setPapers(session.papers);
     setFetchedCount(session.fetchedCount);
     setSelectedPaper(null);
+    setIsAbstractOpen(false);
   };
 
   const handleQuery = async () => {
@@ -112,6 +114,7 @@ function App() {
     setPapers([]);
     setFetchedCount(null);
     setSelectedPaper(null);
+    setIsAbstractOpen(false);
 
     await fetch("http://localhost:3001/api/query", {
       method: "POST",
@@ -151,6 +154,16 @@ function App() {
       return `Fetched ${fetchedCount} papers`;
     if (!loading && fetchedCount === 0) return "No papers found for this topic";
     return "";
+  };
+
+  const openAbstractModal = (paper: Paper) => {
+    setSelectedPaper(paper);
+    setIsAbstractOpen(true);
+  };
+
+  const closeAbstractModal = () => {
+    setIsAbstractOpen(false);
+    setSelectedPaper(null);
   };
 
   return (
@@ -282,7 +295,7 @@ function App() {
                     <article
                       key={paper.paper_id}
                       className="ql-paper-card"
-                      onClick={() => setSelectedPaper(paper)}
+                      onClick={() => openAbstractModal(paper)}
                     >
                       <div className="ql-paper-id">{paper.paper_id}</div>
                       <h4 className="ql-paper-title">{paper.title}</h4>
@@ -304,7 +317,7 @@ function App() {
                           type="button"
                           onClick={(e) => {
                             e.stopPropagation();
-                            setSelectedPaper(paper);
+                            openAbstractModal(paper);
                           }}
                         >
                           Read abstract
@@ -317,42 +330,33 @@ function App() {
             </section>
           </main>
 
-          <aside className="ql-sidebar">
-            {selectedPaper ? (
-              <div className="ql-sidebar-card">
-                <div className="ql-sidebar-header">
-                  <p className="ql-eyebrow">Pinned paper</p>
-                  <button
-                    className="ql-close-btn"
-                    onClick={() => setSelectedPaper(null)}
-                  >
-                    Close
-                  </button>
-                </div>
-                <h3 className="ql-sidebar-title">{selectedPaper.title}</h3>
-                <p className="ql-sidebar-abstract">{selectedPaper.abstract}</p>
-                <a
-                  className="ql-btn-secondary"
-                  href={selectedPaper.pdf_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Open PDF
-                </a>
-              </div>
-            ) : (
-              <div className="ql-sidebar-card muted">
-                <p className="ql-eyebrow">Abstract reader</p>
-                <h3 className="ql-sidebar-title">Select a paper to preview</h3>
-                <p className="ql-sidebar-abstract">
-                  Tap any result to pin it here and read the full abstract. Use
-                  this space to decide which PDFs are worth opening.
-                </p>
-              </div>
-            )}
-          </aside>
         </div>
       </div>
+
+      {isAbstractOpen && selectedPaper && (
+        <div className="ql-modal-overlay" onClick={closeAbstractModal}>
+          <div className="ql-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="ql-sidebar-card">
+              <div className="ql-sidebar-header">
+                <p className="ql-eyebrow">Abstract</p>
+                <button className="ql-close-btn" onClick={closeAbstractModal}>
+                  Close
+                </button>
+              </div>
+              <h3 className="ql-sidebar-title">{selectedPaper.title}</h3>
+              <p className="ql-sidebar-abstract">{selectedPaper.abstract}</p>
+              <a
+                className="ql-btn-secondary"
+                href={selectedPaper.pdf_url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Open PDF
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="ql-chat-dock">
         <MyChatBot collection_name={activeSessionId ? activeSessionId : ""} />
