@@ -178,7 +178,6 @@ function App() {
               <div className="ql-brand-sub">Research-ready in seconds</div>
             </div>
           </div>
-          <div className="ql-pill">Modern</div>
         </header>
 
         <div className="ql-layout">
@@ -329,7 +328,6 @@ function App() {
               )}
             </section>
           </main>
-
         </div>
       </div>
 
