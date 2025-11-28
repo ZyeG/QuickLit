@@ -45,6 +45,12 @@
   ]
 }
 ```
+- test with curl 
+`curl -X POST "http://localhost:3001/api/query" \
+  -H "Content-Type: application/json" \
+  -d '{
+        "topic": "Security Risk and Attacks in AI"
+      }'`
 
 ## Eval
 ### Topics for Evaluation
