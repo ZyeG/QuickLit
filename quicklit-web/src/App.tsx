@@ -49,6 +49,16 @@ function App() {
   const [papers, setPapers] = useState<Paper[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [selectedPaper, setSelectedPaper] = useState<Paper | null>(null);
+  const [summaryPanelPaperId, setSummaryPanelPaperId] = useState<string | null>(
+    null
+  );
+  const [summaryByPaperId, setSummaryByPaperId] = useState<
+    Record<string, string>
+  >({});
+  const [summaryLoadingId, setSummaryLoadingId] = useState<string | null>(null);
+  const [summaryErrorByPaperId, setSummaryErrorByPaperId] = useState<
+    Record<string, string>
+  >({});
   const [fetchedCount, setFetchedCount] = useState<number | null>(null);
   const [sessions, setSessions] = useState<Session[]>([]);
   const [activeSessionId, setActiveSessionId] = useState<string | null>(null);
@@ -102,6 +112,10 @@ function App() {
     setPapers(session.papers);
     setFetchedCount(session.fetchedCount);
     setSelectedPaper(null);
+    setSummaryPanelPaperId(null);
+    setSummaryByPaperId({});
+    setSummaryErrorByPaperId({});
+    setSummaryLoadingId(null);
   };
 
   const handleQuery = async () => {
@@ -112,6 +126,10 @@ function App() {
     setPapers([]);
     setFetchedCount(null);
     setSelectedPaper(null);
+    setSummaryPanelPaperId(null);
+    setSummaryByPaperId({});
+    setSummaryErrorByPaperId({});
+    setSummaryLoadingId(null);
 
     await fetch("http://localhost:3001/api/query", {
       method: "POST",
@@ -151,6 +169,50 @@ function App() {
       return `Fetched ${fetchedCount} papers`;
     if (!loading && fetchedCount === 0) return "No papers found for this topic";
     return "";
+  };
+
+  const handleSummaryBySection = async (paper: Paper) => {
+    setSelectedPaper(paper);
+    setSummaryPanelPaperId(paper.paper_id);
+    setSummaryErrorByPaperId((prev) => {
+      const next = { ...prev };
+      delete next[paper.paper_id];
+      return next;
+    });
+
+    if (summaryByPaperId[paper.paper_id]) {
+      return;
+    }
+
+    setSummaryLoadingId(paper.paper_id);
+    try {
+      const res = await fetch("http://localhost:3001/api/summary/by-id", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ arxiv_id: paper.paper_id }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data?.error || "Failed to fetch summary");
+      }
+      if (!data?.summary) {
+        throw new Error("No summary returned");
+      }
+
+      setSummaryByPaperId((prev) => ({
+        ...prev,
+        [paper.paper_id]: data.summary as string,
+      }));
+    } catch (err) {
+      console.error("Error fetching summary", err);
+      setSummaryErrorByPaperId((prev) => ({
+        ...prev,
+        [paper.paper_id]: "Unable to fetch summary. Please try again.",
+      }));
+    } finally {
+      setSummaryLoadingId(null);
+    }
   };
 
   return (
@@ -282,8 +344,11 @@ function App() {
                     <article
                       key={paper.paper_id}
                       className="ql-paper-card"
-                      onClick={() => setSelectedPaper(paper)}
-                    >
+                    onClick={() => {
+                      setSelectedPaper(paper);
+                      setSummaryPanelPaperId(null);
+                    }}
+                  >
                       <div className="ql-paper-id">{paper.paper_id}</div>
                       <h4 className="ql-paper-title">{paper.title}</h4>
                       <p className="ql-paper-abstract">
@@ -305,9 +370,10 @@ function App() {
                           onClick={(e) => {
                             e.stopPropagation();
                             setSelectedPaper(paper);
+                            setSummaryPanelPaperId(null);
                           }}
                         >
-                          Read abstract
+                          Preview
                         </button>
                       </div>
                     </article>
@@ -324,7 +390,10 @@ function App() {
                   <p className="ql-eyebrow">Pinned paper</p>
                   <button
                     className="ql-close-btn"
-                    onClick={() => setSelectedPaper(null)}
+                    onClick={() => {
+                      setSelectedPaper(null);
+                      setSummaryPanelPaperId(null);
+                    }}
                   >
                     Close
                   </button>
@@ -339,6 +408,57 @@ function App() {
                 >
                   Open PDF
                 </a>
+                <button
+                  className="ql-btn-secondary"
+                  onClick={() => handleSummaryBySection(selectedPaper)}
+                  disabled={summaryLoadingId === selectedPaper.paper_id}
+                >
+                  {summaryLoadingId === selectedPaper.paper_id
+                    ? "Fetching summary..."
+                    : "Get summary by section"}
+                </button>
+
+                {summaryPanelPaperId && summaryPanelPaperId === selectedPaper.paper_id && (
+                  <div className="ql-summary-panel">
+                    <div className="ql-sidebar-header">
+                      <p className="ql-eyebrow">Summary by section</p>
+                      <button
+                        className="ql-close-btn"
+                        onClick={() => setSummaryPanelPaperId(null)}
+                      >
+                        Close
+                      </button>
+                    </div>
+                    <p className="ql-summary-meta">
+                      {summaryLoadingId === summaryPanelPaperId
+                        ? "Working on it..."
+                        : `Paper ${summaryPanelPaperId}`}
+                    </p>
+                    {summaryLoadingId === summaryPanelPaperId && (
+                      <div className="ql-summary-loading">
+                        <div className="ql-loader small" />
+                        <span>Generating concise section summaries...</span>
+                      </div>
+                    )}
+                    {summaryErrorByPaperId[summaryPanelPaperId] && (
+                      <p className="ql-summary-error">
+                        {summaryErrorByPaperId[summaryPanelPaperId]}
+                      </p>
+                    )}
+                    {summaryByPaperId[summaryPanelPaperId] && (
+                      <pre className="ql-summary-text">
+                        {summaryByPaperId[summaryPanelPaperId]}
+                      </pre>
+                    )}
+                    {!summaryByPaperId[summaryPanelPaperId] &&
+                      !summaryErrorByPaperId[summaryPanelPaperId] &&
+                      summaryLoadingId !== summaryPanelPaperId && (
+                        <p className="ql-summary-hint">
+                          Tap “Get summary by section” to fetch notes.
+                        </p>
+                      )}
+                  </div>
+                )}
               </div>
             ) : (
               <div className="ql-sidebar-card muted">
