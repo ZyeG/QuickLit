@@ -1,0 +1,28 @@
+{
+  "arxiv_id": "2506.09159",
+  "pdf_url": "https://arxiv.org/pdf/2506.09159.pdf",
+  "criteria": [
+    {
+      "name": "section_coverage",
+      "score": 10,
+      "reason": "Covers all main sections of the paper, excluding Acknowledgements/References."
+    },
+    {
+      "name": "concision",
+      "score": 8,
+      "reason": "Generally concise, though some sections could be shortened further for more clarity."
+    },
+    {
+      "name": "faithfulness",
+      "score": 9,
+      "reason": "Accurately reflects the paper's content, with minimal risk of misrepresentation."
+    },
+    {
+      "name": "writing_quality",
+      "score": 8,
+      "reason": "Well-written but has minor issues with sentence structure and coherence in some areas."
+    }
+  ],
+  "overall_score": 8.75,
+  "overall_reason": "Overall, the summary is comprehensive and faithful, with good clarity, though slight improvements in concision and writing quality are possible."
+}
