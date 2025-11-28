@@ -48,8 +48,8 @@ for topic in semantic.keys():
     row = {"topic": topic}
 
     # semantic scores
-    #row["semantic_v1"] = semantic[topic]["v1"][METRIC]
-    #row["semantic_v2"] = semantic[topic]["v2"][METRIC]
+    row["semantic_v1"] = semantic[topic]["v1"][METRIC]
+    row["semantic_v2"] = semantic[topic]["v2"][METRIC]
 
     # match arxiv_v1 filename naming convention
     normalized_topic = topic.lower().replace(" ", "_")
@@ -69,11 +69,11 @@ for topic in semantic.keys():
 # output csv
 df = pd.DataFrame(rows)
 
-csv_path = os.path.join(RESULTS_DIR, "combined_scores.csv")
+csv_path = os.path.join(RESULTS_DIR, "compare_scores.csv")
 
 df.to_csv(csv_path, index=False)
 
-print("\n✓ Combined score tables saved:")
+print("\n Combined score tables saved:")
 print(" -", csv_path)
 
 print("\nPreview:")
