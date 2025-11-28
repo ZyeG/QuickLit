@@ -205,22 +205,6 @@ def query(topic, model="gpt-5", out_dir=LOG_DIR):
 
     return rest_json, out_path
 
-def get_summary(pdf_url, model="gpt-5"):
-    PROMPT = f"""
-    You are an academic research assistant.
-    Read the paper at {pdf_url} and identify all first level sections (Methods, Results, Discussion, etc.), and provide a concise summary of each section (1-2 sentences for shorter sections, 3-4 sentences for longer sections).
-    Format the output as:
-    Section Title 1:
-    Summary of section title 1. 
-    etc.
-    """
-    response = client.responses.create(
-        model=model,
-        input=PROMPT
-    )
-
-    summary = response.output_text.strip()
-    return summary
 def chat_query(query: str, context: str, model="gpt-5", stream: bool = False):
     instructions = CHAT_SYSTEM_PROMPT + context
 
