@@ -1,0 +1,60 @@
+{
+  "topic": "Machine Learning Approaches and Its Techniques",
+  "num_papers": 9,
+  "papers": [
+    {
+      "paper_id": "1609.04747",
+      "title": "An overview of gradient descent optimization algorithms",
+      "pdf_url": "https://arxiv.org/pdf/1609.04747.pdf",
+      "abstract": "Gradient descent optimization algorithms, while increasingly popular, are often used as black-box optimizers, as practical explanations of their strengths and weaknesses are hard to come by. This article aims to provide the reader with intuitions with regard to the behaviour of different algorithms that will allow her to put them to use. In the course of this overview, we look at different variants of gradient descent, summarize challenges, introduce the most common optimization algorithms, review architectures in a parallel and distributed setting, and investigate additional strategies for optimizing gradient descent."
+    },
+    {
+      "paper_id": "1412.6980",
+      "title": "Adam: A Method for Stochastic Optimization",
+      "pdf_url": "https://arxiv.org/pdf/1412.6980.pdf",
+      "abstract": "We introduce Adam, an algorithm for first-order gradient-based optimization of stochastic objective functions, based on adaptive estimates of lower-order moments. The method is straightforward to implement, is computationally efficient, has little memory requirements, is invariant to diagonal rescaling of the gradients, and is well suited for problems that are large in terms of data and/or parameters. The method is also appropriate for non-stationary objectives and problems with very noisy and/or sparse gradients. The hyper-parameters have intuitive interpretations and typically require little tuning. Some connections to related algorithms, on which Adam was inspired, are discussed. We also analyze the theoretical convergence properties of the algorithm and provide a regret bound on the convergence rate that is comparable to the best known results under the online convex optimization framework. Empirical results demonstrate that Adam works well in practice and compares favorably to other stochastic optimization methods. Finally, we discuss AdaMax, a variant of Adam based on the infinity norm."
+    },
+    {
+      "paper_id": "1207.0580",
+      "title": "Improving Neural Networks by Preventing Co-Adaptation of Feature Detectors",
+      "pdf_url": "https://arxiv.org/pdf/1207.0580.pdf",
+      "abstract": "When a large feedforward neural network is trained on a small training set, it typically performs poorly on held-out test data. This \"overfitting\" is greatly reduced by randomly omitting half of the feature detectors on each training case. This prevents complex co-adaptations in which a feature detector is only helpful in the context of several other specific feature detectors. Instead, each neuron learns to detect a feature that is generally helpful for producing the correct answer given the combinatorially large variety of internal contexts in which it must operate. Random \"dropout\" gives big improvements on many benchmark tasks and sets new records for speech and object recognition."
+    },
+    {
+      "paper_id": "1502.03167",
+      "title": "Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift",
+      "pdf_url": "https://arxiv.org/pdf/1502.03167.pdf",
+      "abstract": "Training Deep Neural Networks is complicated by the fact that the distribution of each layer's inputs changes during training, as the parameters of the previous layers change. This slows down the training by requiring lower learning rates and careful parameter initialization, and makes it notoriously hard to train models with saturating nonlinearities. We refer to this phenomenon as internal covariate shift, and address the problem by normalizing layer inputs. Our method draws its strength from making normalization a part of the model architecture and performing the normalization for each training mini-batch. Batch Normalization allows us to use much higher learning rates and be less careful about initialization. It also acts as a regularizer, in some cases eliminating the need for Dropout. Applied to a state-of-the-art image classification model, Batch Normalization achieves the same accuracy with 14 times fewer training steps, and beats the original model by a significant margin. Using an ensemble of batch-normalized networks, we improve upon the best published result on ImageNet classification: reaching 4.9% top-5 validation error (and 4.8% test error), exceeding the accuracy of human raters."
+    },
+    {
+      "paper_id": "1603.02754",
+      "title": "XGBoost: A Scalable Tree Boosting System",
+      "pdf_url": "https://arxiv.org/pdf/1603.02754.pdf",
+      "abstract": "Tree boosting is a highly effective and widely used machine learning method. In this paper, we describe a scalable end-to-end tree boosting system called XGBoost, which is used widely by data scientists to achieve state-of-the-art results on many machine learning challenges. We propose a novel sparsity-aware algorithm for sparse data and weighted quantile sketch for approximate tree learning. More importantly, we provide insights on cache access patterns, data compression and sharding to build a scalable tree boosting system. By combining these insights, XGBoost scales beyond billions of examples using far fewer resources than existing systems."
+    },
+    {
+      "paper_id": "1706.09516",
+      "title": "CatBoost: unbiased boosting with categorical features",
+      "pdf_url": "https://arxiv.org/pdf/1706.09516.pdf",
+      "abstract": "This paper presents the key algorithmic techniques behind CatBoost, a new gradient boosting toolkit. Their combination leads to CatBoost outperforming other publicly available boosting implementations in terms of quality on a variety of datasets. Two critical algorithmic advances introduced in CatBoost are the implementation of ordered boosting, a permutation-driven alternative to the classic algorithm, and an innovative algorithm for processing categorical features. Both techniques were created to fight a prediction shift caused by a special kind of target leakage present in all currently existing implementations of gradient boosting algorithms. In this paper, we provide a detailed analysis of this problem and demonstrate that proposed algorithms solve it effectively, leading to excellent empirical results."
+    },
+    {
+      "paper_id": "1012.2599",
+      "title": "A Tutorial on Bayesian Optimization of Expensive Cost Functions, with Application to Active User Modeling and Hierarchical Reinforcement Learning",
+      "pdf_url": "https://arxiv.org/pdf/1012.2599.pdf",
+      "abstract": "We present a tutorial on Bayesian optimization, a method of finding the maximum of expensive cost functions. Bayesian optimization employs the Bayesian technique of setting a prior over the objective function and combining it with evidence to get a posterior function. This permits a utility-based selection of the next observation to make on the objective function, which must take into account both exploration (sampling from areas of high uncertainty) and exploitation (sampling areas likely to offer improvement over the current best observation). We also present two detailed extensions of Bayesian optimization, with experiments---active user modelling with preferences, and hierarchical reinforcement learning---and a discussion of the pros and cons of Bayesian optimization based on our experiences."
+    },
+    {
+      "paper_id": "1506.06445",
+      "title": "Deep Learning",
+      "pdf_url": "https://arxiv.org/pdf/1506.06445.pdf",
+      "abstract": "The nature of Calcium--Silicate--Hydrate (C--S--H), the binding phase of cement, remains a controversial question. In particular, contrary to the former crystalline model, it was recently proposed that its nanoscale structure was actually amorphous. To elucidate this issue, we analyzed the structure of a realistic simulation of C--S--H, and compared the latter to crystalline tobermorite, a natural analogue to cement, and to an artificial ideal glass. Results clearly support that C--S--H is amorphous. However, its structure shows an intermediate degree of order, retaining some characteristics of the crystal while acquiring an overall glass-like disorder. Thanks to a detailed quantification of order and disorder, we show that its amorphous state mainly arises from its hydration."
+    },
+    {
+      "paper_id": "1201.0490",
+      "title": "Scikit-learn: Machine Learning in Python",
+      "pdf_url": "https://arxiv.org/pdf/1201.0490.pdf",
+      "abstract": "Scikit-learn is a Python module integrating a wide range of state-of-the-art machine learning algorithms for medium-scale supervised and unsupervised problems. This package focuses on bringing machine learning to non-specialists using a general-purpose high-level language. Emphasis is put on ease of use, performance, documentation, and API consistency. It has minimal dependencies and is distributed under the simplified BSD license, encouraging its use in both academic and commercial settings. Source code, binaries, and documentation can be downloaded from http://scikit-learn.org."
+    }
+  ]
+}

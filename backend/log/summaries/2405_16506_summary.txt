@@ -1,0 +1,16 @@
+GRAG: Graph Retrieval-Augmented Generation
+Abstract: The paper introduces GRAG, a framework that retrieves query-relevant textual subgraphs and injects both textual and topological information into LLMs via complementary text (hard) and graph (soft) prompts. A divide-and-conquer retrieval strategy (ego-graph indexing, ranking, and soft pruning) enables efficient subgraph selection and yields strong gains on multi-hop graph reasoning benchmarks.
+
+1 Introduction: The authors argue that standard RAG, which retrieves isolated documents, fails on networked documents such as citation and social graphs. They propose GRAG to address two core challenges—efficient textual subgraph retrieval and delivering joint text-topology context to LLMs—via ego-graph-based retrieval and dual-view prompting. Contributions include a linear-time approximate retrieval scheme and a prompting method that preserves graph structure.
+
+2 Related Work: The section reviews prompt tuning versus parameter tuning, LLM applications to graph tasks, and prior graph retrieval approaches that typically ignore full topology during retrieval or generation. It motivates GRAG by highlighting the need to integrate both textual and structural cues end-to-end.
+
+3 Problem Formalization: Textual graphs and their subgraphs are formally defined, and GRAG is posed as retrieving an optimal subgraph that maximizes downstream generation quality for a given query. The generation process is expressed as conditioning the LLM on the query and the retrieved subgraph.
+
+4 Methodology: GRAG first indexes K-hop ego-graphs using a PLM, ranks them by semantic similarity to the query, and applies learnable soft pruning to suppress irrelevant nodes/edges before merging top candidates. For generation, it supplies two views: a text view that converts the retrieved subgraph into hierarchical descriptions preserving topology, and a graph view that encodes the pruned subgraph with a GNN to produce soft prompts. An alignment MLP maps graph embeddings to the LLM’s text space, after which hard and soft prompts are concatenated to guide decoding. This design preserves structure while remaining efficient compared to exhaustive subgraph search.
+
+5 Experiments: Using WebQSP and ExplaGraphs, GRAG is compared to strong RAG retrievers and LLM baselines (frozen and LoRA-tuned), evaluating with F1/Hit@1/Recall or Accuracy. GRAG consistently outperforms both RAG and LLM-only baselines; soft pruning notably improves results, and models trained on one dataset transfer well to the other. Larger LLMs do not automatically beat smaller ones without graph-aware retrieval, and performance depends on subgraph size and number of retrieved ego-graphs (too large can introduce noise). Ablations show graph context encoding, pruning, and inclusion of text attributes are all critical.
+
+6 Conclusion: GRAG extends RAG to graph scenarios by efficiently retrieving textual subgraphs and integrating them via dual views, yielding substantial gains on multi-hop graph reasoning. A frozen LLM augmented with GRAG can surpass fine-tuned LLMs while reducing training cost.
+
+7 Limitations: GRAG’s efficiency and quality depend on accurate initial node ranking and pruning; when graph structure or node importance is hard to estimate, retrieval and downstream performance may degrade.
