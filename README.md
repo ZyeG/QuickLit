@@ -52,6 +52,12 @@
         "topic": "Security Risk and Attacks in AI"
       }'`
 
+### @app.post("/api/summary/by-id")
+- test with
+curl -X POST "http://localhost:3001/api/summary/by-id" \
+  -H "Content-Type: application/json" \
+  -d '{"arxiv_id": "2405.16506"}'
+
 ## Eval
 ### Topics for Evaluation
 Deep Reinforcement Learning for Data Processing and Analytics

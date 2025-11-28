@@ -16,12 +16,12 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 BACKEND_DIR = os.path.dirname(BASE_DIR)
 # logs directory under backend/
 LOG_DIR = os.path.join(BACKEND_DIR, "log", "query_out")   # goes to backend/log/query_out/
-
+SUMMARIES_LOG_DIR = os.path.join(BACKEND_DIR, "log", "summaries")   # goes to backend/log/summaries/
 # Max number of papers to fetch per query
 MAX_PAPERS = 30
 
 os.makedirs(LOG_DIR, exist_ok=True)
-
+os.makedirs(SUMMARIES_LOG_DIR, exist_ok=True)
 CHAT_SYSTEM_PROMPT = """
 You are an academic research assistant that helps to get information from researched paper.\
 You will be given the context of the paper and a question related to it.\
@@ -246,3 +246,30 @@ def chat_query(query: str, context: str, model="gpt-5", stream: bool = False):
         input=query
     )
     return response.output_text
+
+# get_summary: intake arxiv id, output summary text
+def get_summary(id, model="gpt-5"):
+    pdf_url = f"https://arxiv.org/pdf/{id}.pdf"
+    PROMPT = f"""
+    You are an academic research assistant.
+    Read the paper at {pdf_url} and identify all first level sections (Methods, Results, Discussion, etc.), and provide a concise summary of each section (1-2 sentences for shorter sections, 3-4 sentences for longer sections).
+
+    Do not summarize Acknowledgements or References.
+
+    Output format:
+    <paper title>
+    <section 1 title>:<section 1 summary>
+    <section 2 title>:<section 2 summary>
+    ...
+
+    Do not include citations or urls in the output. 
+    """
+
+    response = client.responses.create(
+        model=model,
+        input=PROMPT,
+        tools=[{"type": "web_search"}],
+    )
+
+    summary = response.output_text.strip()
+    return summary
