@@ -172,6 +172,9 @@ function App() {
   };
 
   const handleSummaryBySection = async (paper: Paper) => {
+    if (loading || isSyncing) {
+      return;
+    }
     setSelectedPaper(paper);
     setSummaryPanelPaperId(paper.paper_id);
     setSummaryErrorByPaperId((prev) => {
@@ -411,10 +414,16 @@ function App() {
                 <button
                   className="ql-btn-secondary"
                   onClick={() => handleSummaryBySection(selectedPaper)}
-                  disabled={summaryLoadingId === selectedPaper.paper_id}
+                  disabled={
+                    summaryLoadingId === selectedPaper.paper_id ||
+                    loading ||
+                    isSyncing
+                  }
                 >
                   {summaryLoadingId === selectedPaper.paper_id
                     ? "Fetching summary..."
+                    : isSyncing || loading
+                    ? "Waiting for syncing to complete before fetching summary enablement..."
                     : "Get summary by section"}
                 </button>
 
