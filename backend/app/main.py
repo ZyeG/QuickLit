@@ -56,7 +56,9 @@ async def add_papers(request: Request):
         return {"error": "Missing 'collection_name' or 'papers' in request body"}, 400
 
     # Here you would call your function to add papers to the collection
-    qdrant_add_openai(collection_name, papers)
+    # qdrant_add_openai(collection_name, papers)
+    # Or to use the larger chunk size splitter for OpenAI embeddings
+    qdrant_add_openai(collection_name, papers, use_max_splitter=True)
     return {"status": "success", "message": f"Added {len(papers)} papers to collection '{collection_name}'"}
 
 #  Endpoint to query papers from a Qdrant collection
@@ -75,7 +77,6 @@ async def query_collection(request: Request):
         query_text=query_text,
         top_k=top_k,
     )
-
     return results
 
 @app.post("/api/chat/stream")
@@ -89,12 +90,18 @@ async def generate_stream(request: Request):
         return {"error": "Missing 'collection_name' in request body"}
     if not query_text:
         return {"error": "Missing 'query_text' in request body"}
-    results = query_qdrant_openai(
+    # results = query_qdrant_openai(
+    #             collection_name=collection_name,
+    #             query_text=query_text,
+    #             top_k=10,
+    #             )
+    alt_results = query_qdrant_openai(
                 collection_name=collection_name,
                 query_text=query_text,
                 top_k=10,
+                use_alt_collection=True
                 )
-
-    response_stream = chat_query(query=query_text, context=results, model="gpt-5", stream=True)
-
-    return StreamingResponse(response_stream, media_type="text/plain")
+    # response_stream = chat_query(query=query_text, context=results, model="gpt-5", stream=True)
+    alt_response_stream = chat_query(query=query_text, context=alt_results, model="gpt-5", stream=True)
+    # return StreamingResponse(response_stream, media_type="text/plain")
+    return StreamingResponse(alt_response_stream, media_type="text/plain")
