@@ -9,6 +9,10 @@ text_splitter = RecursiveCharacterTextSplitter(
     chunk_size=CHUNK_SIZE,
     chunk_overlap=CHUNK_OVERLAP
 )
+max_text_splitter = RecursiveCharacterTextSplitter(
+    chunk_size=7000,
+    chunk_overlap=3500
+)
 # ---------------------------------------------
 # RAG Pipeline Utilities
 def split_text(paper):
@@ -26,6 +30,14 @@ def split_text(paper):
     return_chunks = []
     for p in paper:
         chunks = text_splitter.split_text(p["content"])
+        return_chunks.extend({"title": p["title"], "pdf_url": p["pdf_url"], "paper_id": p["paper_id"], "text": chunk} for chunk in chunks)
+    return return_chunks
+
+def max_split_text(paper):
+    # Similar to split_text but with larger chunk size for OpenAI embeddings
+    return_chunks = []
+    for p in paper:
+        chunks = max_text_splitter.split_text(p["content"])
         return_chunks.extend({"title": p["title"], "pdf_url": p["pdf_url"], "paper_id": p["paper_id"], "text": chunk} for chunk in chunks)
     return return_chunks
 # ---------------------------------------------
@@ -53,7 +65,7 @@ def _openai_get_embedding_vector(text: str):
         # Fallback: if the client returns a different shape, try to access resp["data"][0]["embedding"]
         return resp["data"][0]["embedding"]
 
-def qdrant_add_openai(collection_name, data):
+def qdrant_add_openai(collection_name, data, use_max_splitter=False):
     """
     Use OpenAI embeddings instead of a local sentence-transformers model.
 
@@ -61,10 +73,10 @@ def qdrant_add_openai(collection_name, data):
     """
     # parse the paper to get text content
     data, _ = parse_papers_to_text(data)
-
+    if use_max_splitter:
+        collection_name += "_8192"
     # chunk the text
-    chunks = split_text(data)
-
+    chunks = max_split_text(data) if use_max_splitter else split_text(data)
     # Compute embeddings for each document
     vectors = []
     payload = []
@@ -92,13 +104,15 @@ def qdrant_add_openai(collection_name, data):
         payload=payload,
     )
 
-def query_qdrant_openai(collection_name, query_text, top_k=5, return_points: bool = False):
+def query_qdrant_openai(collection_name, query_text, top_k=5, return_points: bool = False, use_alt_collection=False):
     """
     Query Qdrant collection with input text and return top_k results.
 
     By default returns a formatted string for UI/debugging.
     If return_points=True, returns the raw PointStruct list for evaluation.
     """
+    if use_alt_collection:
+        collection_name += "_8192"
     search_result = QDRANT_CLIENT.query_points(
         collection_name=collection_name,
         query=_openai_get_embedding_vector(query_text),
