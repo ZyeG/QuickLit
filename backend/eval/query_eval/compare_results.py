@@ -77,4 +77,6 @@ print("\n Combined score tables saved:")
 print(" -", csv_path)
 
 print("\nPreview:")
+pd.set_option("display.max_colwidth", None)
+pd.set_option("display.width", 0)
 print(df)

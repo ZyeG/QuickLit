@@ -238,12 +238,15 @@ def get_summary(id, model="gpt-5"):
     You are an academic research assistant.
     Read the paper at {pdf_url} and identify all first level sections (Methods, Results, Discussion, etc.), and provide a concise summary of each section (1-2 sentences for shorter sections, 3-4 sentences for longer sections).
 
-    Do not summarize Acknowledgements or References.
+    Do not summarize Abstract, Acknowledgements or References.
 
     Output format:
     <paper title>
     <section 1 title>:<section 1 summary>
+
     <section 2 title>:<section 2 summary>
+
+    <section N title>:<section N summary>
     ...
 
     Do not include citations or urls in the output. 

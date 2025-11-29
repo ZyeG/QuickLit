@@ -43,11 +43,13 @@ Summary provided:
 SUMMARY
 
 Evaluate using this rubric (score each 1-10):
-- section_coverage: covers all first-level sections except Acknowledgements/References.
-- concision: each section is concise (1-2 sentences if short, 3-4 if longer).
-- faithfulness: matches the paper content; no hallucinations.
+- section_coverage: covers all first-level sections except Acknowledgements/References/Abstract. Captures the core ideas of each section. 
+- concision: each section is concise while maintaining clarity and completeness.
+- faithfulness: ideas mentioned in summary have direct references in the original paper; no hallucinations.
 - writing_quality: grammar, clarity, coherence.
 - overall: weighted holistic score.
+
+Emphasize factual accuracy and coverage over writing quality.
 
 Respond ONLY with strict JSON:
 {{

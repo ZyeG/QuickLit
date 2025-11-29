@@ -5,24 +5,24 @@
     {
       "name": "section_coverage",
       "score": 10,
-      "reason": "All main sections are covered except Acknowledgements and References."
+      "reason": "Summarizes all main sections effectively, providing a comprehensive overview."
     },
     {
       "name": "concision",
       "score": 9,
-      "reason": "Most sections are concise, with some slightly longer descriptions that could be more succinct."
+      "reason": "Sections are concise and clear, though minor details could be trimmed for even greater clarity."
     },
     {
       "name": "faithfulness",
       "score": 10,
-      "reason": "The summary accurately reflects the content of the paper without any hallucinations."
+      "reason": "All ideas accurately reflect the content of the original paper without hallucinations."
     },
     {
       "name": "writing_quality",
       "score": 9,
-      "reason": "Generally clear and coherent; minor improvements in flow could be made."
+      "reason": "Generally well-written with clear language and coherence; minor grammatical improvements possible."
     }
   ],
-  "overall_score": 9,
-  "overall_reason": "The summary is comprehensive and accurate, demonstrating strong understanding and effective communication."
+  "overall_score": 9.5,
+  "overall_reason": "The summary is accurate, comprehensive, and concise, effectively capturing the essence of the paper."
 }
