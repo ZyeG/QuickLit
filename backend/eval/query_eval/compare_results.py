@@ -48,21 +48,21 @@ for topic in semantic.keys():
     row = {"topic": topic}
 
     # semantic scores
-    row["semantic_v1"] = semantic[topic]["v1"][METRIC]
-    row["semantic_v2"] = semantic[topic]["v2"][METRIC]
+    row["v1"] = semantic[topic]["v1"][METRIC]
+    row["v2"] = semantic[topic]["v2"][METRIC]
 
     # match arxiv_v1 filename naming convention
     normalized_topic = topic.lower().replace(" ", "_")
-    row["arxiv_v1"] = arxiv_v1.get(normalized_topic)
+    row["v3"] = arxiv_v1.get(normalized_topic)
 
     # arxiv_v2 score
-    row["arxiv_v2"] = arxiv_v2.get(topic, {}).get(METRIC)
+    row["v4"] = arxiv_v2.get(topic, {}).get(METRIC)
 
     # arxiv_v3 score
     if topic in arxiv_v3:
-        row["arxiv_v3"] = arxiv_v3[topic].get(METRIC)
+        row["v5"] = arxiv_v3[topic].get(METRIC)
     else:
-        row["arxiv_v3"] = None
+        row["v5"] = None
 
     rows.append(row)
 
