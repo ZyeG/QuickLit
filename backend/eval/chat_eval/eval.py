@@ -279,4 +279,59 @@ if __name__ == "__main__":
     # with open(out_path, "w", encoding="utf-8") as f:
     #     json.dump(result, f, indent=2, ensure_ascii=False)
 
+
+    # Test 4
+    # paper_urls = ["https://arxiv.org/pdf/2403.19245.pdf",
+    #               "https://arxiv.org/pdf/2305.18617.pdf",
+    #               "https://arxiv.org/pdf/2404.10551.pdf",
+    #               "https://arxiv.org/pdf/2407.05810.pdf",
+    #               "https://arxiv.org/pdf/2311.14378.pdf",
+    #               "https://arxiv.org/pdf/2312.05235.pdf",
+    #               "https://arxiv.org/pdf/2404.04603.pdf",
+    #               "https://arxiv.org/pdf/2503.05760.pdf",
+    #               "https://arxiv.org/pdf/2503.07928.pdf",
+    #               "https://arxiv.org/pdf/2508.01926.pdf"]
+    # papers = [get_pdf_raw_content(url) for url in paper_urls]
+    # paper = "\n\n\n".join(papers)
+    # chat = load_json_utf8("./chat_history/11-26-multi-papers_alt.json")
+    # result = evaluate_chat_history(paper, chat)
+    # out_path = "./eval_history/11-26-multi-papers-alt-eval.json"
+    # with open(out_path, "w", encoding="utf-8") as f:
+    #     json.dump(result, f, indent=2, ensure_ascii=False)
+
+    # Test 5
+    # paper_urls = ["https://arxiv.org/pdf/2403.19245.pdf",
+    #               "https://arxiv.org/pdf/2305.18617.pdf",
+    #               "https://arxiv.org/pdf/2404.10551.pdf",
+    #               "https://arxiv.org/pdf/2407.05810.pdf",
+    #               "https://arxiv.org/pdf/2311.14378.pdf",
+    #               "https://arxiv.org/pdf/2312.05235.pdf",
+    #               "https://arxiv.org/pdf/2404.04603.pdf",
+    #               "https://arxiv.org/pdf/2503.05760.pdf",
+    #               "https://arxiv.org/pdf/2503.07928.pdf",
+    #               "https://arxiv.org/pdf/2508.01926.pdf"]
+    # papers = [get_pdf_raw_content(url) for url in paper_urls]
+    # paper = "\n\n\n".join(papers)
+    # chat = load_json_utf8("./chat_history/11-26-multi-papers.json")
+    # result = evaluate_chat_history(paper, chat)
+    # out_path = "./eval_history/11-26-multi-papers-eval.json"
+    # with open(out_path, "w", encoding="utf-8") as f:
+    #     json.dump(result, f, indent=2, ensure_ascii=False)
+
+    # Test 6
+    # paper = get_pdf_raw_content("https://arxiv.org/pdf/2403.19245.pdf")
+    # chat = load_json_utf8("./chat_history/11-27-single-paper.json")
+    # result = evaluate_chat_history(paper, chat)
+    # out_path = "./eval_history/11-27-single-paper-eval.json"
+    # with open(out_path, "w", encoding="utf-8") as f:
+    #     json.dump(result, f, indent=2, ensure_ascii=False)
+
+    # Test 7
+    # paper = get_pdf_raw_content("https://arxiv.org/pdf/2403.19245.pdf")
+    # chat = load_json_utf8("./chat_history/11-27-single-paper_alt.json")
+    # result = evaluate_chat_history(paper, chat)
+    # out_path = "./eval_history/11-27-single-paper-alt-eval.json"
+    # with open(out_path, "w", encoding="utf-8") as f:
+    #     json.dump(result, f, indent=2, ensure_ascii=False)
+
     pass
