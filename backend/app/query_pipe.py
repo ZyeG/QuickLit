@@ -18,7 +18,7 @@ BACKEND_DIR = os.path.dirname(BASE_DIR)
 LOG_DIR = os.path.join(BACKEND_DIR, "log", "query_out")   # goes to backend/log/query_out/
 
 # Max number of papers to fetch per query
-MAX_PAPERS = 20
+MAX_PAPERS = 10
 
 os.makedirs(LOG_DIR, exist_ok=True)
 
@@ -32,7 +32,7 @@ Use formal academic language and cite specific sections or data from the paper w
 When answering, ensure clarity and coherence, making it easy for the user to understand the response.\
 Avoid including any content that is not directly related to the question or context.\
 Your answers should be factual and based solely on the provided context.\
-First give a brief summary of the answer, then provide detailed explanation.\
+First give a brief answer, then provide detailed explanation.\
 Context:\n
 """
 def get_arxiv_abstract(paper_id: str) -> str:
