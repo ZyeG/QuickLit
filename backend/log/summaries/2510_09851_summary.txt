@@ -1,0 +1,13 @@
+QONNECT: A QoS-Aware Orchestration System for Distributed Kubernetes Clusters
+
+1 Introduction: The paper motivates QoS-aware orchestration across cloud–fog–edge environments, noting Kubernetes’ lack of native cross-cluster, goal-driven scheduling. It introduces QONNECT and outlines contributions: a vendor-agnostic architecture, a weighted Borda-count QoS scheduler, and a Raft-based, fault-tolerant control plane.
+
+2 Background: The authors review Kubernetes and k3s for orchestrating heterogeneous deployments, Raft consensus for reliable distributed control, and Borda count for multi-criteria ranking. Together, these underpin QONNECT’s consistent state management and QoS-driven placement.
+
+3 Architecture: QONNECT comprises a global Knowledge Base, Raft-replicated Resource Lead Agents that make scheduling decisions, and lightweight per-cluster Resource Agents that enact deployments and report telemetry. Users declare energy, cost, and performance goals in minimal YAML; the scheduler translates them into placements via a weighted Borda score. The design emphasizes Clean Architecture-style separation, resilience, and automated failover/migration across domains.
+
+4 Evaluation: A nine-cluster Kind testbed (three each for cloud, fog, edge) with energy-, cost-, and performance-oriented profiles assesses behavior using the Istio Bookinfo microservices app. Experiments show correct initial placement for performance, policy-driven re-deployment when switching to energy goals, automatic migration after edge-cluster failure, and RLA leader re-election after control-plane disruption. A comparison table highlights QONNECT’s combined QoS-awareness, continuum support, distributed scheduling, and fault tolerance.
+
+5 Related Work: Prior systems address pieces of the problem—capillary migration, TOSCA-driven policies, multi-scheduler models, or RL-based runtime adaptation—but lack QONNECT’s unified, declarative QoS and distributed control. The section positions QONNECT as integrating these strengths in one framework.
+
+6 Conclusion and Future Work: QONNECT enables intent-based, QoS-aware deployment and migration across heterogeneous Kubernetes/K3s clusters with a fault-tolerant control plane. Future work targets real-world, large-scale evaluations, richer QoS dimensions (notably latency), telemetry-informed energy models, and predictive migration strategies.

@@ -1,0 +1,15 @@
+MOSE: A Novel Orchestration Framework for Stateful Microservice Migration at the Edge
+
+I. INTRODUCTION: Motivates stateful container migration at the edge and identifies four challenges—minimizing disruption, preserving client connections, remaining application/technology agnostic, and enabling metrics-driven orchestration—then introduces MOSE to address them with demonstrated QoE gains and two real-world use cases. ([arxiv.org](https://arxiv.org/pdf/2506.09159.pdf))
+
+II. RELATED WORK: Reviews stateless versus stateful migration and prior efforts on container and connection migration, noting limitations such as client-side changes, kernel modifications, or centralized proxies. Positions MOSE as novel in jointly enabling transparent connection preservation and KPI-driven orchestration at edge scale. ([arxiv.org](https://arxiv.org/pdf/2506.09159.pdf))
+
+III. PRELIMINARIES: USED TECHNOLOGIES: Summarizes CRIU and Podman and the main migration strategies (Cold, PreCopy, Iterative PreCopy), introduces COAT for transparent connection migration via an enhanced Stop&Copy sequence, and presents the PAM analytical model to predict migration duration and downtime. ([arxiv.org](https://arxiv.org/pdf/2506.09159.pdf))
+
+IV. THE MOSE FRAMEWORK: Describes a Zenoh-based architecture with an orchestrator and agents that profile state size/dirty-page rate/bandwidth, manage an OvS overlay, and execute the COAT procedure. The Migration Designer selects the strategy (Cold/PreCopy/Iterative PreCopy) and configures bandwidth L and iterations I to meet targets on migration time and downtime, while avoiding SSH overheads. ([arxiv.org](https://arxiv.org/pdf/2506.09159.pdf))
+
+V. EXPERIMENTAL TESTBED AND MOSE’S VALIDATION: On a four-VM OpenStack testbed with SockPerf and iPerf3 microservices, MOSE cuts transfer-step time (by replacing SSH signaling) and reduces overall downtime by about 71–77% versus state-of-the-art baselines, also shortening total migration time. The orchestration algorithm’s outputs track PAM’s upper-bound predictions and delineate feasible/ infeasible target regions for different KPI goals. ([arxiv.org](https://arxiv.org/pdf/2506.09159.pdf))
+
+VI. MOSE FRAMEWORK EXPLOITATION: Shows two applications—UAV autopilot and multi-object tracking—where MOSE meets KPI targets while preserving state and connectivity; MOSE-MD minimizes downtime with Iterative PreCopy, and MOSE-MR minimizes resource use with Cold migration. Compared to prior art, MOSE reduces UAV trajectory error and required bandwidth (up to ~89–91% in cases studied) and achieves substantial cuts in migration duration; a probabilistic analysis further shows robust strategy selection under bandwidth variability. ([arxiv.org](https://arxiv.org/pdf/2506.09159.pdf))
+
+VII. CONCLUSIONS: Concludes that MOSE efficiently implements and orchestrates stateful edge migration, preserving client connections and delivering large downtime reductions (up to 77%) while meeting KPI targets across differing objectives and workloads. ([arxiv.org](https://arxiv.org/pdf/2506.09159.pdf))

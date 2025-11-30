@@ -2,9 +2,8 @@ from fastapi import FastAPI, Request, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 import os
-from app.query_pipe import query, chat_query
+from app.query_pipe import query, chat_query, get_summary
 from app.rag_pipe import qdrant_add_openai, query_qdrant_openai
-import json
 app = FastAPI()
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -12,7 +11,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 BACKEND_DIR = os.path.dirname(BASE_DIR)
 # logs directory under backend/
 LOG_DIR = os.path.join(BACKEND_DIR, "log", "query_out")   # goes to backend/log/query_out/
-
+SUMMARIES_LOG_DIR = os.path.join(BACKEND_DIR, "log", "summaries")   # goes to backend/log/summaries/
 # @app.get("/")
 # def read_root():
 #     return {"message": "hello world"}
@@ -28,13 +27,8 @@ app.add_middleware(
 
 @app.post("/api/query")
 async def run_query(request: Request):
-    
     data = await request.json()
     topic = data.get("topic")
-
-    # debug print
-    print(f"Running query for topic: {topic}", flush=True)
-
 
     if not topic:
         return {"error": "Missing 'topic' in request body"}
@@ -42,33 +36,6 @@ async def run_query(request: Request):
     model = data.get("model", "gpt-5")   # optional
     #out_dir = data.get("out_dir", "./log/query_out")  # optional
 
-    topic_lower = topic.strip().lower()
-
-    # scan all .json files in LOG_DIR to see if we have cached result
-    for fname in os.listdir(LOG_DIR):
-        # debug print file name
-        print(f"Checking cache file: {fname}", flush=True)
-
-        if not fname.endswith(".json"):
-            continue
-        fpath = os.path.join(LOG_DIR, fname)
-        try:
-            with open(fpath, "r") as f:
-                cached_data = json.load(f)
-            cached_topic = cached_data.get("topic", "").strip().lower()
-            if cached_topic == topic_lower:
-                # cache hit
-                print(f"Cache hit for topic: {topic}", flush=True)
-                return {
-                    "num_papers": cached_data.get("num_papers", 0),
-                    "papers": cached_data.get("papers", []),
-                }
-        except Exception:
-            print(f"Skipping invalid JSON file: {fpath}", flush=True)
-            # debug print exception
-            traceback.print_exc()
-            continue   # skip invalid json files
-    # cache miss, run query
     rest_json, _ = query(topic=topic, model=model)
 
     # return only papers (plus metadata if you want)
@@ -89,7 +56,9 @@ async def add_papers(request: Request):
         return {"error": "Missing 'collection_name' or 'papers' in request body"}, 400
 
     # Here you would call your function to add papers to the collection
-    qdrant_add_openai(collection_name, papers)
+    # qdrant_add_openai(collection_name, papers)
+    # Or to use the larger chunk size splitter for OpenAI embeddings
+    qdrant_add_openai(collection_name, papers, use_max_splitter=True)
     return {"status": "success", "message": f"Added {len(papers)} papers to collection '{collection_name}'"}
 
 #  Endpoint to query papers from a Qdrant collection
@@ -108,7 +77,6 @@ async def query_collection(request: Request):
         query_text=query_text,
         top_k=top_k,
     )
-
     return results
 
 @app.post("/api/chat/stream")
@@ -122,12 +90,35 @@ async def generate_stream(request: Request):
         return {"error": "Missing 'collection_name' in request body"}
     if not query_text:
         return {"error": "Missing 'query_text' in request body"}
-    results = query_qdrant_openai(
+    # results = query_qdrant_openai(
+    #             collection_name=collection_name,
+    #             query_text=query_text,
+    #             top_k=10,
+    #             )
+    alt_results = query_qdrant_openai(
                 collection_name=collection_name,
                 query_text=query_text,
                 top_k=10,
+                use_alt_collection=True
                 )
 
-    response_stream = chat_query(query=query_text, context=results, model="gpt-5", stream=True)
+    response_stream = chat_query(query=query_text, context=alt_results, model="gpt-5", stream=True)
 
     return StreamingResponse(response_stream, media_type="text/plain")
+
+@app.post("/api/summary/by-id")
+async def summarize_by_arxiv_id(request: Request):
+    data = await request.json()
+    arxiv_id = data.get("arxiv_id")
+
+    if not arxiv_id:
+        return {"error": "Missing 'arxiv_id' in request body"}
+
+    # Generate new summary (frontend handles caching in localStorage)
+    summary_text = get_summary(arxiv_id, model="gpt-5")
+
+    return {
+        "arxiv_id": arxiv_id,
+        "cached": False,  # frontend may mark as cached locally
+        "summary": summary_text,
+    }

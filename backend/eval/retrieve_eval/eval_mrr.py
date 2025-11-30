@@ -6,13 +6,19 @@ Steps:
 - Chunks them, stores in Qdrant, and runs queries.
 - Computes Mean Reciprocal Rank to ensure each paper is retrieved in the top-k.
 """
+import os
+import sys
 from typing import List, Dict
-import re
+
 import requests
 from bs4 import BeautifulSoup
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+BACKEND_DIR = os.path.abspath(os.path.join(CURRENT_DIR, "..", ".."))
+if BACKEND_DIR not in sys.path:
+    sys.path.insert(0, BACKEND_DIR)
 
-from pdf_parser import parse_papers_to_text
-from rag_pipe import (
+from app.pdf_parser import parse_papers_to_text
+from app.rag_pipe import (
     QDRANT_CLIENT,
     split_text,
     qdrant_add_openai,
@@ -81,7 +87,7 @@ def run_mrr_evaluation(top_k: int = 10) -> None:
 
     # Prepare and parse papers (fetches PDFs, extracts content + abstract)
     papers = prepare_papers(SAMPLE_ABS_URLS)
-    parsed, failures = parse_papers_to_text(papers, include_abstract=True)
+    parsed, failures = parse_papers_to_text(papers)
     if failures:
         print("Failed to parse some papers:", failures)
     if not parsed:
@@ -89,7 +95,8 @@ def run_mrr_evaluation(top_k: int = 10) -> None:
 
     # Chunk and ingest into Qdrant
     chunk_input = [{"title": p["title"], "content": p["content"]} for p in parsed]
-    chunks = split_text(chunk_input)
+    # Commented out to avoid re-adding on every run
+    # chunks = split_text(chunk_input)
     # qdrant_add_openai(collection_name, chunks)
 
     # Build multiple query variants per paper to probe ranking quality

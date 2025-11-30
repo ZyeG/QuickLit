@@ -18,6 +18,7 @@ type Session = {
 };
 
 const STORAGE_KEY = "quicklitSessions";
+const SUMMARY_CACHE_KEY = "quicklitSummaryCache";
 
 const readSessionsFromStorage = (): Session[] => {
   if (typeof window === "undefined") return [];
@@ -37,6 +38,33 @@ const writeSessionsToStorage = (sessions: Session[]) => {
   window.localStorage.setItem(STORAGE_KEY, JSON.stringify(sessions));
 };
 
+const readSummaryFromStorage = (paperId: string): string | null => {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = window.localStorage.getItem(SUMMARY_CACHE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (parsed && typeof parsed === "object" && paperId in parsed) {
+      return parsed[paperId];
+    }
+  } catch (err) {
+    console.error("Unable to read summary cache", err);
+  }
+  return null;
+};
+
+const writeSummaryToStorage = (paperId: string, summary: string) => {
+  if (typeof window === "undefined") return;
+  try {
+    const raw = window.localStorage.getItem(SUMMARY_CACHE_KEY);
+    const parsed = raw ? JSON.parse(raw) : {};
+    const next = { ...(parsed || {}), [paperId]: summary };
+    window.localStorage.setItem(SUMMARY_CACHE_KEY, JSON.stringify(next));
+  } catch (err) {
+    console.error("Unable to write summary cache", err);
+  }
+};
+
 const buildSessionId = () => {
   if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
     return crypto.randomUUID();
@@ -49,10 +77,22 @@ function App() {
   const [papers, setPapers] = useState<Paper[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [selectedPaper, setSelectedPaper] = useState<Paper | null>(null);
+  const [summaryPanelPaperId, setSummaryPanelPaperId] = useState<string | null>(
+    null
+  );
+  const [summaryByPaperId, setSummaryByPaperId] = useState<
+    Record<string, string>
+  >({});
+  const [summaryLoadingId, setSummaryLoadingId] = useState<string | null>(null);
+  const [summaryErrorByPaperId, setSummaryErrorByPaperId] = useState<
+    Record<string, string>
+  >({});
   const [fetchedCount, setFetchedCount] = useState<number | null>(null);
   const [sessions, setSessions] = useState<Session[]>([]);
   const [activeSessionId, setActiveSessionId] = useState<string | null>(null);
   const [isSyncing, setIsSyncing] = useState<boolean>(false);
+  const [isAbstractOpen, setIsAbstractOpen] = useState<boolean>(false);
+  const [syncingSessionId, setSyncingSessionId] = useState<string | null>(null);
 
   const firstNWords = (text: string, n: number = 20): string => {
     if (!text) return "";
@@ -73,25 +113,27 @@ function App() {
   }, []);
 
   const asyncPersistSession = async (session: Session) => {
-    await fetch("http://localhost:3001/api/collections/papers/add", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        session,
-      }),
-    })
-      .then(() => {
+    try {
+      await fetch("http://localhost:3001/api/collections/papers/add", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          session,
+        }),
+      }).then(() => {
         setSessions((prev: Session[]) => {
           const updated = [session, ...prev.filter((s) => s.id !== session.id)];
           writeSessionsToStorage(updated);
-          setIsSyncing(false);
           return updated;
         });
         setActiveSessionId(session.id);
-      })
-      .catch((err) => {
-        console.error("Error persisting session to backend", err);
       });
+    } catch (err) {
+      console.error("Error persisting session to backend", err);
+    } finally {
+      setIsSyncing(false);
+      setSyncingSessionId(null);
+    }
   };
 
   const handleSessionSelect = (sessionId: string) => {
@@ -102,16 +144,43 @@ function App() {
     setPapers(session.papers);
     setFetchedCount(session.fetchedCount);
     setSelectedPaper(null);
+    setIsAbstractOpen(false);
+    setSummaryPanelPaperId(null);
+    setSummaryByPaperId({});
+    setSummaryErrorByPaperId({});
+    setSummaryLoadingId(null);
   };
 
   const handleQuery = async () => {
     if (!topic.trim()) return;
+    const newSessionId = buildSessionId();
 
     setLoading(true);
     setIsSyncing(true);
+    setSyncingSessionId(newSessionId);
+    setActiveSessionId(newSessionId);
     setPapers([]);
     setFetchedCount(null);
     setSelectedPaper(null);
+    setIsAbstractOpen(false);
+    setSummaryPanelPaperId(null);
+    setSummaryByPaperId({});
+    setSummaryErrorByPaperId({});
+    setSummaryLoadingId(null);
+
+    // If this topic was queried before, reuse the stored session instead of refetching
+    const normalizedTopic = topic.trim().toLowerCase();
+    const existing = sessions.find(
+      (s) => s.topic.trim().toLowerCase() === normalizedTopic
+    );
+    if (existing) {
+      setPapers(existing.papers);
+      setFetchedCount(existing.fetchedCount);
+      setLoading(false);
+      setIsSyncing(false);
+      setActiveSessionId(existing.id);
+      return;
+    }
 
     await fetch("http://localhost:3001/api/query", {
       method: "POST",
@@ -128,7 +197,7 @@ function App() {
         setPapers(nextPapers);
         setFetchedCount(total);
         const newSession: Session = {
-          id: buildSessionId(),
+          id: newSessionId,
           topic: topic.trim(),
           papers: nextPapers,
           fetchedCount: total,
@@ -140,6 +209,9 @@ function App() {
       .catch((err) => {
         console.error(err);
         alert("Error querying backend");
+        setIsSyncing(false);
+        setSyncingSessionId(null);
+        setLoading(false);
       });
   };
 
@@ -151,6 +223,74 @@ function App() {
       return `Fetched ${fetchedCount} papers`;
     if (!loading && fetchedCount === 0) return "No papers found for this topic";
     return "";
+  };
+
+  const openAbstractModal = (paper: Paper) => {
+    setSelectedPaper(paper);
+    setIsAbstractOpen(true);
+  };
+
+  const handleSummaryBySection = async (paper: Paper) => {
+    if (loading || isSyncing) {
+      return;
+    }
+    setSelectedPaper(paper);
+    setSummaryPanelPaperId(paper.paper_id);
+    setSummaryErrorByPaperId((prev) => {
+      const next = { ...prev };
+      delete next[paper.paper_id];
+      return next;
+    });
+
+    if (summaryByPaperId[paper.paper_id]) {
+      return;
+    }
+
+    const cachedSummary = readSummaryFromStorage(paper.paper_id);
+    if (cachedSummary) {
+      setSummaryByPaperId((prev) => ({
+        ...prev,
+        [paper.paper_id]: cachedSummary,
+      }));
+      return;
+    }
+
+    setSummaryLoadingId(paper.paper_id);
+    try {
+      const res = await fetch("http://localhost:3001/api/summary/by-id", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ arxiv_id: paper.paper_id }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data?.error || "Failed to fetch summary");
+      }
+      if (!data?.summary) {
+        throw new Error("No summary returned");
+      }
+
+      setSummaryByPaperId((prev) => ({
+        ...prev,
+        [paper.paper_id]: data.summary as string,
+      }));
+      writeSummaryToStorage(paper.paper_id, data.summary as string);
+    } catch (err) {
+      console.error("Error fetching summary", err);
+      setSummaryErrorByPaperId((prev) => ({
+        ...prev,
+        [paper.paper_id]: "Unable to fetch summary. Please try again.",
+      }));
+    } finally {
+      setSummaryLoadingId(null);
+    }
+  };
+
+  const closeAbstractModal = () => {
+    setIsAbstractOpen(false);
+    setSelectedPaper(null);
+    setSummaryPanelPaperId(null);
   };
 
   return (
@@ -165,7 +305,6 @@ function App() {
               <div className="ql-brand-sub">Research-ready in seconds</div>
             </div>
           </div>
-          <div className="ql-pill">Modern</div>
         </header>
 
         <div className="ql-layout">
@@ -282,7 +421,11 @@ function App() {
                     <article
                       key={paper.paper_id}
                       className="ql-paper-card"
-                      onClick={() => setSelectedPaper(paper)}
+                      onClick={() => {
+                        openAbstractModal(paper);
+                        setSelectedPaper(paper);
+                        setSummaryPanelPaperId(null);
+                      }}
                     >
                       <div className="ql-paper-id">{paper.paper_id}</div>
                       <h4 className="ql-paper-title">{paper.title}</h4>
@@ -304,10 +447,12 @@ function App() {
                           type="button"
                           onClick={(e) => {
                             e.stopPropagation();
+                            openAbstractModal(paper);
                             setSelectedPaper(paper);
+                            setSummaryPanelPaperId(null);
                           }}
                         >
-                          Read abstract
+                          Preview
                         </button>
                       </div>
                     </article>
@@ -316,49 +461,93 @@ function App() {
               )}
             </section>
           </main>
-
-          <aside className="ql-sidebar">
-            {selectedPaper ? (
-              <div className="ql-sidebar-card">
-                <div className="ql-sidebar-header">
-                  <p className="ql-eyebrow">Pinned paper</p>
-                  <button
-                    className="ql-close-btn"
-                    onClick={() => setSelectedPaper(null)}
-                  >
-                    Close
-                  </button>
-                </div>
-                <h3 className="ql-sidebar-title">{selectedPaper.title}</h3>
-                <p className="ql-sidebar-abstract">{selectedPaper.abstract}</p>
-                <a
-                  className="ql-btn-secondary"
-                  href={selectedPaper.pdf_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Open PDF
-                </a>
-              </div>
-            ) : (
-              <div className="ql-sidebar-card muted">
-                <p className="ql-eyebrow">Abstract reader</p>
-                <h3 className="ql-sidebar-title">Select a paper to preview</h3>
-                <p className="ql-sidebar-abstract">
-                  Tap any result to pin it here and read the full abstract. Use
-                  this space to decide which PDFs are worth opening.
-                </p>
-              </div>
-            )}
-          </aside>
         </div>
       </div>
 
+      {isAbstractOpen && selectedPaper && (
+        <div className="ql-modal-overlay" onClick={closeAbstractModal}>
+          <div className="ql-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="ql-sidebar-card">
+              <div className="ql-sidebar-header">
+                <p className="ql-eyebrow">Abstract</p>
+                <button className="ql-close-btn" onClick={closeAbstractModal}>
+                  Close
+                </button>
+              </div>
+              <h3 className="ql-sidebar-title">{selectedPaper.title}</h3>
+              <p className="ql-sidebar-abstract">{selectedPaper.abstract}</p>
+              <a
+                className="ql-btn-secondary"
+                href={selectedPaper.pdf_url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Open PDF
+              </a>
+              <button
+                className="ql-btn-secondary"
+                onClick={() => handleSummaryBySection(selectedPaper)}
+                disabled={
+                  summaryLoadingId === selectedPaper.paper_id ||
+                  loading ||
+                  isSyncing
+                }
+              >
+                {summaryLoadingId === selectedPaper.paper_id
+                  ? "Fetching summary..."
+                  : isSyncing || loading
+                  ? "Waiting for syncing to complete before fetching summary enablement..."
+                  : "Get summary by section"}
+              </button>
+
+              {summaryPanelPaperId &&
+                summaryPanelPaperId === selectedPaper.paper_id && (
+                  <div className="ql-summary-panel">
+                    <div className="ql-sidebar-header">
+                      <p className="ql-eyebrow">Summary by section</p>
+                    </div>
+                    <p className="ql-summary-meta">
+                      {summaryLoadingId === summaryPanelPaperId
+                        ? "Working on it..."
+                        : `Paper ${summaryPanelPaperId}`}
+                    </p>
+                    {summaryLoadingId === summaryPanelPaperId && (
+                      <div className="ql-summary-loading">
+                        <div className="ql-loader small" />
+                        <span>Generating concise section summaries...</span>
+                      </div>
+                    )}
+                    {summaryErrorByPaperId[summaryPanelPaperId] && (
+                      <p className="ql-summary-error">
+                        {summaryErrorByPaperId[summaryPanelPaperId]}
+                      </p>
+                    )}
+                    {summaryByPaperId[summaryPanelPaperId] && (
+                      <pre className="ql-summary-text">
+                        {summaryByPaperId[summaryPanelPaperId]}
+                      </pre>
+                    )}
+                    {!summaryByPaperId[summaryPanelPaperId] &&
+                      !summaryErrorByPaperId[summaryPanelPaperId] &&
+                      summaryLoadingId !== summaryPanelPaperId && (
+                        <p className="ql-summary-hint">
+                          Tap "Get summary by section" to fetch notes.
+                        </p>
+                      )}
+                  </div>
+                )}
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="ql-chat-dock">
-        <MyChatBot collection_name={activeSessionId ? activeSessionId : ""} />
+        <MyChatBot
+          collection_name={activeSessionId ? activeSessionId : ""}
+          disabled={isSyncing && syncingSessionId === activeSessionId}
+        />
       </div>
     </div>
   );
 }
-
 export default App;

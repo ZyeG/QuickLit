@@ -1,0 +1,134 @@
+{
+  "mean_similarity": 0.6186922902152652,
+  "median_similarity": 0.6253140568733215,
+  "precision_above_threshold": 0.5714285714285714,
+  "top10_precision": 1.0,
+  "details": [
+    [
+      0.7638739347457886,
+      "abstract",
+      "2503.10150",
+      "Retrieval-Augmented Generation with Hierarchical Knowledge"
+    ],
+    [
+      0.7379173040390015,
+      "abstract",
+      "2506.00261",
+      "GPR: Empowering Generation with Graph-Pretrained Retriever"
+    ],
+    [
+      0.737860381603241,
+      "abstract",
+      "2502.01113",
+      "GFM-RAG: Graph Foundation Model for Retrieval Augmented Generation"
+    ],
+    [
+      0.6972172260284424,
+      "abstract",
+      "2405.16506",
+      "GRAG: Graph Retrieval-Augmented Generation"
+    ],
+    [
+      0.6826601028442383,
+      "abstract",
+      "2408.08921",
+      "Graph Retrieval-Augmented Generation: A Survey"
+    ],
+    [
+      0.675815761089325,
+      "abstract",
+      "2505.16237",
+      "Align-GRAG: Reasoning-Guided Dual Alignment for Graph Retrieval-Augmented Generation"
+    ],
+    [
+      0.6464086771011353,
+      "abstract",
+      "2509.21237",
+      "Query-Centric Graph Retrieval Augmented Generation"
+    ],
+    [
+      0.645081102848053,
+      "abstract",
+      "2508.01680",
+      "T-GRAG: A Dynamic GraphRAG Framework for Resolving Temporal Conflicts and Redundancy in Knowledge Retrieval"
+    ],
+    [
+      0.6378635168075562,
+      "abstract",
+      "2502.06864",
+      "Knowledge Graph-Guided Retrieval Augmented Generation"
+    ],
+    [
+      0.6255326271057129,
+      "abstract",
+      "2508.10391",
+      "LeanRAG: Knowledge-Graph-Based Generation with Semantic Aggregation and Hierarchical Retrieval"
+    ],
+    [
+      0.6253140568733215,
+      "abstract",
+      "2408.04187",
+      "Medical Graph RAG: Towards Safe Medical Large Language Model via Graph Retrieval-Augmented Generation"
+    ],
+    [
+      0.6158266067504883,
+      "abstract",
+      "2506.02404",
+      "GraphRAG-Bench: Challenging Domain-Specific Reasoning for Evaluating Graph Retrieval-Augmented Generation"
+    ],
+    [
+      0.5979853868484497,
+      "abstract",
+      "2404.16130",
+      "From Local to Global: A Graph RAG Approach to Query-Focused Summarization"
+    ],
+    [
+      0.5812097787857056,
+      "abstract",
+      "2503.21322",
+      "HyperGraphRAG: Retrieval-Augmented Generation with Hypergraph-Structured Knowledge Representation"
+    ],
+    [
+      0.5732914209365845,
+      "abstract",
+      "2501.00309",
+      "Retrieval-Augmented Generation with Graphs (GraphRAG)"
+    ],
+    [
+      0.5732546448707581,
+      "abstract",
+      "2501.08686",
+      "Knowledge Graph-based Retrieval-Augmented Generation for Schema Matching"
+    ],
+    [
+      0.538547933101654,
+      "abstract",
+      "2508.19855",
+      "Youtu-GraphRAG: Vertically Unified Agents for Graph Retrieval-Augmented Complex Reasoning"
+    ],
+    [
+      0.535176157951355,
+      "abstract",
+      "2504.08893",
+      "Knowledge Graph-extended Retrieval Augmented Generation for Question Answering"
+    ],
+    [
+      0.5100693106651306,
+      "abstract",
+      "2508.04276",
+      "A Few Words Can Distort Graphs: Knowledge Poisoning Attacks on Graph-based Retrieval-Augmented Generation of Large Language Models"
+    ],
+    [
+      0.5027684569358826,
+      "abstract",
+      "2504.08758",
+      "Hyper-RAG: Combating LLM Hallucinations using Hypergraph-Driven Retrieval-Augmented Generation"
+    ],
+    [
+      0.4888637065887451,
+      "abstract",
+      "2503.14234",
+      "KG-IRAG: A Knowledge Graph-Based Iterative Retrieval-Augmented Generation Framework for Temporal Reasoning"
+    ]
+  ]
+}
