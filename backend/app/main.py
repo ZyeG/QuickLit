@@ -102,7 +102,7 @@ async def generate_stream(request: Request):
                 use_alt_collection=True
                 )
 
-    response_stream = chat_query(query=query_text, context=results, model="gpt-5", stream=True)
+    response_stream = chat_query(query=query_text, context=alt_results, model="gpt-5", stream=True)
 
     return StreamingResponse(response_stream, media_type="text/plain")
 

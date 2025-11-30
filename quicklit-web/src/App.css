@@ -433,11 +433,20 @@ body {
 .ql-modal {
   width: min(760px, 100%);
   max-height: 82vh;
-  overflow-y: auto;
+  border-radius: var(--radius);
+  overflow: hidden; /* keep rounded corners when scrolling */
 }
 
 .ql-modal .ql-sidebar-card {
   width: 100%;
+  max-height: 82vh;
+  overflow-y: auto;
+  -ms-overflow-style: none; /* hide scrollbar in IE/Edge */
+  scrollbar-width: none; /* hide scrollbar in Firefox */
+}
+
+.ql-modal .ql-sidebar-card::-webkit-scrollbar {
+  display: none; /* hide scrollbar in Chrome/Safari */
 }
 
 .ql-sidebar-card {
