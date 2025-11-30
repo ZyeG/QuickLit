@@ -44,31 +44,6 @@ async def run_query(request: Request):
 
     topic_lower = topic.strip().lower()
 
-    # scan all .json files in LOG_DIR to see if we have cached result
-    for fname in os.listdir(LOG_DIR):
-        # debug print file name
-        print(f"Checking cache file: {fname}", flush=True)
-
-        if not fname.endswith(".json"):
-            continue
-        fpath = os.path.join(LOG_DIR, fname)
-        try:
-            with open(fpath, "r") as f:
-                cached_data = json.load(f)
-            cached_topic = cached_data.get("topic", "").strip().lower()
-            if cached_topic == topic_lower:
-                # cache hit
-                print(f"Cache hit for topic: {topic}", flush=True)
-                return {
-                    "num_papers": cached_data.get("num_papers", 0),
-                    "papers": cached_data.get("papers", []),
-                }
-        except Exception:
-            print(f"Skipping invalid JSON file: {fpath}", flush=True)
-            # debug print exception
-            traceback.print_exc()
-            continue   # skip invalid json files
-    # cache miss, run query
     rest_json, _ = query(topic=topic, model=model)
 
     # return only papers (plus metadata if you want)
@@ -140,34 +115,11 @@ async def summarize_by_arxiv_id(request: Request):
     if not arxiv_id:
         return {"error": "Missing 'arxiv_id' in request body"}
 
-    # create directory if missing
-    os.makedirs(SUMMARIES_LOG_DIR, exist_ok=True)
-
-    # safe filename: use only alphanumerics, dash, underscore
-    safe_id = re.sub(r"[^a-zA-Z0-9-_]", "_", arxiv_id)
-    fname = safe_id + "_summary.txt"
-    out_path = os.path.join(SUMMARIES_LOG_DIR, fname)
-
-    # check cache
-    if os.path.exists(out_path):
-        with open(out_path, "r", encoding="utf-8") as f:
-            cached_text = f.read()
-        return {
-            "arxiv_id": arxiv_id,
-            "cached": True,
-            "summary": cached_text,
-        }
-
-    # no cache → generate new summary
+    # Generate new summary (frontend handles caching in localStorage)
     summary_text = get_summary(arxiv_id, model="gpt-5")
 
-    # save to file
-    with open(out_path, "w", encoding="utf-8") as f:
-        f.write(summary_text)
-
-    # return result
     return {
         "arxiv_id": arxiv_id,
-        "cached": False,
+        "cached": False,  # frontend may mark as cached locally
         "summary": summary_text,
     }

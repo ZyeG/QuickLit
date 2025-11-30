@@ -18,6 +18,7 @@ type Session = {
 };
 
 const STORAGE_KEY = "quicklitSessions";
+const SUMMARY_CACHE_KEY = "quicklitSummaryCache";
 
 const readSessionsFromStorage = (): Session[] => {
   if (typeof window === "undefined") return [];
@@ -35,6 +36,33 @@ const readSessionsFromStorage = (): Session[] => {
 const writeSessionsToStorage = (sessions: Session[]) => {
   if (typeof window === "undefined") return;
   window.localStorage.setItem(STORAGE_KEY, JSON.stringify(sessions));
+};
+
+const readSummaryFromStorage = (paperId: string): string | null => {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = window.localStorage.getItem(SUMMARY_CACHE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (parsed && typeof parsed === "object" && paperId in parsed) {
+      return parsed[paperId];
+    }
+  } catch (err) {
+    console.error("Unable to read summary cache", err);
+  }
+  return null;
+};
+
+const writeSummaryToStorage = (paperId: string, summary: string) => {
+  if (typeof window === "undefined") return;
+  try {
+    const raw = window.localStorage.getItem(SUMMARY_CACHE_KEY);
+    const parsed = raw ? JSON.parse(raw) : {};
+    const next = { ...(parsed || {}), [paperId]: summary };
+    window.localStorage.setItem(SUMMARY_CACHE_KEY, JSON.stringify(next));
+  } catch (err) {
+    console.error("Unable to write summary cache", err);
+  }
 };
 
 const buildSessionId = () => {
@@ -131,6 +159,20 @@ function App() {
     setSummaryErrorByPaperId({});
     setSummaryLoadingId(null);
 
+    // If this topic was queried before, reuse the stored session instead of refetching
+    const normalizedTopic = topic.trim().toLowerCase();
+    const existing = sessions.find(
+      (s) => s.topic.trim().toLowerCase() === normalizedTopic
+    );
+    if (existing) {
+      setPapers(existing.papers);
+      setFetchedCount(existing.fetchedCount);
+      setLoading(false);
+      setIsSyncing(false);
+      setActiveSessionId(existing.id);
+      return;
+    }
+
     await fetch("http://localhost:3001/api/query", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -187,6 +229,15 @@ function App() {
       return;
     }
 
+    const cachedSummary = readSummaryFromStorage(paper.paper_id);
+    if (cachedSummary) {
+      setSummaryByPaperId((prev) => ({
+        ...prev,
+        [paper.paper_id]: cachedSummary,
+      }));
+      return;
+    }
+
     setSummaryLoadingId(paper.paper_id);
     try {
       const res = await fetch("http://localhost:3001/api/summary/by-id", {
@@ -207,6 +258,7 @@ function App() {
         ...prev,
         [paper.paper_id]: data.summary as string,
       }));
+      writeSummaryToStorage(paper.paper_id, data.summary as string);
     } catch (err) {
       console.error("Error fetching summary", err);
       setSummaryErrorByPaperId((prev) => ({
