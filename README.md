@@ -45,6 +45,27 @@
   ]
 }
 ```
+- test with curl 
+`curl -X POST "http://localhost:3001/api/query" \
+  -H "Content-Type: application/json" \
+  -d '{
+        "topic": "Security Risk and Attacks in AI"
+      }'`
+
+### @app.post("/api/summary/by-id")
+- input param: arxiv paper id
+- expected output:
+```
+{
+  "arxiv_id":"<string>",
+  "cached":"<string>",
+  "summary":"<string>"
+}
+```
+- test with
+curl -X POST "http://localhost:3001/api/summary/by-id" \
+  -H "Content-Type: application/json" \
+  -d '{"arxiv_id": "2405.16506"}'
 
 ## Eval
 ### Topics for Evaluation
@@ -70,8 +91,20 @@ Evaluated the query results of 4 differnt query approaches: source - prompt vers
 
 ##### compare_results.py
 - run with `python compare_results.py mean_similarity` or `python compare_results.py median_similarity`
-- loads query eval results (mean or median similarity) for 4 approahces (source - versino of prompt: semantic-v1, semantic-v2, arXiv-v1, and arXiv-v2), and outputs a comparison table in csv.
-- note code for generating semantic-v1, semantic-v2, arXiv-v1 reuslts is in the notebook, since they are experimental code. 
+- loads query eval results (mean or median similarity) for 5 versions of prompts (listed below, in source - version format)
+  `semantic-v1: semantic_v1v2_eval_results.json, 
+  `semantic-v2: semantic_v1v2_eval_results.json, 
+  `arXiv-v1:folder arxiv_v1_results, 
+  `arXiv-v2:arxiv_v2_results_eval.json, 
+  `arXiv-v3:eval.json. 
+and outputs a comparison table in csv: "combined_scores.csv"
+- note code for generating semantic-v1, semantic-v2, arXiv-v1, arXiv-v2 reuslts is not included in the repo, they were executed in a notebook, since they are experimental code. 
 
 #### pdf url match & correctness 
-manually verfied all papers fetched for each of the topics have valid pdf urls. 
+manually verfied all papers fetched for each of the 5 example topics have valid pdf urls. 
+
+### Eval Summary
+#### LLM Judge based on rubrics
+- input: text files from backend/log/summaries
+- output: json files in backend/eval/summary_eval/results
+- checks: coverage, concision, faithfulness, writing quality, and overall quality—each scored 1–10

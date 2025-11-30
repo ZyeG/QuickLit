@@ -37,8 +37,8 @@ package-lock.json
 *.env
 *.env.*
 *.env.txt
-backend/log/
-backend/eval/query_eval/results/
+# backend/log/
+#backend/eval/query_eval/results/
 
 # Build outputs
 build/
@@ -55,3 +55,4 @@ __pycache__/
 backend/log/
 
 *.json
+#backend/log/

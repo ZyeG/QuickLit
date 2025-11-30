@@ -1,0 +1,627 @@
+{
+  "Graph Retrieval-Augmented Generation for Large Language Models": {
+    "topic": "Graph Retrieval-Augmented Generation for Large Language Models",
+    "num_papers": 26,
+    "mean_similarity": 0.6046913827841098,
+    "median_similarity": 0.6078149974346161,
+    "precision_above_0.4": 0.9230769230769231,
+    "top10_precision": 1.0,
+    "papers": [
+      {
+        "paper_id": "2405.16506",
+        "title": "GRAG: Graph Retrieval-Augmented Generation",
+        "similarity": 0.6912638545036316
+      },
+      {
+        "paper_id": "2410.05779",
+        "title": "LightRAG: Simple and Fast Retrieval-Augmented Generation",
+        "similarity": 0.6783187389373779
+      },
+      {
+        "paper_id": "2503.21322",
+        "title": "HyperGraphRAG: Retrieval-Augmented Generation with Hypergraph-Structured Knowledge Representation",
+        "similarity": 0.5550380945205688
+      },
+      {
+        "paper_id": "2502.14902",
+        "title": "PathRAG: Pruning Graph-based Retrieval Augmented Generation with Relational Paths",
+        "similarity": 0.5595835447311401
+      },
+      {
+        "paper_id": "2502.01113",
+        "title": "GFM-RAG: Graph Foundation Model for Retrieval Augmented Generation",
+        "similarity": 0.7185373306274414
+      },
+      {
+        "paper_id": "2412.16311",
+        "title": "HybGRAG: Hybrid Retrieval-Augmented Generation on Textual and Relational Knowledge Bases",
+        "similarity": 0.5945479869842529
+      },
+      {
+        "paper_id": "2502.06864",
+        "title": "Knowledge Graph-Guided Retrieval Augmented Generation",
+        "similarity": 0.630172610282898
+      },
+      {
+        "paper_id": "2504.11544",
+        "title": "NodeRAG: Structuring Graph-based RAG with Heterogeneous Nodes",
+        "similarity": 0.5833008289337158
+      },
+      {
+        "paper_id": "2510.10114",
+        "title": "LinearRAG: Linear Graph Retrieval Augmented Generation on Large-scale Corpora",
+        "similarity": 0.6996297836303711
+      },
+      {
+        "paper_id": "2506.00261",
+        "title": "GPR: Empowering Generation with Graph-Pretrained Retriever",
+        "similarity": 0.6956163644790649
+      },
+      {
+        "paper_id": "2402.07630",
+        "title": "G-Retriever: Retrieval-Augmented Generation for Textual Graph Understanding and Question Answering",
+        "similarity": 0.62241530418396
+      },
+      {
+        "paper_id": "2507.21892",
+        "title": "Graph-R1: Towards Agentic GraphRAG Framework via End-to-end Reinforcement Learning",
+        "similarity": 0.5226259231567383
+      },
+      {
+        "paper_id": "2504.05478",
+        "title": "GraphRAFT: Retrieval Augmented Fine-Tuning for Knowledge Graphs on Graph Databases",
+        "similarity": 0.5952301025390625
+      },
+      {
+        "paper_id": "2509.16502",
+        "title": "GRIL: Knowledge Graph Retrieval-Integrated Learning with Large Language Models",
+        "similarity": 0.6079540252685547
+      },
+      {
+        "paper_id": "2506.02404",
+        "title": "GraphRAG-Bench: Challenging Domain-Specific Reasoning for Evaluating Graph Retrieval-Augmented Generation",
+        "similarity": 0.6076759696006775
+      },
+      {
+        "paper_id": "2408.08921",
+        "title": "Graph Retrieval-Augmented Generation: A Survey",
+        "similarity": 0.6774669885635376
+      },
+      {
+        "paper_id": "2501.13958",
+        "title": "A Survey of Graph Retrieval-Augmented Generation for Customized Large Language Models",
+        "similarity": 0.7046005725860596
+      },
+      {
+        "paper_id": "2504.07103",
+        "title": "FG-RAG: Enhancing Query-Focused Summarization with Context-Aware Fine-Grained Graph RAG",
+        "similarity": 0.5916849970817566
+      },
+      {
+        "paper_id": "2410.11001",
+        "title": "Graph of Records: Boosting Retrieval Augmented Generation for Long-context Summarization with Graphs",
+        "similarity": 0.649787187576294
+      },
+      {
+        "paper_id": "2508.01680",
+        "title": "T-GRAG: A Dynamic GraphRAG Framework for Resolving Temporal Conflicts and Redundancy in Knowledge Retrieval",
+        "similarity": 0.5825663805007935
+      },
+      {
+        "paper_id": "2511.05549",
+        "title": "AGRAG: Advanced Graph-based Retrieval-Augmented Generation for LLMs",
+        "similarity": 0.6575078964233398
+      },
+      {
+        "paper_id": "2509.10467",
+        "title": "DSRAG: A Domain-Specific Retrieval Framework Based on Document-derived Multimodal Knowledge Graph",
+        "similarity": 0.5520827770233154
+      },
+      {
+        "paper_id": "2502.09304",
+        "title": "KET-RAG: A Cost-Efficient Multi-Granular Indexing Framework for Graph-RAG",
+        "similarity": 0.5185334086418152
+      },
+      {
+        "paper_id": "2503.04790",
+        "title": "SuperRAG: Beyond RAG with Layout-Aware Graph Modeling",
+        "similarity": 0.3859337568283081
+      },
+      {
+        "paper_id": "2504.08758",
+        "title": "Hyper-RAG: Combating LLM Hallucinations using Hypergraph-Driven Retrieval-Augmented Generation",
+        "similarity": 0.39121392369270325
+      },
+      {
+        "paper_id": "2505.16237",
+        "title": "Align-GRAG: Reasoning-Guided Dual Alignment for Graph Retrieval-Augmented Generation",
+        "similarity": 0.6486876010894775
+      }
+    ]
+  },
+  "Edge Computing Systems and Tools": {
+    "topic": "Edge Computing Systems and Tools",
+    "num_papers": 28,
+    "mean_similarity": 0.5150782316923141,
+    "median_similarity": 0.5148661732673645,
+    "precision_above_0.4": 0.9285714285714286,
+    "top10_precision": 1.0,
+    "papers": [
+      {
+        "paper_id": "2510.09851",
+        "title": "QONNECT: A QoS-Aware Orchestration System for Distributed Kubernetes Clusters",
+        "similarity": 0.395282119512558
+      },
+      {
+        "paper_id": "2506.09159",
+        "title": "MOSE: A Novel Orchestration Framework for Stateful Microservice Migration at the Edge",
+        "similarity": 0.43214893341064453
+      },
+      {
+        "paper_id": "2504.00761",
+        "title": "Towards a Decentralised Application-Centric Orchestration Framework in the Cloud-Edge Continuum",
+        "similarity": 0.5000556707382202
+      },
+      {
+        "paper_id": "2301.09278",
+        "title": "DAG-based Task Orchestration for Edge Computing",
+        "similarity": 0.6521976590156555
+      },
+      {
+        "paper_id": "2207.01577",
+        "title": "Oakestra white paper: An Orchestrator for Edge Computing",
+        "similarity": 0.5986559391021729
+      },
+      {
+        "paper_id": "2206.11663",
+        "title": "A Decentralized Framework with Dynamic and Event-Driven Container Orchestration at the Edge",
+        "similarity": 0.40709924697875977
+      },
+      {
+        "paper_id": "2308.00481",
+        "title": "EdgeMatrix: A Resource-Redefined Scheduling Framework for SLA-Guaranteed Multi-Tier Edge-Cloud Computing Systems",
+        "similarity": 0.4801117181777954
+      },
+      {
+        "paper_id": "2104.02423",
+        "title": "Rearchitecting Kubernetes for the Edge",
+        "similarity": 0.42089706659317017
+      },
+      {
+        "paper_id": "2311.01224",
+        "title": "EISim: A Platform for Simulating Intelligent Edge Orchestration Solutions",
+        "similarity": 0.5669148564338684
+      },
+      {
+        "paper_id": "2501.17126",
+        "title": "ECLYPSE: a Python Framework for Simulation and Emulation of the Cloud-Edge Continuum",
+        "similarity": 0.4948466420173645
+      },
+      {
+        "paper_id": "2504.04555",
+        "title": "SchEdge: A Dynamic, Multi-agent, and Scalable Scheduling Simulator for IoT Edge",
+        "similarity": 0.3586987853050232
+      },
+      {
+        "paper_id": "1606.02007",
+        "title": "iFogSim: A Toolkit for Modeling and Simulation of Resource Management Techniques in Internet of Things, Edge and Fog Computing Environments",
+        "similarity": 0.5296766757965088
+      },
+      {
+        "paper_id": "2109.05636",
+        "title": "IFogSim2: An Extended iFogSim Simulator for Mobility, Clustering, and Microservice Management in Edge and Fog Computing Environments",
+        "similarity": 0.6250872015953064
+      },
+      {
+        "paper_id": "2010.14027",
+        "title": "EdgeBench: A Workflow-based Benchmark for Edge Computing",
+        "similarity": 0.6429900527000427
+      },
+      {
+        "paper_id": "2210.01410",
+        "title": "EdgeFaaS: A Function-based Framework for Edge Computing",
+        "similarity": 0.6202623844146729
+      },
+      {
+        "paper_id": "2405.21009",
+        "title": "FunLess: Functions-as-a-Service for Private Edge Cloud Systems",
+        "similarity": 0.46684691309928894
+      },
+      {
+        "paper_id": "2111.06563",
+        "title": "Serverless Platforms on the Edge: A Performance Analysis",
+        "similarity": 0.5856145620346069
+      },
+      {
+        "paper_id": "2104.14087",
+        "title": "LaSS: Running Latency Sensitive Serverless Computations at the Edge",
+        "similarity": 0.4562372863292694
+      },
+      {
+        "paper_id": "2205.04320",
+        "title": "NEPTUNE: Network- and GPU-aware Management of Serverless Functions at the Edge",
+        "similarity": 0.5615929365158081
+      },
+      {
+        "paper_id": "2504.21503",
+        "title": "CWASI: A WebAssembly Runtime Shim for Inter-function Communication in the Serverless Edge-Cloud Continuum",
+        "similarity": 0.41966181993484497
+      },
+      {
+        "paper_id": "2504.03656",
+        "title": "Comparative Analysis of Lightweight Kubernetes Distributions for Edge Computing: Performance and Resource Efficiency",
+        "similarity": 0.5523003935813904
+      },
+      {
+        "paper_id": "2503.04815",
+        "title": "Comparative Analysis of Lightweight Kubernetes Distributions for Edge Computing: Security, Resilience and Maintainability",
+        "similarity": 0.4720432460308075
+      },
+      {
+        "paper_id": "2101.03533",
+        "title": "Con-Pi: A Distributed Container-based Edge and Fog Computing Framework",
+        "similarity": 0.5767360925674438
+      },
+      {
+        "paper_id": "1801.02206",
+        "title": "EdgeFlow: Open-Source Multi-layer Data Flow Processing in Edge Computing for 5G and Beyond",
+        "similarity": 0.6664183735847473
+      },
+      {
+        "paper_id": "2403.10977",
+        "title": "An Open-Source Experimentation Framework for the Edge Cloud Continuum",
+        "similarity": 0.5541073083877563
+      },
+      {
+        "paper_id": "2503.15199",
+        "title": "Radon: a Programming Model and Platform for Computing Continuum Systems",
+        "similarity": 0.41281938552856445
+      },
+      {
+        "paper_id": "1811.11978",
+        "title": "FogBus: A Blockchain-based Lightweight Framework for Edge and Fog Computing",
+        "similarity": 0.5299572944641113
+      },
+      {
+        "paper_id": "2410.11879",
+        "title": "POSEIDON : Efficient Function Placement at the Edge using Deep Reinforcement Learning",
+        "similarity": 0.4429299235343933
+      }
+    ]
+  },
+  "Machine Learning Approaches and Its Techniques": {
+    "topic": "Machine Learning Approaches and Its Techniques",
+    "num_papers": 9,
+    "mean_similarity": 0.2502747817585866,
+    "median_similarity": 0.23855477571487427,
+    "precision_above_0.4": 0.1111111111111111,
+    "top10_precision": 0.1111111111111111,
+    "papers": [
+      {
+        "paper_id": "1609.04747",
+        "title": "An overview of gradient descent optimization algorithms",
+        "similarity": 0.37696248292922974
+      },
+      {
+        "paper_id": "1412.6980",
+        "title": "Adam: A Method for Stochastic Optimization",
+        "similarity": 0.277688205242157
+      },
+      {
+        "paper_id": "1207.0580",
+        "title": "Improving Neural Networks by Preventing Co-Adaptation of Feature Detectors",
+        "similarity": 0.23855477571487427
+      },
+      {
+        "paper_id": "1502.03167",
+        "title": "Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift",
+        "similarity": 0.2049635648727417
+      },
+      {
+        "paper_id": "1603.02754",
+        "title": "XGBoost: A Scalable Tree Boosting System",
+        "similarity": 0.23827049136161804
+      },
+      {
+        "paper_id": "1706.09516",
+        "title": "CatBoost: unbiased boosting with categorical features",
+        "similarity": 0.36337411403656006
+      },
+      {
+        "paper_id": "1012.2599",
+        "title": "A Tutorial on Bayesian Optimization of Expensive Cost Functions, with Application to Active User Modeling and Hierarchical Reinforcement Learning",
+        "similarity": 0.14259257912635803
+      },
+      {
+        "paper_id": "1506.06445",
+        "title": "Deep Learning",
+        "similarity": 0.002293655648827553
+      },
+      {
+        "paper_id": "1201.0490",
+        "title": "Scikit-learn: Machine Learning in Python",
+        "similarity": 0.4077731668949127
+      }
+    ]
+  },
+  "Deep Reinforcement Learning for Data Processing and Analytics": {
+    "topic": "Deep Reinforcement Learning for Data Processing and Analytics",
+    "num_papers": 26,
+    "mean_similarity": 0.4513546090859633,
+    "median_similarity": 0.46037547290325165,
+    "precision_above_0.4": 0.8076923076923077,
+    "top10_precision": 1.0,
+    "papers": [
+      {
+        "paper_id": "1810.01963",
+        "title": "Learning Scheduling Algorithms for Data Processing Clusters",
+        "similarity": 0.44167470932006836
+      },
+      {
+        "paper_id": "2307.16540",
+        "title": "ADOPT: Adaptively Optimizing Attribute Orders for Worst-Case Optimal Join Algorithms via Reinforcement Learning",
+        "similarity": 0.3476909399032593
+      },
+      {
+        "paper_id": "1803.00055",
+        "title": "Deep Reinforcement Learning for Join Order Enumeration",
+        "similarity": 0.471076101064682
+      },
+      {
+        "paper_id": "1901.05152",
+        "title": "SkinnerDB: Regret-Bounded Query Evaluation via Reinforcement Learning",
+        "similarity": 0.35489320755004883
+      },
+      {
+        "paper_id": "2004.03814",
+        "title": "Bao: Learning to Steer Query Optimizers",
+        "similarity": 0.484029084444046
+      },
+      {
+        "paper_id": "2201.01441",
+        "title": "Balsa: Learning a Query Optimizer Without Expert Demonstrations",
+        "similarity": 0.4761495590209961
+      },
+      {
+        "paper_id": "1808.03196",
+        "title": "Learning to Optimize Join Queries With Deep Reinforcement Learning",
+        "similarity": 0.46070489287376404
+      },
+      {
+        "paper_id": "1903.01363",
+        "title": "Opportunistic View Materialization with Deep Reinforcement Learning",
+        "similarity": 0.5135106444358826
+      },
+      {
+        "paper_id": "2307.11704",
+        "title": "JoinGym: An Efficient Query Optimization Environment for Reinforcement Learning",
+        "similarity": 0.4194503426551819
+      },
+      {
+        "paper_id": "2504.19142",
+        "title": "BQSched: A Non-intrusive Scheduler for Batch Concurrent Queries via Reinforcement Learning",
+        "similarity": 0.5456214547157288
+      },
+      {
+        "paper_id": "2404.05777",
+        "title": "IA2: Leveraging Instance-Aware Index Advisor with Reinforcement Learning for Diverse Workloads",
+        "similarity": 0.4895934760570526
+      },
+      {
+        "paper_id": "2507.23084",
+        "title": "AutoIndexer: A Reinforcement Learning-Enhanced Index Advisor Towards Scaling Workloads",
+        "similarity": 0.4255084991455078
+      },
+      {
+        "paper_id": "2406.15073",
+        "title": "KnobTree: Intelligent Database Parameter Configuration via Explainable Reinforcement Learning",
+        "similarity": 0.46004605293273926
+      },
+      {
+        "paper_id": "2112.10925",
+        "title": "DB-BERT: a Database Tuning Tool that \"Reads the Manual\"",
+        "similarity": 0.3597431778907776
+      },
+      {
+        "paper_id": "2104.01744",
+        "title": "UDO: Universal Database Optimization using Reinforcement Learning",
+        "similarity": 0.4018862545490265
+      },
+      {
+        "paper_id": "2102.07199",
+        "title": "Hugo: A Cluster Scheduler that Efficiently Learns to Select Complementary Data-Parallel Jobs",
+        "similarity": 0.2887338399887085
+      },
+      {
+        "paper_id": "2102.06243",
+        "title": "Deep Reinforcement Agent for Scheduling in HPC",
+        "similarity": 0.470758855342865
+      },
+      {
+        "paper_id": "2112.11055",
+        "title": "A Scalable Deep Reinforcement Learning Model for Online Scheduling Coflows of Multi-Stage Jobs for High Performance Computing",
+        "similarity": 0.45423948764801025
+      },
+      {
+        "paper_id": "1907.12916",
+        "title": "DeepPlace: Learning to Place Applications in Multi-Tenant Clusters",
+        "similarity": 0.4963233172893524
+      },
+      {
+        "paper_id": "2308.08500",
+        "title": "InTune: Reinforcement Learning-based Data Pipeline Optimization for Deep Recommendation Models",
+        "similarity": 0.5393753051757812
+      },
+      {
+        "paper_id": "1911.00061",
+        "title": "DeepLine: AutoML Tool for Pipelines Generation using Deep Reinforcement Learning and Hierarchical Actions Filtering",
+        "similarity": 0.5720046758651733
+      },
+      {
+        "paper_id": "2111.02508",
+        "title": "AlphaD3M: Machine Learning Pipeline Synthesis",
+        "similarity": 0.4502762258052826
+      },
+      {
+        "paper_id": "2502.03946",
+        "title": "CleanSurvival: Automated data preprocessing for time-to-event models using reinforcement learning",
+        "similarity": 0.4338954985141754
+      },
+      {
+        "paper_id": "2306.04846",
+        "title": "Learned spatial data partitioning",
+        "similarity": 0.4950355291366577
+      },
+      {
+        "paper_id": "2401.17059",
+        "title": "Learning Approximation Sets for Exploratory Queries",
+        "similarity": 0.5153305530548096
+      },
+      {
+        "paper_id": "2207.14017",
+        "title": "Unsupervised Frequent Pattern Mining for CEP",
+        "similarity": 0.36766815185546875
+      }
+    ]
+  },
+  "Security Risk and Attacks in AI": {
+    "topic": "Security Risk and Attacks in AI",
+    "num_papers": 26,
+    "mean_similarity": 0.4023410907158485,
+    "median_similarity": 0.40734969079494476,
+    "precision_above_0.4": 0.5384615384615384,
+    "top10_precision": 1.0,
+    "papers": [
+      {
+        "paper_id": "2205.01992",
+        "title": "Wild Patterns Reloaded: A Survey of Machine Learning Security against Training Data Poisoning",
+        "similarity": 0.47389453649520874
+      },
+      {
+        "paper_id": "2303.06302",
+        "title": "Adversarial Attacks and Defenses in Machine Learning-Powered Networks: A Contemporary Survey",
+        "similarity": 0.4478852152824402
+      },
+      {
+        "paper_id": "2202.10276",
+        "title": "Poisoning Attacks and Defenses on Artificial Intelligence: A Survey",
+        "similarity": 0.5869617462158203
+      },
+      {
+        "paper_id": "2411.11200",
+        "title": "Countering Backdoor Attacks in Image Recognition: A Survey and Evaluation of Mitigation Strategies",
+        "similarity": 0.41117480397224426
+      },
+      {
+        "paper_id": "2403.17188",
+        "title": "LOTUS: Evasive and Resilient Backdoor Attacks through Sub-Partitioning",
+        "similarity": 0.4163143038749695
+      },
+      {
+        "paper_id": "2508.15031",
+        "title": "A Systematic Survey of Model Extraction Attacks and Defenses: State-of-the-Art and Perspectives",
+        "similarity": 0.4423964321613312
+      },
+      {
+        "paper_id": "2502.16065",
+        "title": "A Survey of Model Extraction Attacks and Defenses in Distributed Computing Environments",
+        "similarity": 0.4783582091331482
+      },
+      {
+        "paper_id": "1609.02943",
+        "title": "Stealing Machine Learning Models via Prediction APIs",
+        "similarity": 0.3940342664718628
+      },
+      {
+        "paper_id": "2501.18934",
+        "title": "Deep Learning Model Inversion Attacks and Defenses: A Comprehensive Survey",
+        "similarity": 0.5228647589683533
+      },
+      {
+        "paper_id": "2411.10023",
+        "title": "Model Inversion Attacks: A Survey of Approaches and Countermeasures",
+        "similarity": 0.46824315190315247
+      },
+      {
+        "paper_id": "2503.19338",
+        "title": "Membership Inference Attacks on Large-Scale Models: A Survey",
+        "similarity": 0.3155573010444641
+      },
+      {
+        "paper_id": "2208.14933",
+        "title": "Membership Inference Attacks by Exploiting Loss Trajectory",
+        "similarity": 0.3910924196243286
+      },
+      {
+        "paper_id": "2410.23308",
+        "title": "Systematically Analyzing Prompt Injection Vulnerabilities in Diverse LLM Architectures",
+        "similarity": 0.40352457761764526
+      },
+      {
+        "paper_id": "2510.15476",
+        "title": "SoK: Taxonomy and Evaluation of Prompt Security in Large Language Models",
+        "similarity": 0.36069929599761963
+      },
+      {
+        "paper_id": "2407.01599",
+        "title": "JailbreakZoo: Survey, Landscapes, and Horizons in Jailbreaking Large Language and Vision-Language Models",
+        "similarity": 0.4146048128604889
+      },
+      {
+        "paper_id": "2506.15170",
+        "title": "From LLMs to MLLMs to Agents: A Survey of Emerging Paradigms in Jailbreak Attacks and Defenses within LLM Ecosystem",
+        "similarity": 0.3659372329711914
+      },
+      {
+        "paper_id": "2407.14937",
+        "title": "Operationalizing a Threat Model for Red-Teaming Large Language Models (LLMs)",
+        "similarity": 0.4191778004169464
+      },
+      {
+        "paper_id": "2502.03801",
+        "title": "SoK: Benchmarking Poisoning Attacks and Defenses in Federated Learning",
+        "similarity": 0.29576802253723145
+      },
+      {
+        "paper_id": "2210.00584",
+        "title": "FLCert: Provably Secure Federated Learning against Poisoning Attacks",
+        "similarity": 0.26367563009262085
+      },
+      {
+        "paper_id": "2203.08669",
+        "title": "MPAF: Model Poisoning Attacks to Federated Learning based on Fake Clients",
+        "similarity": 0.27649831771850586
+      },
+      {
+        "paper_id": "2412.08969",
+        "title": "Deep Learning Model Security: Threats and Defenses",
+        "similarity": 0.5187296867370605
+      },
+      {
+        "paper_id": "2103.01498",
+        "title": "A Survey On Universal Adversarial Attack",
+        "similarity": 0.43165576457977295
+      },
+      {
+        "paper_id": "2509.14285",
+        "title": "A Multi-Agent LLM Defense Pipeline Against Prompt Injection Attacks",
+        "similarity": 0.3626783490180969
+      },
+      {
+        "paper_id": "2510.14005",
+        "title": "PIShield: Detecting Prompt Injection Attacks via Intrinsic LLM Features",
+        "similarity": 0.3126734793186188
+      },
+      {
+        "paper_id": "2312.08667",
+        "title": "Data and Model Poisoning Backdoor Attacks on Wireless Federated Learning, and the Defense Mechanisms: A Comprehensive Survey",
+        "similarity": 0.33937299251556396
+      },
+      {
+        "paper_id": "1901.06796",
+        "title": "Adversarial Attacks on Deep Learning Models in Natural Language Processing: A Survey",
+        "similarity": 0.347095251083374
+      }
+    ]
+  }
+}

@@ -1,0 +1,260 @@
+{
+  "mean_similarity": 0.31178265774533864,
+  "median_similarity": 0.3306051343679428,
+  "precision_above_threshold": 0.0,
+  "top10_precision": 0.0,
+  "details": [
+    [
+      0.4845792055130005,
+      "abstract",
+      "1901.05331",
+      "Optimization Problems for Machine Learning: A Survey"
+    ],
+    [
+      0.4562590420246124,
+      "abstract",
+      "1810.13306",
+      "Automated Machine Learning: From Principles to Practices"
+    ],
+    [
+      0.4449990391731262,
+      "abstract",
+      "1902.04109",
+      "Applications of Machine Learning in Cryptography: A Survey"
+    ],
+    [
+      0.43918123841285706,
+      "abstract",
+      "2301.05579",
+      "A survey and taxonomy of loss functions in machine learning"
+    ],
+    [
+      0.4082825481891632,
+      "abstract",
+      "1903.10563",
+      "Machine learning and the physical sciences"
+    ],
+    [
+      0.3817424178123474,
+      "abstract",
+      "1808.00033",
+      "Techniques for Interpretable Machine Learning"
+    ],
+    [
+      0.3808378279209137,
+      "abstract",
+      "2312.03120",
+      "The Landscape of Modern Machine Learning: A Review of Machine, Distributed and Federated Learning"
+    ],
+    [
+      0.3805854022502899,
+      "abstract",
+      "1601.07996",
+      "Feature Selection: A Data Perspective"
+    ],
+    [
+      0.3772509694099426,
+      "abstract",
+      "2102.07952",
+      "A Survey of Machine Learning for Computer Architecture and Systems"
+    ],
+    [
+      0.37682828307151794,
+      "abstract",
+      "1907.08908",
+      "Techniques for Automated Machine Learning"
+    ],
+    [
+      0.3757358193397522,
+      "abstract",
+      "1909.12373",
+      "A Survey of Machine Learning Applied to Computer Architecture Design"
+    ],
+    [
+      0.3745523989200592,
+      "abstract",
+      "2006.09271",
+      "A Survey of Machine Learning Methods and Challenges for Windows Malware Classification"
+    ],
+    [
+      0.3664541244506836,
+      "abstract",
+      "2306.16559",
+      "Feature Selection: A perspective on inter-attribute cooperation"
+    ],
+    [
+      0.36626046895980835,
+      "abstract",
+      "2110.09610",
+      "A Survey on Machine Learning Techniques for Source Code Analysis"
+    ],
+    [
+      0.3604687750339508,
+      "abstract",
+      "1901.07947",
+      "Machine Learning for Wireless Communications in the Internet of Things: A Comprehensive Survey"
+    ],
+    [
+      0.35219433903694153,
+      "abstract",
+      "2211.04148",
+      "The Technological Emergence of AutoML: A Survey of Performant Software and Applications in the Context of Industry"
+    ],
+    [
+      0.3449106216430664,
+      "abstract",
+      "1710.08189",
+      "Survey of Machine Learning Techniques for Malware Analysis"
+    ],
+    [
+      0.3433738350868225,
+      "abstract",
+      "1909.04791",
+      "A Survey of Techniques All Classifiers Can Learn from Deep Networks: Models, Optimizations, and Regularization"
+    ],
+    [
+      0.34273430705070496,
+      "abstract",
+      "2410.22854",
+      "Hyperparameter Optimization in Machine Learning"
+    ],
+    [
+      0.33355873823165894,
+      "abstract",
+      "2505.17902",
+      "Evolving Machine Learning: A Survey"
+    ],
+    [
+      0.33119693398475647,
+      "abstract",
+      "2105.10172",
+      "Explainable Machine Learning with Prior Knowledge: An Overview"
+    ],
+    [
+      0.33001333475112915,
+      "abstract",
+      "1701.07179",
+      "Malicious URL Detection using Machine Learning: A Survey"
+    ],
+    [
+      0.32413041591644287,
+      "abstract",
+      "2104.02466",
+      "A Review of Formal Methods applied to Machine Learning"
+    ],
+    [
+      0.31486111879348755,
+      "abstract",
+      "2308.11455",
+      "A Survey on Self-Supervised Representation Learning"
+    ],
+    [
+      0.29998520016670227,
+      "abstract",
+      "cs/9605103",
+      "Reinforcement Learning: A Survey"
+    ],
+    [
+      0.2992136776447296,
+      "abstract",
+      "1709.06599",
+      "Unsupervised Machine Learning for Networking: Techniques, Applications and Research Challenges"
+    ],
+    [
+      0.2737845778465271,
+      "abstract",
+      "2009.02653",
+      "A Survey on Machine Learning from Few Samples"
+    ],
+    [
+      0.27206718921661377,
+      "abstract",
+      "1606.05386",
+      "Model-Agnostic Interpretability of Machine Learning"
+    ],
+    [
+      0.2720511555671692,
+      "abstract",
+      "2405.09591",
+      "A Comprehensive Survey on Data Augmentation"
+    ],
+    [
+      0.271853506565094,
+      "abstract",
+      "1911.02621",
+      "The Threat of Adversarial Attacks on Machine Learning in Network Security -- A Survey"
+    ],
+    [
+      0.25256216526031494,
+      "abstract",
+      "2301.05712",
+      "A Survey on Self-supervised Learning: Algorithms, Applications, and Future Trends"
+    ],
+    [
+      0.24610747396945953,
+      "abstract",
+      "2403.08352",
+      "Data augmentation with automated machine learning: approaches and performance comparison with classical data augmentation methods"
+    ],
+    [
+      0.23589052259922028,
+      "abstract",
+      "2007.00753",
+      "Opportunities and Challenges in Deep Learning Adversarial Robustness: A Survey"
+    ],
+    [
+      0.232727512717247,
+      "abstract",
+      "2302.02515",
+      "Deep Learning for Time Series Classification and Extrinsic Regression: A Current Survey"
+    ],
+    [
+      0.22883577644824982,
+      "abstract",
+      "2203.13922",
+      "AutoML for Deep Recommender Systems: A Survey"
+    ],
+    [
+      0.21298398077487946,
+      "abstract",
+      "1806.00069",
+      "Explaining Explanations: An Overview of Interpretability of Machine Learning"
+    ],
+    [
+      0.20034049451351166,
+      "abstract",
+      "2403.11395",
+      "Automated data processing and feature engineering for deep learning and big data applications: a survey"
+    ],
+    [
+      0.18443042039871216,
+      "abstract",
+      "2301.08727",
+      "Neural Architecture Search: Insights from 1000 Papers"
+    ],
+    [
+      0.17265336215496063,
+      "abstract",
+      "2207.11719",
+      "Gradient-based Bi-level Optimization for Deep Learning: A Survey"
+    ],
+    [
+      0.16311581432819366,
+      "abstract",
+      "2101.09336",
+      "A Comprehensive Survey on Hardware-Aware Neural Architecture Search"
+    ],
+    [
+      0.14290578663349152,
+      "abstract",
+      "2006.16712",
+      "Model-based Reinforcement Learning: A Survey"
+    ],
+    [
+      0.14237180352210999,
+      "abstract",
+      "2208.11296",
+      "Semi-Supervised and Unsupervised Deep Visual Learning: A Survey"
+    ]
+  ]
+}

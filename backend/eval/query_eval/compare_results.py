@@ -17,7 +17,8 @@ RESULTS_DIR = os.path.join(BASE_DIR, "results")
 ARXIV_V1_DIR = os.path.join(RESULTS_DIR, "arxiv_v1_results")
 
 SEMANTIC_FILE = os.path.join(RESULTS_DIR, "semantic_v1v2_eval_results.json")
-ARXIV_V2_FILE = os.path.join(RESULTS_DIR, "eval.json")
+ARXIV_V2_FILE = os.path.join(RESULTS_DIR, "arxiv_v2_results_eval.json")
+ARXIV_V3_FILE = os.path.join(RESULTS_DIR, "eval.json")
 
 # load results files 
 with open(SEMANTIC_FILE, "r") as f:
@@ -25,6 +26,9 @@ with open(SEMANTIC_FILE, "r") as f:
 
 with open(ARXIV_V2_FILE, "r") as f:
     arxiv_v2 = json.load(f)
+
+with open(ARXIV_V3_FILE, "r") as f:
+    arxiv_v3 = json.load(f)
 
 arxiv_v1 = {}
 
@@ -44,27 +48,35 @@ for topic in semantic.keys():
     row = {"topic": topic}
 
     # semantic scores
-    row["semantic_v1"] = semantic[topic]["v1"]["mean_similarity"]
-    row["semantic_v2"] = semantic[topic]["v2"]["mean_similarity"]
+    row["v1"] = semantic[topic]["v1"][METRIC]
+    row["v2"] = semantic[topic]["v2"][METRIC]
 
     # match arxiv_v1 filename naming convention
     normalized_topic = topic.lower().replace(" ", "_")
-    row["arxiv_v1"] = arxiv_v1.get(normalized_topic)
+    row["v3"] = arxiv_v1.get(normalized_topic)
 
     # arxiv_v2 score
-    row["arxiv_v2"] = arxiv_v2.get(topic, {}).get("mean_similarity")
+    row["v4"] = arxiv_v2.get(topic, {}).get(METRIC)
+
+    # arxiv_v3 score
+    if topic in arxiv_v3:
+        row["v5"] = arxiv_v3[topic].get(METRIC)
+    else:
+        row["v5"] = None
 
     rows.append(row)
 
 # output csv
 df = pd.DataFrame(rows)
 
-csv_path = os.path.join(RESULTS_DIR, "combined_scores.csv")
+csv_path = os.path.join(RESULTS_DIR, "compare_scores.csv")
 
 df.to_csv(csv_path, index=False)
 
-print("\n✓ Combined score tables saved:")
+print("\n Combined score tables saved:")
 print(" -", csv_path)
 
 print("\nPreview:")
+pd.set_option("display.max_colwidth", None)
+pd.set_option("display.width", 0)
 print(df)

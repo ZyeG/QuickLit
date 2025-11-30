@@ -16,12 +16,12 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 BACKEND_DIR = os.path.dirname(BASE_DIR)
 # logs directory under backend/
 LOG_DIR = os.path.join(BACKEND_DIR, "log", "query_out")   # goes to backend/log/query_out/
-
+SUMMARIES_LOG_DIR = os.path.join(BACKEND_DIR, "log", "summaries")   # goes to backend/log/summaries/
 # Max number of papers to fetch per query
-MAX_PAPERS = 10
+MAX_PAPERS = 30
 
 os.makedirs(LOG_DIR, exist_ok=True)
-
+os.makedirs(SUMMARIES_LOG_DIR, exist_ok=True)
 CHAT_SYSTEM_PROMPT = """
 You are an academic research assistant that helps to get information from researched paper.\
 You will be given the context of the paper and a question related to it.\
@@ -62,29 +62,94 @@ def first10_slug(text):
 
 def query(topic, model="gpt-5", out_dir=LOG_DIR):
 
-    PROMPT = f"""
-You are an academic literature search assistant.
+    # PROMPT = f"""
+    # You are an academic literature search assistant.
 
-Task:
-Given the research topic: "{topic}", search ONLY on arXiv.
+    # Task:
+    # Given the research topic: "{topic}", search ONLY on arXiv.
 
-Requirements:
-1. Retrieve papers exclusively from arXiv (no external sources).
-2. Estimate the semantic similarity between the topic and each candidate title.
-3. Keep only papers whose title similarity score is ≥ 0.50.
-4. Return at most {str(MAX_PAPERS)} papers after filtering.
-5. Prioritize:
-   - high conceptual alignment
-   - correct sub-domain
-   - avoid unrelated general surveys
-6. Every paper must be an actual arXiv entry. id, title, pdf_url triple MUST refer to the same arXiv record.
+    # Requirements:
+    # 1. Retrieve papers exclusively from arXiv (no external sources).
+    # 2. Estimate the semantic similarity between the topic and each candidate title.
+    # 3. Keep only papers whose title similarity score is ≥ 0.50.
+    # 4. Return at most {str(MAX_PAPERS)} papers after filtering.
+    # 5. Prioritize:
+    #    - high conceptual alignment
+    #    - correct sub-domain
+    #    - avoid unrelated general surveys
+    # 6. Every paper must be an actual arXiv entry. id, title, pdf_url triple MUST refer to the same arXiv record.
 
-Output format:
-paper_id | title | https://arxiv.org/pdf/<paper_id>.pdf
+    # Output format:
+    # paper_id | title | https://arxiv.org/pdf/<paper_id>.pdf
 
-Output only the list, no commentary.
-Begin now.
-"""
+    # Output only the list, no commentary.
+    # Begin now.
+    # """
+
+    PROMPT = f"""You are an academic literature search assistant.
+
+    ====================================================
+    INTERNAL STEP 1 — EXTRACT CONCEPT CLUSTERS
+    ====================================================
+    Given the research topic: "{topic}"
+
+    Extract 3-5 tightly relevant, non-overlapping concept clusters.
+    Rules:
+    - Avoid splitting the topic into too many parts.
+    - Each concept should increase retrieval precision, not widen scope.
+    - Include synonyms only if they correspond to actual terminology in arXiv papers.
+
+    ====================================================
+    INTERNAL STEP 2 — BUILD SEARCH QUERIES
+    ====================================================
+    Using the concept clusters:
+    - Construct 5-8 weighted search queries.
+    - Use OR within concept groups.
+    - Combine groups softly (not strict AND), so retrieval is flexible but still precise.
+
+    ====================================================
+    INTERNAL STEP 3 — ARXIV-ONLY RETRIEVAL
+    ====================================================
+    Search **exclusively on arXiv**.
+    Retrieve candidate papers with:
+    - paper_id
+    - title
+    - pdf_url (e.g. https://arxiv.org/pdf/<paper_id>.pdf)
+
+    No external sources allowed.
+
+    ====================================================
+    INTERNAL STEP 4 — SEMANTIC SCORING & FILTERING
+    ====================================================
+    For every candidate paper:
+    - Estimate title-topic semantic similarity.
+    - Keep only papers with similarity ≥ 0.50.
+    - Enforce that id, title, and pdf_url all correspond to the same real arXiv record.
+    - After filtering, keep at most {str(MAX_PAPERS)} papers.
+    - Prioritize:
+    * high conceptual alignment
+    * correct sub-domain
+    * avoid unrelated, too general overviews, or too narrow papers.
+
+    ====================================================
+    INTERNAL STEP 5 — RANK & PREPARE OUTPUT
+    ====================================================
+    Rank remaining papers by:
+    - semantic relevance
+    - conceptual tightness
+    - closeness to the topic (not popularity)
+
+    Format each output line as:
+    paper_id | title | https://arxiv.org/pdf/<paper_id>.pdf
+
+    ====================================================
+    FINAL OUTPUT (VISIBLE TO USER)
+    ====================================================
+    Output ONLY the final list of formatted lines.
+    Do NOT reveal internal steps or reasoning.
+    Do NOT add commentary.
+    Begin now.
+    """
 
     # Step 1: Run LLM retrieval
     response = client.responses.create(
@@ -165,3 +230,33 @@ def chat_query(query: str, context: str, model="gpt-5", stream: bool = False):
         input=query
     )
     return response.output_text
+
+# get_summary: intake arxiv id, output summary text
+def get_summary(id, model="gpt-5"):
+    pdf_url = f"https://arxiv.org/pdf/{id}.pdf"
+    PROMPT = f"""
+    You are an academic research assistant.
+    Read the paper at {pdf_url} and identify all first level sections (Methods, Results, Discussion, etc.), and provide a concise summary of each section (1-2 sentences for shorter sections, 3-4 sentences for longer sections).
+
+    Do not summarize Abstract, Acknowledgements or References.
+
+    Output format:
+    <paper title>
+    <section 1 title>:<section 1 summary>
+
+    <section 2 title>:<section 2 summary>
+
+    <section N title>:<section N summary>
+    ...
+
+    Do not include citations or urls in the output. 
+    """
+
+    response = client.responses.create(
+        model=model,
+        input=PROMPT,
+        tools=[{"type": "web_search"}],
+    )
+
+    summary = response.output_text.strip()
+    return summary

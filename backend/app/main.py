@@ -2,7 +2,7 @@ from fastapi import FastAPI, Request, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 import os
-from app.query_pipe import query, chat_query
+from app.query_pipe import query, chat_query, get_summary
 from app.rag_pipe import qdrant_add_openai, query_qdrant_openai
 app = FastAPI()
 
@@ -11,7 +11,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 BACKEND_DIR = os.path.dirname(BASE_DIR)
 # logs directory under backend/
 LOG_DIR = os.path.join(BACKEND_DIR, "log", "query_out")   # goes to backend/log/query_out/
-
+SUMMARIES_LOG_DIR = os.path.join(BACKEND_DIR, "log", "summaries")   # goes to backend/log/summaries/
 # @app.get("/")
 # def read_root():
 #     return {"message": "hello world"}
@@ -101,7 +101,24 @@ async def generate_stream(request: Request):
                 top_k=10,
                 use_alt_collection=True
                 )
-    # response_stream = chat_query(query=query_text, context=results, model="gpt-5", stream=True)
-    alt_response_stream = chat_query(query=query_text, context=alt_results, model="gpt-5", stream=True)
-    # return StreamingResponse(response_stream, media_type="text/plain")
-    return StreamingResponse(alt_response_stream, media_type="text/plain")
+
+    response_stream = chat_query(query=query_text, context=results, model="gpt-5", stream=True)
+
+    return StreamingResponse(response_stream, media_type="text/plain")
+
+@app.post("/api/summary/by-id")
+async def summarize_by_arxiv_id(request: Request):
+    data = await request.json()
+    arxiv_id = data.get("arxiv_id")
+
+    if not arxiv_id:
+        return {"error": "Missing 'arxiv_id' in request body"}
+
+    # Generate new summary (frontend handles caching in localStorage)
+    summary_text = get_summary(arxiv_id, model="gpt-5")
+
+    return {
+        "arxiv_id": arxiv_id,
+        "cached": False,  # frontend may mark as cached locally
+        "summary": summary_text,
+    }

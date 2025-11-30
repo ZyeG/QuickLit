@@ -1,0 +1,182 @@
+{
+  "mean_similarity": 0.4402169143331462,
+  "median_similarity": 0.4500353932380676,
+  "precision_above_threshold": 0.0,
+  "top10_precision": 0.0,
+  "details": [
+    [
+      0.5631079077720642,
+      "abstract",
+      "1803.01016",
+      "Model-Free Control for Distributed Stream Data Processing using Deep Reinforcement Learning"
+    ],
+    [
+      0.5416937470436096,
+      "abstract",
+      "2312.06357",
+      "FOSS: A Self-Learned Doctor for Query Optimizer"
+    ],
+    [
+      0.5169453024864197,
+      "abstract",
+      "2412.10253",
+      "A Novel Framework Using Deep Reinforcement Learning for Join Order Selection"
+    ],
+    [
+      0.5094385743141174,
+      "abstract",
+      "2306.04846",
+      "Learned spatial data partitioning"
+    ],
+    [
+      0.507266104221344,
+      "abstract",
+      "2502.05001",
+      "A New Paradigm in Tuning Learned Indexes: A Reinforcement Learning Enhanced Approach"
+    ],
+    [
+      0.5054194331169128,
+      "abstract",
+      "2501.00068",
+      "Dynamic Optimization of Storage Systems Using Reinforcement Learning Techniques"
+    ],
+    [
+      0.49778392910957336,
+      "abstract",
+      "2201.01441",
+      "Balsa: Learning a Query Optimizer Without Expert Demonstrations"
+    ],
+    [
+      0.48934656381607056,
+      "abstract",
+      "2404.05777",
+      "IA2: Leveraging Instance-Aware Index Advisor with Reinforcement Learning for Diverse Workloads"
+    ],
+    [
+      0.479777991771698,
+      "abstract",
+      "1903.01363",
+      "Opportunistic View Materialization with Deep Reinforcement Learning"
+    ],
+    [
+      0.4756770431995392,
+      "abstract",
+      "2004.03814",
+      "Bao: Learning to Steer Query Optimizers"
+    ],
+    [
+      0.47126445174217224,
+      "abstract",
+      "2006.08842",
+      "Index Selection for NoSQL Database with Deep Reinforcement Learning"
+    ],
+    [
+      0.46773698925971985,
+      "abstract",
+      "1803.00055",
+      "Deep Reinforcement Learning for Join Order Enumeration"
+    ],
+    [
+      0.4611307978630066,
+      "abstract",
+      "1909.02119",
+      "Inductive-bias-driven Reinforcement Learning For Efficient Schedules in Heterogeneous Clusters"
+    ],
+    [
+      0.4565819203853607,
+      "abstract",
+      "1911.11689",
+      "Join Query Optimization with Deep Reinforcement Learning Algorithms"
+    ],
+    [
+      0.4500353932380676,
+      "abstract",
+      "2406.15073",
+      "KnobTree: Intelligent Database Parameter Configuration via Explainable Reinforcement Learning"
+    ],
+    [
+      0.4458204507827759,
+      "abstract",
+      "2511.01602",
+      "L2T-Tune:LLM-Guided Hybrid Database Tuning with LHS and TD3"
+    ],
+    [
+      0.4407762289047241,
+      "abstract",
+      "1810.01963",
+      "Learning Scheduling Algorithms for Data Processing Clusters"
+    ],
+    [
+      0.43797558546066284,
+      "abstract",
+      "2507.23084",
+      "AutoIndexer: A Reinforcement Learning-Enhanced Index Advisor Towards Scaling Workloads"
+    ],
+    [
+      0.42282235622406006,
+      "abstract",
+      "2503.20507",
+      "Harmonia: A Multi-Agent Reinforcement Learning Approach to Data Placement and Migration in Hybrid Storage Systems"
+    ],
+    [
+      0.4150753915309906,
+      "abstract",
+      "2307.11704",
+      "JoinGym: An Efficient Query Optimization Environment for Reinforcement Learning"
+    ],
+    [
+      0.41280367970466614,
+      "abstract",
+      "1703.04221",
+      "A Hierarchical Framework of Cloud Resource Allocation and Power Management Using Deep Reinforcement Learning"
+    ],
+    [
+      0.4008241593837738,
+      "abstract",
+      "2308.14647",
+      "Edge Generation Scheduling for DAG Tasks Using Deep Reinforcement Learning"
+    ],
+    [
+      0.38197025656700134,
+      "abstract",
+      "2103.06980",
+      "Learning to Optimize DAG Scheduling in Heterogeneous Environment"
+    ],
+    [
+      0.3779706358909607,
+      "abstract",
+      "2004.10898",
+      "Qd-tree: Learning Data Layouts for Big Data Analytics"
+    ],
+    [
+      0.37204447388648987,
+      "abstract",
+      "2104.01744",
+      "UDO: Universal Database Optimization using Reinforcement Learning"
+    ],
+    [
+      0.3469608724117279,
+      "abstract",
+      "2103.03412",
+      "Learning to Schedule DAG Tasks"
+    ],
+    [
+      0.31896600127220154,
+      "abstract",
+      "1901.05152",
+      "SkinnerDB: Regret-Bounded Query Evaluation via Reinforcement Learning"
+    ],
+    [
+      0.30606815218925476,
+      "abstract",
+      "2102.07199",
+      "Hugo: A Cluster Scheduler that Efficiently Learns to Select Complementary Data-Parallel Jobs"
+    ],
+    [
+      0.29300612211227417,
+      "abstract",
+      "2307.16540",
+      "ADOPT: Adaptively Optimizing Attribute Orders for Worst-Case Optimal Join Algorithms via Reinforcement Learning"
+    ]
+  ]
+}
