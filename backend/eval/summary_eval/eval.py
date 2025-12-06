@@ -1,3 +1,14 @@
+"""
+Summary evaluation system for QuickLit.
+
+This module reads section-by-section paper summaries, sends them to an LLM
+grader, and records structured scores using a fixed rubric. Each summary is
+evaluated on section coverage (capturing the main ideas of every primary
+section), concision (clear and compact phrasing), faithfulness (alignment with
+the source paper without hallucinations), writing quality (grammar and
+readability), and an overall score that reflects holistic quality across the
+criteria.
+"""
 import json
 import os
 import re
