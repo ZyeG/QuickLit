@@ -56,3 +56,21 @@ backend/log/
 
 *.json
 #backend/log/
+
+# LaTeX intermediate files
+*.aux
+*.lof
+*.log
+*.toc
+*.out
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+# Temporary files
+finalreport.pdf
+QuickLit.pptx
+
+*.bak
