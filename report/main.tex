@@ -6,14 +6,12 @@
 \usepackage{graphicx}
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
 
-
 \title{QuickLit: An LLM-Assisted System for Literature Retrieval, Summarization, and Exploration}
 \author{Ziyue Gong 1005710740
 \and Yuanrong Han 1010787409}
 
 \begin{document}
 \maketitle
-
 \section*{Permissions}
 \begin{tabular}{|l|c|c|c|}
 \hline
@@ -23,7 +21,7 @@ Yuarnrong Han    & Yes & Yes & Yes \\ \hline
 \end{tabular}
 
 \section*{Word Count}
-1952 words (excluding references, tables, figures, and captions)
+1959 words (excluding references, tables, figures, and captions)
 
 \newpage
 \section{Introduction}
@@ -63,7 +61,7 @@ See Section Metrics of Success.
 \subsection{High-Level System Architecture}
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\linewidth]{./image/high level.png}
+    \includegraphics[width=\linewidth]{high level.png}
     \caption{High-Level System Architecture}
     \label{fig:high level}
 \end{figure}
@@ -80,7 +78,7 @@ Environment variables configure the OpenAI API key and Qdrant host/port.
 \subsection{Retrieval Pipeline}
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\linewidth]{./image/retrieval.png}
+    \includegraphics[width=\linewidth]{retrieval.png}
     \caption{Paper Retrieval Pipeline}
     \label{fig:Paper Retrieval Pipeline}
 \end{figure}
@@ -96,7 +94,7 @@ Given a topic, the retrieval pipeline follows the sequence illustrated in Figure
 \subsection{RAG and Chat Pipeline}
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\linewidth]{./image/chat.png}
+    \includegraphics[width=\linewidth]{chat.png}
     \caption{RAG and Chat Pipeline}
     \label{fig:RAG and Chat Pipeline}
 \end{figure}
