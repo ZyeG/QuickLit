@@ -18,12 +18,7 @@ if BACKEND_DIR not in sys.path:
     sys.path.insert(0, BACKEND_DIR)
 
 from app.pdf_parser import parse_papers_to_text
-from app.rag_pipe import (
-    QDRANT_CLIENT,
-    split_text,
-    qdrant_add_openai,
-    query_qdrant_openai,
-)
+from app.rag_pipe import QDRANT_CLIENT, qdrant_add_openai, query_qdrant_openai
 
 
 SAMPLE_ABS_URLS = [
@@ -73,7 +68,9 @@ def fetch_title_from_abs(abs_url: str) -> str:
 
 def reciprocal_rank(points, target_title: str) -> float:
     for idx, pt in enumerate(points):
-        if pt.payload.get("paper_title") == target_title:
+        payload = getattr(pt, "payload", {}) or {}
+        title = payload.get("paper_title") or payload.get("title")
+        if title == target_title:
             return 1.0 / (idx + 1)
     return 0.0
 
@@ -81,23 +78,22 @@ def reciprocal_rank(points, target_title: str) -> float:
 def run_mrr_evaluation(top_k: int = 10) -> None:
     collection_name = "eval_mrr_openai"
 
-    # Start fresh
-    # if QDRANT_CLIENT.collection_exists(collection_name=collection_name):
-    #     QDRANT_CLIENT.delete_collection(collection_name=collection_name)
-
-    # Prepare and parse papers (fetches PDFs, extracts content + abstract)
+    # Prepare paper metadata (abs URLs -> pdf URLs, ids, titles)
     papers = prepare_papers(SAMPLE_ABS_URLS)
+
+    # Ingest into Qdrant if the evaluation collection does not yet exist.
+    # We ingest from the raw paper metadata; qdrant_add_openai will
+    # download and parse PDFs internally.
+    if not QDRANT_CLIENT.collection_exists(collection_name=collection_name):
+        qdrant_add_openai(collection_name, papers)
+
+    # Separately parse the PDFs to build natural-language queries that
+    # reference each paper's title. This is independent from ingestion.
     parsed, failures = parse_papers_to_text(papers)
     if failures:
         print("Failed to parse some papers:", failures)
     if not parsed:
         raise RuntimeError("No papers parsed; cannot proceed with evaluation.")
-
-    # Chunk and ingest into Qdrant
-    chunk_input = [{"title": p["title"], "content": p["content"]} for p in parsed]
-    # Commented out to avoid re-adding on every run
-    # chunks = split_text(chunk_input)
-    # qdrant_add_openai(collection_name, chunks)
 
     # Build multiple query variants per paper to probe ranking quality
     queries = []
